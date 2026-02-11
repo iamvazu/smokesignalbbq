@@ -2,8 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { SAUCES } from '../constants';
 import { Button } from './Button';
+import { useCartStore } from '../store';
 
 export const SauceShowcase: React.FC = () => {
+  const { addItem } = useCartStore();
+
   return (
     <section id="sauces" className="py-24 bg-burnt relative overflow-hidden">
       {/* Background Texture */}
@@ -51,7 +54,7 @@ export const SauceShowcase: React.FC = () => {
                 <p className="font-body text-xs text-gray-400 mb-3">{sauce.description}</p>
                 <span className="block text-fire font-bold mb-4">{sauce.price}</span>
                 <button className="text-xs uppercase font-bold tracking-widest border-b border-fire text-cream pb-1 hover:text-fire transition-colors"
-                  onClick={() => window.open(`https://wa.me/918147093243?text=Order ${sauce.name}`, '_blank')}>
+                  onClick={() => addItem(sauce)}>
                   Add to Cart
                 </button>
               </motion.div>

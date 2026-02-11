@@ -44,11 +44,11 @@ export const Hero: React.FC = () => {
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-            <Button variant="primary" icon onClick={() => window.open('https://wa.me/918147093243', '_blank')}>
-              Order Now
+            <Button variant="primary" icon onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}>
+              Start Order
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}>
-              View Menu
+            <Button variant="outline" onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}>
+              Our Story
             </Button>
           </div>
         </motion.div>
