@@ -22,7 +22,7 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'Smoked Pork Ribs',
     description: 'Fall-off-the-bone pork ribs glazed with our signature sticky BBQ sauce.',
     price: '₹450 Onwards',
-    image: 'https://images.unsplash.com/photo-1544025162-d76690b6d012?auto=format&fit=crop&w=800&q=80',
+    image: '/pork_ribs_menu.jpg',
     tag: 'Best Seller'
   },
   {
@@ -44,7 +44,7 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'BBQ Beef Strips',
     description: 'Tender strips of marinated beef, grilled to perfection over open coals.',
     price: '₹300',
-    image: 'https://images.unsplash.com/photo-1603048297172-c92544798d5e?auto=format&fit=crop&w=800&q=80',
+    image: '/beef_strips_menu.jpg',
   },
   {
     id: 'peri-burger',
