@@ -76,6 +76,24 @@ const Card: React.FC<CardProps> = ({ item, index }) => {
 };
 
 export const MenuGrid: React.FC = () => {
+  const [activeTab, setActiveTab] = React.useState('All');
+  const [isVegOnly, setIsVegOnly] = React.useState(false);
+
+  const categories = ['All', 'Smoked Meats & Steaks', 'Burgers', 'Wings', 'Ribs'];
+
+  const filteredItems = MENU_ITEMS.filter((item) => {
+    const matchesTab =
+      activeTab === 'All'
+        ? true
+        : activeTab === 'Smoked Meats & Steaks'
+          ? item.category === 'steaks'
+          : item.category === activeTab.toLowerCase();
+
+    const matchesVeg = isVegOnly ? item.isVeg : true;
+
+    return matchesTab && matchesVeg;
+  });
+
   return (
     <section id="menu" className="py-24 bg-charcoal relative">
       <div className="container mx-auto px-4">
@@ -83,17 +101,55 @@ export const MenuGrid: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <span className="text-fire uppercase tracking-widest text-sm font-bold">From the Pit</span>
-          <h2 className="font-display text-4xl md:text-5xl text-cream mt-2 mb-4">Our Signature Smoked Meats</h2>
-          <div className="w-24 h-1 bg-fire mx-auto rounded-full" />
+          <h2 className="font-display text-4xl md:text-5xl text-cream mt-2 mb-4">Our Signature Smoked Items</h2>
+          <div className="w-24 h-1 bg-fire mx-auto rounded-full mb-8" />
+
+          {/* Filters */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
+            {/* Tabs */}
+            <div className="flex flex-wrap justify-center gap-2 bg-black/20 p-1 rounded-full border border-white/5">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveTab(cat)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === cat
+                      ? 'bg-fire text-white shadow-lg'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Veg Toggle */}
+            <div className="flex items-center gap-3 bg-black/20 px-4 py-2 rounded-full border border-white/5">
+              <span className={`text-xs font-bold uppercase tracking-wider ${!isVegOnly ? 'text-cream' : 'text-gray-500'}`}>All</span>
+              <button
+                onClick={() => setIsVegOnly(!isVegOnly)}
+                className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${isVegOnly ? 'bg-green-500' : 'bg-gray-600'}`}
+              >
+                <div className={`w-4 h-4 rounded-full bg-white transition-transform duration-300 ${isVegOnly ? 'translate-x-6' : 'translate-x-0'}`} />
+              </button>
+              <span className={`text-xs font-bold uppercase tracking-wider ${isVegOnly ? 'text-green-500' : 'text-gray-500'}`}>Veg Only</span>
+            </div>
+          </div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {MENU_ITEMS.map((item, index) => (
-            <Card key={item.id} item={item} index={index} />
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[400px]">
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item, index) => (
+              <Card key={item.id} item={item} index={index} />
+            ))
+          ) : (
+            <div className="col-span-full flex flex-col items-center justify-center text-center py-20 text-gray-500">
+              <p className="text-xl font-display mb-2">No items found</p>
+              <p>Try changing your filters.</p>
+            </div>
+          )}
         </div>
 
         <div className="mt-16 text-center">

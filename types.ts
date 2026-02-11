@@ -7,6 +7,8 @@ export interface MenuItem {
   variants?: { name: string; price: number }[];
   image: string;
   tag?: string;
+  category?: 'burgers' | 'steaks' | 'wings' | 'ribs' | 'sides';
+  isVeg?: boolean;
 }
 
 export interface ProductItem {

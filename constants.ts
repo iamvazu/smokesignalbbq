@@ -16,7 +16,9 @@ export const MENU_ITEMS: MenuItem[] = [
     price: 'Market Price',
     priceValue: 0,
     image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80',
-    tag: 'Signature'
+    tag: 'Signature',
+    category: 'steaks',
+    isVeg: false
   },
   {
     id: 'ribs',
@@ -25,7 +27,9 @@ export const MENU_ITEMS: MenuItem[] = [
     price: '₹450 Onwards',
     priceValue: 450,
     image: '/pork_ribs_menu.jpg',
-    tag: 'Best Seller'
+    tag: 'Best Seller',
+    category: 'ribs',
+    isVeg: false
   },
   {
     id: 'burger-steak',
@@ -38,6 +42,8 @@ export const MENU_ITEMS: MenuItem[] = [
       { name: 'Regular', price: 350 }
     ],
     image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
+    category: 'burgers',
+    isVeg: false
   },
   {
     id: 'wings',
@@ -46,6 +52,8 @@ export const MENU_ITEMS: MenuItem[] = [
     price: '₹180',
     priceValue: 180,
     image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80',
+    category: 'wings',
+    isVeg: false
   },
   {
     id: 'strips-beef',
@@ -54,6 +62,8 @@ export const MENU_ITEMS: MenuItem[] = [
     price: '₹300',
     priceValue: 300,
     image: '/beef_strips_menu.jpg',
+    category: 'steaks',
+    isVeg: false
   },
   {
     id: 'peri-burger',
@@ -66,6 +76,8 @@ export const MENU_ITEMS: MenuItem[] = [
       { name: 'Regular', price: 350 }
     ],
     image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=80',
+    category: 'burgers',
+    isVeg: false
   },
 ];
 

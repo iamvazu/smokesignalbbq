@@ -6,14 +6,18 @@ export const Hero: React.FC = () => {
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-charcoal">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1552590635-27c2c2128abf?auto=format&fit=crop&w=1600&q=80"
-          alt="Charcoal Fire"
-          className="w-full h-full object-cover opacity-60"
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-black/40 z-10" /> {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent z-10" />
+
+        <iframe
+          className="absolute top-1/2 left-1/2 w-[177.77vh] h-full min-w-full min-h-[56.25vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60"
+          src="https://www.youtube.com/embed/S0pjch8mdTg?autoplay=1&mute=1&controls=0&loop=1&playlist=S0pjch8mdTg&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1"
+          title="Smoke Signal BBQ"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 to-transparent" />
       </div>
 
       {/* Floating Smoke/Embers Effects (CSS based for performance + overlays) */}
