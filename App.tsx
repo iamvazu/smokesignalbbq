@@ -5,6 +5,7 @@ import { MenuGrid } from './components/MenuGrid';
 import { SauceShowcase } from './components/SauceShowcase';
 import { AboutSection } from './components/AboutSection';
 import { Footer } from './components/Footer';
+import { ShoppingCart } from './components/ShoppingCart';
 
 function App() {
   // Smooth scroll behavior for anchor links
@@ -24,6 +25,7 @@ function App() {
         <MenuGrid />
         <AboutSection />
       </main>
+      <ShoppingCart />
       <Footer />
     </div>
   );

@@ -3,10 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingBag } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 import { Button } from './Button';
+import { useCartStore } from '../store';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { items, toggleCart } = useCartStore();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,8 +56,19 @@ export const Navbar: React.FC = () => {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-4">
-            <Button variant="primary" icon onClick={() => window.open('https://wa.me/918147093243', '_blank')}>
+          <div className="hidden lg:flex items-center gap-6">
+            <button
+              onClick={toggleCart}
+              className="relative text-cream hover:text-fire transition-colors"
+            >
+              <ShoppingBag size={24} />
+              {items.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-fire text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  {items.length}
+                </span>
+              )}
+            </button>
+            <Button variant="primary" icon onClick={() => window.location.href = '#menu'}>
               Order Now
             </Button>
           </div>
@@ -66,6 +79,19 @@ export const Navbar: React.FC = () => {
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+
+          {/* Mobile Cart Icon (Always Visible) */}
+          <button
+            onClick={toggleCart}
+            className="lg:hidden text-cream hover:text-fire transition-colors relative mr-4"
+          >
+            <ShoppingBag size={24} />
+            {items.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-fire text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                {items.length}
+              </span>
+            )}
           </button>
         </div>
       </motion.nav>
@@ -99,8 +125,8 @@ export const Navbar: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
-                <Button onClick={() => window.open('https://wa.me/918147093243', '_blank')}>
-                  Order on WhatsApp
+                <Button onClick={toggleCart}>
+                  View Cart ({items.length})
                 </Button>
               </motion.div>
             </div>
