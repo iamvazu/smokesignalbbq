@@ -24,7 +24,7 @@ export const AboutSection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
               src="/founder.jpg"
-              className="rounded-lg shadow-2xl w-full h-64 object-cover"
+              className="rounded-lg shadow-2xl w-full h-64 object-cover object-top"
               alt="Founder"
             />
           </div>
