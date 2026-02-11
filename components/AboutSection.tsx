@@ -6,31 +6,31 @@ export const AboutSection: React.FC = () => {
     <section id="story" className="py-24 bg-charcoal relative">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
-          
+
           {/* Images Grid */}
           <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
-            <motion.img 
+            <motion.img
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              src="https://images.unsplash.com/photo-1596450519358-97734bbd8995?auto=format&fit=crop&w=600&q=80" 
-              className="rounded-lg shadow-2xl mt-12 w-full h-64 object-cover" 
+              src="/pitmaster.jpg"
+              className="rounded-lg shadow-2xl mt-12 w-full h-64 object-cover"
               alt="Pitmaster at work"
             />
-            <motion.img 
+            <motion.img
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              src="https://images.unsplash.com/photo-1534177616072-ef7dc12044f9?auto=format&fit=crop&w=600&q=80" 
-              className="rounded-lg shadow-2xl w-full h-64 object-cover" 
-              alt="Charcoal Fire"
+              src="/founder.jpg"
+              className="rounded-lg shadow-2xl w-full h-64 object-cover"
+              alt="Founder"
             />
           </div>
 
           {/* Text Content */}
-          <motion.div 
+          <motion.div
             className="w-full lg:w-1/2"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -49,7 +49,7 @@ export const AboutSection: React.FC = () => {
               <p>
                 From our homemade Texas-style rubs to our spicy Peri Peri twists, everything we serve is a labor of love, crafted to give you the ultimate carnivorous experience.
               </p>
-              
+
               <div className="pt-6 border-t border-white/10 flex gap-8">
                 <div>
                   <h4 className="font-display text-2xl text-fire">12+</h4>
