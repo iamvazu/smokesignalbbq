@@ -20,14 +20,14 @@ const Card: React.FC<CardProps> = ({ item, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="group relative bg-burnt/40 border border-white/5 p-4 rounded-xl overflow-hidden hover:border-fire/30 transition-all duration-300"
+      className="group relative bg-burnt/40 border border-white/5 p-4 rounded-xl overflow-hidden hover:border-fire/30 transition-all duration-300 flex flex-col h-full"
     >
       {/* Hover Glow Background */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 z-10" />
       <div className="absolute inset-0 bg-fire/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
 
       {/* Image */}
-      <div className="relative h-64 overflow-hidden rounded-lg mb-4 z-10">
+      <div className="relative h-64 overflow-hidden rounded-lg mb-4 z-10 shrink-0">
         {item.tag && (
           <span className="absolute top-2 right-2 bg-fire text-white text-xs font-bold px-3 py-1 rounded-full z-20 shadow-lg">
             {item.tag}
@@ -41,19 +41,35 @@ const Card: React.FC<CardProps> = ({ item, index }) => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
           <h3 className="font-display text-2xl text-cream group-hover:text-fire transition-colors">{item.name}</h3>
           <span className="font-body font-bold text-lg text-fire">{item.price}</span>
         </div>
         <p className="font-body text-gray-400 text-sm mb-6 line-clamp-2">{item.description}</p>
 
-        <button
-          className="w-full py-3 border border-fire/50 text-fire hover:bg-fire hover:text-white uppercase text-xs font-bold tracking-widest transition-all duration-300 rounded flex items-center justify-center gap-2"
-          onClick={() => addItem(item)}
-        >
-          <Flame size={14} /> Add to Order
-        </button>
+        <div className="mt-auto">
+          {item.variants ? (
+            <div className="flex gap-2">
+              {item.variants.map((variant) => (
+                <button
+                  key={variant.name}
+                  className="flex-1 py-3 border border-fire/50 text-fire hover:bg-fire hover:text-white uppercase text-xs font-bold tracking-widest transition-all duration-300 rounded flex items-center justify-center gap-2"
+                  onClick={() => addItem(item, variant)}
+                >
+                  <Flame size={14} /> {variant.name}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <button
+              className="w-full py-3 border border-fire/50 text-fire hover:bg-fire hover:text-white uppercase text-xs font-bold tracking-widest transition-all duration-300 rounded flex items-center justify-center gap-2"
+              onClick={() => addItem(item)}
+            >
+              <Flame size={14} /> Add to Order
+            </button>
+          )}
+        </div>
       </div>
     </motion.div>
   );

@@ -3,8 +3,10 @@ export interface MenuItem {
   name: string;
   description: string;
   price: string;
+  priceValue: number; // For calculations
+  variants?: { name: string; price: number }[];
   image: string;
-  tag?: string; // e.g., "Best Seller", "New"
+  tag?: string;
 }
 
 export interface ProductItem {
@@ -12,6 +14,7 @@ export interface ProductItem {
   name: string;
   description: string;
   price: string;
+  priceValue: number; // For calculations
   image: string;
   type: 'sauce' | 'rub';
 }

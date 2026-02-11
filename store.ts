@@ -4,18 +4,21 @@ import { MenuItem, ProductItem } from './types';
 
 export interface CartItem {
     id: string;
+    variantId: string; // Composite: id + variant name
     name: string;
     price: string;
+    priceValue: number;
     quantity: number;
     image: string;
+    variant?: string;
 }
 
 interface CartStore {
     items: CartItem[];
     isOpen: boolean;
-    addItem: (item: MenuItem | ProductItem) => void;
-    removeItem: (id: string) => void;
-    updateQuantity: (id: string, update: 'increase' | 'decrease') => void;
+    addItem: (item: MenuItem | ProductItem, variant?: { name: string; price: number }) => void;
+    removeItem: (variantId: string) => void;
+    updateQuantity: (variantId: string, update: 'increase' | 'decrease') => void;
     toggleCart: () => void;
     clearCart: () => void;
 }
@@ -26,13 +29,18 @@ export const useCartStore = create<CartStore>()(
             items: [],
             isOpen: false,
 
-            addItem: (product) => set((state) => {
-                const existingItem = state.items.find((item) => item.id === product.id);
+            addItem: (product, variant) => set((state) => {
+                const priceValue = variant ? variant.price : product.priceValue;
+                const priceDisplay = variant ? `₹${variant.price}` : product.price;
+                const variantName = variant ? variant.name : undefined;
+                const variantId = variant ? `${product.id}-${variant.name}` : product.id;
+
+                const existingItem = state.items.find((item) => item.variantId === variantId);
 
                 if (existingItem) {
                     return {
                         items: state.items.map((item) =>
-                            item.id === product.id
+                            item.variantId === variantId
                                 ? { ...item, quantity: item.quantity + 1 }
                                 : item
                         ),
@@ -43,22 +51,25 @@ export const useCartStore = create<CartStore>()(
                 return {
                     items: [...state.items, {
                         id: product.id,
+                        variantId: variantId,
                         name: product.name,
-                        price: product.price,
+                        price: priceDisplay,
+                        priceValue: priceValue,
                         image: product.image,
-                        quantity: 1
+                        quantity: 1,
+                        variant: variantName
                     }],
                     isOpen: true,
                 };
             }),
 
-            removeItem: (id) => set((state) => ({
-                items: state.items.filter((item) => item.id !== id),
+            removeItem: (variantId) => set((state) => ({
+                items: state.items.filter((item) => item.variantId !== variantId),
             })),
 
-            updateQuantity: (id, update) => set((state) => ({
+            updateQuantity: (variantId, update) => set((state) => ({
                 items: state.items.map((item) => {
-                    if (item.id === id) {
+                    if (item.variantId === variantId) {
                         const newQuantity = update === 'increase' ? item.quantity + 1 : item.quantity - 1;
                         return { ...item, quantity: Math.max(0, newQuantity) };
                     }

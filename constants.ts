@@ -14,6 +14,7 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'Smoked Brisket',
     description: 'Slow-smoked for 14 hours over oak charcoal. Tender, juicy, and packed with authentic flavor.',
     price: 'Market Price',
+    priceValue: 0,
     image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80',
     tag: 'Signature'
   },
@@ -22,6 +23,7 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'Smoked Pork Ribs',
     description: 'Fall-off-the-bone pork ribs glazed with our signature sticky BBQ sauce.',
     price: '₹450 Onwards',
+    priceValue: 450,
     image: '/pork_ribs_menu.jpg',
     tag: 'Best Seller'
   },
@@ -30,6 +32,11 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'Pepper Garlic Steak Burger',
     description: 'Juicy charcoal-grilled patty topped with pepper garlic sauce, fresh lettuce, and tomatoes.',
     price: '₹250 / ₹350',
+    priceValue: 250,
+    variants: [
+      { name: 'Single', price: 250 },
+      { name: 'Regular', price: 350 }
+    ],
     image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
   },
   {
@@ -37,6 +44,7 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'Texas Style Saucy Wings',
     description: 'Crispy smoked wings tossed in your choice of BBQ, Buffalo, or Peri Peri sauce.',
     price: '₹180',
+    priceValue: 180,
     image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80',
   },
   {
@@ -44,6 +52,7 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'BBQ Beef Strips',
     description: 'Tender strips of marinated beef, grilled to perfection over open coals.',
     price: '₹300',
+    priceValue: 300,
     image: '/beef_strips_menu.jpg',
   },
   {
@@ -51,6 +60,11 @@ export const MENU_ITEMS: MenuItem[] = [
     name: 'Peri Peri Steak Burger',
     description: 'A spicy kick! Charcoal grilled patty with our house-made spicy Peri Peri sauce.',
     price: '₹250 / ₹350',
+    priceValue: 250,
+    variants: [
+      { name: 'Single', price: 250 },
+      { name: 'Regular', price: 350 }
+    ],
     image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=80',
   },
 ];
@@ -61,6 +75,7 @@ export const SAUCES: ProductItem[] = [
     name: 'Classic Texas Sauce',
     description: 'Our signature tangy and smoky blend. The perfect all-rounder.',
     price: '₹350',
+    priceValue: 350,
     image: '/Texas_Sauce.jpg',
     type: 'sauce'
   },
@@ -69,6 +84,7 @@ export const SAUCES: ProductItem[] = [
     name: 'Brisket Master Blend',
     description: 'Deep, rich flavors crafted specifically to enhance smoked beef.',
     price: '₹380',
+    priceValue: 380,
     image: '/brisket_sauce.jpg',
     type: 'sauce'
   },
@@ -77,6 +93,7 @@ export const SAUCES: ProductItem[] = [
     name: 'Sticky Rib Glaze',
     description: 'Sweet and sticky finish that gives ribs that perfect shine.',
     price: '₹350',
+    priceValue: 350,
     image: '/Pork_Ribs.jpg', // Using user provided image
     type: 'sauce'
   },
@@ -85,6 +102,7 @@ export const SAUCES: ProductItem[] = [
     name: 'Spicy Wing Coating',
     description: 'A fiery blend for coating wings or dipping fried treats.',
     price: '₹320',
+    priceValue: 320,
     image: '/Saucy_Wings.jpg', // Using user provided image
     type: 'sauce'
   }
