@@ -25,7 +25,7 @@ export const Navbar: React.FC = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-charcoal/95 backdrop-blur-md py-4 shadow-2xl border-b border-burnt' : 'bg-transparent py-6'
           }`}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between">
+        <div className="w-full pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] md:pl-[max(3rem,env(safe-area-inset-left))] md:pr-[max(3rem,env(safe-area-inset-right))] lg:pl-[max(5rem,env(safe-area-inset-left))] lg:pr-[max(5rem,env(safe-area-inset-right))] flex items-center justify-between">
           <div className="flex flex-col items-center z-50">
             {/* Logo Image */}
             <a href="#" className="block">
@@ -41,7 +41,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.name}
@@ -54,7 +54,7 @@ export const Navbar: React.FC = () => {
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <Button variant="primary" icon onClick={() => window.open('https://wa.me/918147093243', '_blank')}>
               Order Now
             </Button>
@@ -62,7 +62,7 @@ export const Navbar: React.FC = () => {
 
           {/* Mobile Toggle */}
           <button
-            className="md:hidden text-cream z-50"
+            className="lg:hidden text-cream z-50"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -78,7 +78,7 @@ export const Navbar: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed inset-0 bg-charcoal z-40 flex flex-col items-center justify-center md:hidden"
+            className="fixed inset-0 bg-charcoal z-40 flex flex-col items-center justify-center lg:hidden"
           >
             <div className="flex flex-col gap-8 text-center">
               {NAV_LINKS.map((link, index) => (
