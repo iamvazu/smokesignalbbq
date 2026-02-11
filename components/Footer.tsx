@@ -11,9 +11,9 @@ export const Footer: React.FC = () => {
           {/* Brand */}
           <div className="space-y-4 flex flex-col items-center">
             <img
-              src="/logo.jpg"
+              src="/logo_final.png"
               alt="Smoke Signal BBQ"
-              className="h-32 w-auto object-contain mb-2 mix-blend-screen invert grayscale contrast-200 brightness-200"
+              className="h-32 w-auto object-contain mb-2"
             />
             <p className="text-gray-400 font-body text-sm leading-relaxed max-w-xs">
               Bangalore's Original American BBQ Truck. Serving authentic smoked meats and handmade sauces since 2011.
