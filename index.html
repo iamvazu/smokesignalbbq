@@ -1,73 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Smoke Signal BBQ | Authentic American Charcoal BBQ</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              charcoal: '#0B0B0B',
-              burnt: '#2B1B12',
-              fire: '#EF4444',
-              texasRed: '#8B0000',
-              cream: '#F5E6C8',
-              smoke: '#1A1A1A',
-            },
-            fontFamily: {
-              display: ['Rye', 'serif'],
-              body: ['Montserrat', 'sans-serif'],
-            },
-            backgroundImage: {
-              'embers': "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(11,11,11,0) 70%)",
-            }
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smoke Signal BBQ | Authentic American Charcoal BBQ</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rye&family=Montserrat:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#0B0B0B',
+            burnt: '#2B1B12',
+            fire: '#EF4444',
+            texasRed: '#8B0000',
+            cream: '#F5E6C8',
+            smoke: '#1A1A1A',
+          },
+          fontFamily: {
+            display: ['Rye', 'serif'],
+            body: ['Montserrat', 'sans-serif'],
+          },
+          backgroundImage: {
+            'embers': "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(11,11,11,0) 70%)",
           }
         }
       }
-    </script>
-    <style>
-      body {
-        background-color: #0B0B0B;
-        color: #F5E6C8;
-        overflow-x: hidden;
-      }
-      
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 10px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #0B0B0B;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #2B1B12;
-        border: 1px solid #EF4444;
-        border-radius: 5px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #8B0000;
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0B0B0B;
+      color: #F5E6C8;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0B0B0B;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #2B1B12;
+      border: 1px solid #EF4444;
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8B0000;
+    }
+
+    /* Smoke Animation Utilities */
+    @keyframes drift {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
       }
 
-      /* Smoke Animation Utilities */
-      @keyframes drift {
-        0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-        50% { transform: translate(-20px, -30px) scale(1.1); opacity: 0.6; }
-        100% { transform: translate(20px, -50px) scale(1.2); opacity: 0; }
+      50% {
+        transform: translate(-20px, -30px) scale(1.1);
+        opacity: 0.6;
       }
-      .smoke-effect {
-        animation: drift 8s infinite ease-out;
+
+      100% {
+        transform: translate(20px, -50px) scale(1.2);
+        opacity: 0;
       }
-    </style>
+    }
+
+    .smoke-effect {
+      animation: drift 8s infinite ease-out;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -79,10 +97,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
