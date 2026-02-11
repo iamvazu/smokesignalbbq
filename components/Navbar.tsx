@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
                 className="h-24 md:h-28 lg:h-40 w-auto object-contain transition-transform hover:scale-105 duration-300"
               />
             </a>
-            <span className="text-[10px] text-fire font-bold tracking-[0.1em] uppercase mt-1">
+            <span className="text-[10px] text-cream font-bold tracking-[0.1em] uppercase mt-1 px-3 py-1 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg">
               Est. 2011 • Bangalore
             </span>
           </div>

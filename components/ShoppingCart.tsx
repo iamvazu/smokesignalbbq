@@ -13,8 +13,15 @@ export const ShoppingCart: React.FC = () => {
     const [isCalculating, setIsCalculating] = useState(false);
     const [deliveryError, setDeliveryError] = useState<string | null>(null);
 
-    // Calculations
-    const subtotal = items.reduce((acc, item) => acc + (item.priceValue * item.quantity), 0);
+    // User Details State
+    const [userDetails, setUserDetails] = useState({
+        name: '',
+        mobile: '',
+        address: ''
+    });
+
+    // Calculations - Added safe check for priceValue
+    const subtotal = items.reduce((acc, item) => acc + ((item.priceValue || 0) * item.quantity), 0);
     const gst = subtotal * 0.18;
     const finalTotal = subtotal + gst + (deliveryFee || 0);
 
@@ -36,7 +43,7 @@ export const ShoppingCart: React.FC = () => {
         setDeliveryError(null);
 
         if (!navigator.geolocation) {
-            setDeliveryError("Geolocation is not supported by your browser");
+            setDeliveryError("Geolocation is not supported");
             setIsCalculating(false);
             return;
         }
@@ -54,18 +61,28 @@ export const ShoppingCart: React.FC = () => {
                 setIsCalculating(false);
             },
             () => {
-                setDeliveryError("Unable to retrieve your location. Please enable location services.");
+                setDeliveryError("Enable location for delivery estimate");
                 setIsCalculating(false);
             }
         );
     };
 
     const handleCheckout = () => {
-        // Generate WhatsApp message
-        let message = `*Hello! I'd like to place an order:*\n\n`;
+        if (!userDetails.name || !userDetails.mobile || !userDetails.address) {
+            alert("Please fill in all delivery details");
+            return;
+        }
 
+        // Generate WhatsApp message
+        let message = `*New Order Request*\n\n`;
+        message += `*Customer Details:*\n`;
+        message += `Name: ${userDetails.name}\n`;
+        message += `Mobile: ${userDetails.mobile}\n`;
+        message += `Address: ${userDetails.address}\n\n`;
+
+        message += `*Order Summary:*\n`;
         items.forEach(item => {
-            message += `• ${item.quantity}x ${item.name} ${item.variant ? `(${item.variant})` : ''} - ₹${item.priceValue * item.quantity}\n`;
+            message += `• ${item.quantity}x ${item.name} ${item.variant ? `(${item.variant})` : ''} - ₹${(item.priceValue || 0) * item.quantity}\n`;
         });
 
         message += `\n*Subtotal:* ₹${subtotal}`;
@@ -80,6 +97,14 @@ export const ShoppingCart: React.FC = () => {
         message += `\n\n*GRAND TOTAL:* ₹${finalTotal.toFixed(2)}`;
 
         window.open(`https://wa.me/918147093243?text=${encodeURIComponent(message)}`, '_blank');
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setUserDetails(prev => ({
+            ...prev,
+            [name]: value
+        }));
     };
 
     return (
@@ -146,7 +171,7 @@ export const ShoppingCart: React.FC = () => {
                                             <div>
                                                 <h3 className="font-bold text-cream text-lg leading-tight mb-1">{item.name}</h3>
                                                 {item.variant && <span className="text-xs uppercase tracking-wider text-fire border border-fire/30 px-1 rounded mb-1 inline-block">{item.variant}</span>}
-                                                <p className="text-gray-300 text-sm font-bold">₹{item.priceValue} x {item.quantity}</p>
+                                                <p className="text-gray-300 text-sm font-bold">₹{item.priceValue || 0} x {item.quantity}</p>
                                             </div>
 
                                             {/* Controls */}
@@ -185,6 +210,7 @@ export const ShoppingCart: React.FC = () => {
                         {/* Footer / Checkout */}
                         {items.length > 0 && (
                             <div className="p-6 border-t border-white/10 bg-charcoal shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
+                                {/* Bill Details */}
                                 <div className="space-y-3 mb-6">
                                     <div className="flex justify-between text-gray-400 text-sm">
                                         <span>Subtotal</span>
@@ -219,12 +245,41 @@ export const ShoppingCart: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <Button variant="primary" onClick={handleCheckout} className="w-full py-4 text-lg">
+                                {/* User Details Form */}
+                                <div className="space-y-3 mb-4">
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Your Name"
+                                        value={userDetails.name}
+                                        onChange={handleInputChange}
+                                        className="w-full bg-black/20 border border-white/10 rounded p-3 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50"
+                                    />
+                                    <input
+                                        type="tel"
+                                        name="mobile"
+                                        placeholder="Mobile Number"
+                                        value={userDetails.mobile}
+                                        onChange={handleInputChange}
+                                        className="w-full bg-black/20 border border-white/10 rounded p-3 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50"
+                                    />
+                                    <textarea
+                                        name="address"
+                                        placeholder="Delivery Address"
+                                        value={userDetails.address}
+                                        onChange={handleInputChange}
+                                        className="w-full bg-black/20 border border-white/10 rounded p-3 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50 h-20 resize-none"
+                                    />
+                                </div>
+
+                                <Button
+                                    variant="primary"
+                                    onClick={handleCheckout}
+                                    className="w-full py-4 text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                                    disabled={!userDetails.name || !userDetails.mobile || !userDetails.address}
+                                >
                                     Place Order via WhatsApp
                                 </Button>
-                                <p className="text-center text-gray-500 text-[10px] mt-3">
-                                    Location access needed for delivery estimate. Final price confirmed on WhatsApp.
-                                </p>
                             </div>
                         )}
                     </motion.div>
