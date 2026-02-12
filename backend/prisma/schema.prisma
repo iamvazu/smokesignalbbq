@@ -150,7 +150,8 @@ model Payment {
   paymentMethod  String
   paymentStatus  String
   transactionId  String?
-  createdAt      DateTime @now()
+  createdAt      DateTime @default(now())
+
 
   @@map("payments")
 }
