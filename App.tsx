@@ -12,6 +12,8 @@ import { AboutSection } from './components/AboutSection';
 import { Footer } from './components/Footer';
 import { ShoppingCart } from './components/ShoppingCart';
 import { PRODUCTS } from './constants';
+import { ComboShowcase } from './components/ComboShowcase';
+
 
 
 function App() {
@@ -26,16 +28,15 @@ function App() {
     };
   }, []);
 
-  const featuredProducts = PRODUCTS.filter(p => p.id === 'beef-brisket' || p.id === 'pork-ribs' || p.id === 'wings-texas-saucy');
-  const bbqProducts = PRODUCTS.filter(p => p.category === 'bbq');
+  const comboProducts = PRODUCTS.filter(p => p.category === 'combo');
+  const bbqProducts = PRODUCTS.filter(p => p.category === 'bbq' && p.subCategory !== 'combos');
   const sauceProducts = PRODUCTS.filter(p => p.category === 'sauce');
+  const featuredProducts = PRODUCTS.filter(p => p.badges.includes('Best Seller') || p.badges.includes('Most Popular')).slice(0, 3);
 
   const scrollToShop = (filter?: string) => {
     const shopSection = document.getElementById('shop');
     if (shopSection) {
       shopSection.scrollIntoView({ behavior: 'smooth' });
-      // If we wanted to set the filter state, we would need to lift the state to App,
-      // but for now, simple scroll is fine as per requirements.
     }
   };
 
@@ -44,6 +45,9 @@ function App() {
       <Navbar />
       <main>
         <Hero />
+
+        <ComboShowcase products={comboProducts} />
+
         <FeaturedProducts products={featuredProducts} />
 
         <CategoryPreview

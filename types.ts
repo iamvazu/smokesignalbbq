@@ -1,5 +1,6 @@
-export type Category = 'bbq' | 'sauce';
-export type SubCategory = 'wings' | 'chicken' | 'beef' | 'pork' | 'sauces' | 'all';
+export type Category = 'bbq' | 'sauce' | 'combo';
+export type SubCategory = 'wings' | 'chicken' | 'beef' | 'pork' | 'sauces' | 'combos' | 'all';
+
 
 export interface Product {
   id: string;

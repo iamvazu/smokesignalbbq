@@ -9,6 +9,7 @@ import { ProductModal } from './ProductModal';
 
 const categories: { label: string; value: SubCategory | 'all' | 'bbq' | 'sauce' }[] = [
   { label: 'All', value: 'all' },
+  { label: 'Combos', value: 'combos' },
   { label: 'Ready to Heat & Serve', value: 'bbq' },
   { label: 'Wings', value: 'wings' },
   { label: 'Chicken', value: 'chicken' },
@@ -16,6 +17,7 @@ const categories: { label: string; value: SubCategory | 'all' | 'bbq' | 'sauce' 
   { label: 'Pork', value: 'pork' },
   { label: 'Sauces', value: 'sauces' },
 ];
+
 
 interface CardProps {
   product: Product;

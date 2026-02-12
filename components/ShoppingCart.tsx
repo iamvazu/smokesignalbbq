@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Trash2, Plus, Minus, ShoppingBag, MapPin, Loader2 } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ShoppingBag, MapPin, Loader2, ShieldCheck } from 'lucide-react';
+
 import { useCartStore } from '../store';
 import { Button } from './Button';
 
@@ -55,10 +56,15 @@ export const ShoppingCart: React.FC = () => {
 
                 const distance = calculateDistance(STORE_LOCATION.lat, STORE_LOCATION.lng, userLat, userLng);
 
-                // Formula: 55 Base + 15 per km
-                const cost = 55 + (Math.ceil(distance) * 15);
-                setDeliveryFee(Math.round(cost));
+                if (subtotal >= 999) {
+                    setDeliveryFee(0);
+                } else {
+                    // Formula: 55 Base + 15 per km
+                    const cost = 55 + (Math.ceil(distance) * 15);
+                    setDeliveryFee(Math.round(cost));
+                }
                 setIsCalculating(false);
+
             },
             () => {
                 setDeliveryError("Enable location for delivery estimate");
@@ -223,7 +229,9 @@ export const ShoppingCart: React.FC = () => {
                                     <div className="flex justify-between items-center text-gray-400 text-xs">
                                         <span>Delivery (Approx)</span>
                                         {deliveryFee !== null ? (
-                                            <span className="text-fire font-bold">₹{deliveryFee}</span>
+                                            <span className={deliveryFee === 0 ? "text-green-500 font-bold" : "text-fire font-bold"}>
+                                                {deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}
+                                            </span>
                                         ) : (
                                             <button
                                                 onClick={handleCalculateDelivery}
@@ -235,6 +243,26 @@ export const ShoppingCart: React.FC = () => {
                                             </button>
                                         )}
                                     </div>
+                                    {subtotal < 999 && (
+                                        <div className="mt-2">
+                                            <div className="flex justify-between text-[10px] text-gray-500 mb-1">
+                                                <span>Free delivery at ₹999</span>
+                                                <span>Add ₹{999 - subtotal} more</span>
+                                            </div>
+                                            <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                                                <div
+                                                    className="h-full bg-fire transition-all duration-500"
+                                                    style={{ width: `${(subtotal / 999) * 100}%` }}
+                                                />
+                                            </div>
+                                        </div>
+                                    )}
+                                    {subtotal >= 999 && (
+                                        <p className="text-[10px] text-green-500 mt-1 flex items-center gap-1">
+                                            <ShieldCheck size={10} /> You've unlocked FREE Delivery!
+                                        </p>
+                                    )}
+
                                     {deliveryError && (
                                         <p className="text-red-500 text-[10px] text-right bg-red-500/10 p-1 rounded">{deliveryError}</p>
                                     )}
