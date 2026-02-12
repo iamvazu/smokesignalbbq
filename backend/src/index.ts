@@ -39,7 +39,7 @@ if (fs.existsSync(publicPath)) {
     if (fs.existsSync(adminPath)) {
         console.log('Admin path found:', adminPath);
         app.use('/admin', express.static(adminPath));
-        app.get('/admin/*', (req, res) => {
+        app.get(/^\/admin\/.*/, (req, res) => {
             res.sendFile(path.join(adminPath, 'index.html'));
         });
     }
@@ -49,10 +49,11 @@ if (fs.existsSync(publicPath)) {
     if (fs.existsSync(mainPath)) {
         console.log('Main path found:', mainPath);
         app.use(express.static(mainPath));
-        app.get('*', (req, res) => {
+        app.get(/^(?!\/api).*/, (req, res) => {
             res.sendFile(path.join(mainPath, 'index.html'));
         });
     }
+
 } else {
     console.warn('CRITICAL: Public directory not found at', publicPath);
 }
