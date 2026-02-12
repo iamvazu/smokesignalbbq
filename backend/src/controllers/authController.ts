@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
+
 import jwt from 'jsonwebtoken';
 import prisma from '../lib/prisma';
 
@@ -47,6 +48,7 @@ export const register = async (req: Request, res: Response) => {
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
+
         const user = await prisma.user.create({
             data: {
                 name,
