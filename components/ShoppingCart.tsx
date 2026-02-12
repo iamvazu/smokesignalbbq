@@ -144,7 +144,7 @@ export const ShoppingCart: React.FC = () => {
                         </div>
 
                         {/* Cart Items */}
-                        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+                        <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
                             {items.length === 0 ? (
                                 <div className="h-full flex flex-col items-center justify-center text-center opacity-60">
                                     <ShoppingBag size={48} className="mb-4 text-gray-500" />
@@ -209,10 +209,10 @@ export const ShoppingCart: React.FC = () => {
 
                         {/* Footer / Checkout */}
                         {items.length > 0 && (
-                            <div className="p-6 border-t border-white/10 bg-charcoal shadow-[0_-5px_20px_rgba(0,0,0,0.5)]">
+                            <div className="flex-none max-h-[60vh] overflow-y-auto p-4 border-t border-white/10 bg-charcoal shadow-[0_-5px_20px_rgba(0,0,0,0.5)] z-20">
                                 {/* Bill Details */}
-                                <div className="space-y-3 mb-6">
-                                    <div className="flex justify-between text-gray-400 text-sm">
+                                <div className="space-y-2 mb-4 bg-black/20 p-3 rounded-lg">
+                                    <div className="flex justify-between text-gray-400 text-xs">
                                         <span>Subtotal</span>
                                         <span>₹{subtotal}</span>
                                     </div>
@@ -220,7 +220,7 @@ export const ShoppingCart: React.FC = () => {
                                         <span>GST (18%)</span>
                                         <span>₹{gst.toFixed(2)}</span>
                                     </div>
-                                    <div className="flex justify-between items-center text-gray-400 text-sm">
+                                    <div className="flex justify-between items-center text-gray-400 text-xs">
                                         <span>Delivery (Approx)</span>
                                         {deliveryFee !== null ? (
                                             <span className="text-fire font-bold">₹{deliveryFee}</span>
@@ -228,32 +228,32 @@ export const ShoppingCart: React.FC = () => {
                                             <button
                                                 onClick={handleCalculateDelivery}
                                                 disabled={isCalculating}
-                                                className="flex items-center gap-1 text-xs text-fire border border-fire/50 px-2 py-1 rounded hover:bg-fire hover:text-white transition-colors disabled:opacity-50"
+                                                className="flex items-center gap-1 text-xs text-fire border border-fire/50 px-2 py-0.5 rounded hover:bg-fire hover:text-white transition-colors disabled:opacity-50"
                                             >
-                                                {isCalculating ? <Loader2 size={12} className="animate-spin" /> : <MapPin size={12} />}
+                                                {isCalculating ? <Loader2 size={10} className="animate-spin" /> : <MapPin size={10} />}
                                                 Calculate
                                             </button>
                                         )}
                                     </div>
                                     {deliveryError && (
-                                        <p className="text-red-500 text-xs text-right bg-red-500/10 p-1 rounded">{deliveryError}</p>
+                                        <p className="text-red-500 text-[10px] text-right bg-red-500/10 p-1 rounded">{deliveryError}</p>
                                     )}
                                     <div className="h-px bg-white/10 my-2" />
                                     <div className="flex justify-between items-center">
-                                        <span className="text-cream font-bold text-lg">Grand Total</span>
-                                        <span className="text-2xl font-display text-fire">₹{finalTotal.toFixed(2)}</span>
+                                        <span className="text-cream font-bold text-base">Grand Total</span>
+                                        <span className="text-xl font-display text-fire">₹{finalTotal.toFixed(2)}</span>
                                     </div>
                                 </div>
 
                                 {/* User Details Form */}
-                                <div className="space-y-3 mb-4">
+                                <div className="space-y-2 mb-4">
                                     <input
                                         type="text"
                                         name="name"
                                         placeholder="Your Name"
                                         value={userDetails.name}
                                         onChange={handleInputChange}
-                                        className="w-full bg-black/20 border border-white/10 rounded p-3 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50"
+                                        className="w-full bg-black/20 border border-white/10 rounded p-2 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50"
                                     />
                                     <input
                                         type="tel"
@@ -261,14 +261,14 @@ export const ShoppingCart: React.FC = () => {
                                         placeholder="Mobile Number"
                                         value={userDetails.mobile}
                                         onChange={handleInputChange}
-                                        className="w-full bg-black/20 border border-white/10 rounded p-3 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50"
+                                        className="w-full bg-black/20 border border-white/10 rounded p-2 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50"
                                     />
                                     <textarea
                                         name="address"
                                         placeholder="Delivery Address"
                                         value={userDetails.address}
                                         onChange={handleInputChange}
-                                        className="w-full bg-black/20 border border-white/10 rounded p-3 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50 h-20 resize-none"
+                                        className="w-full bg-black/20 border border-white/10 rounded p-2 text-sm text-cream placeholder-gray-500 focus:outline-none focus:border-fire/50 h-16 resize-none"
                                     />
                                 </div>
 
