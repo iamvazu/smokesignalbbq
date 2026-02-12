@@ -14,7 +14,7 @@ export const AboutSection: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="absolute left-0 top-0 w-[60%] h-full z-10"
+              className="absolute left-0 top-0 w-[55%] h-full z-10"
             >
               <img
                 src="/pitmaster.jpg"
@@ -28,11 +28,11 @@ export const AboutSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="absolute right-0 bottom-8 w-[50%] h-[60%] z-20"
+              className="absolute right-0 bottom-0 w-[50%] h-[70%] z-20"
             >
               <img
                 src="/founder.jpg"
-                className="w-full h-full object-cover rounded-2xl shadow-2xl border-4 border-charcoal hover:scale-[1.02] transition-transform duration-500"
+                className="w-full h-full object-cover object-top rounded-2xl shadow-2xl border-4 border-charcoal hover:scale-[1.02] transition-transform duration-500"
                 alt="Smoke Signal BBQ Founder dedicated to authentic Texas BBQ since 2011"
               />
             </motion.div>
