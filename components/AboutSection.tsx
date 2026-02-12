@@ -7,26 +7,39 @@ export const AboutSection: React.FC = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
 
-          {/* Images Grid */}
-          <div className="w-full lg:w-1/2 grid grid-cols-2 gap-4">
-            <motion.img
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+          {/* Images Grid - Modern Collage Layout */}
+          <div className="w-full lg:w-1/2 relative h-[500px]">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              src="/pitmaster.jpg"
-              className="rounded-lg shadow-2xl mt-12 w-full h-64 object-cover"
-              alt="Smoke Signal BBQ Authentic Pitmaster slow smoking brisket in Bangalore"
-            />
-            <motion.img
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="absolute left-0 top-0 w-[60%] h-full z-10"
+            >
+              <img
+                src="/pitmaster.jpg"
+                className="w-full h-full object-cover rounded-2xl shadow-2xl brightness-90 hover:brightness-100 transition-all duration-500"
+                alt="Smoke Signal BBQ Authentic Pitmaster slow smoking brisket in Bangalore"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 50, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              src="/founder.jpg"
-              className="rounded-lg shadow-2xl w-full h-64 object-cover object-top"
-              alt="Smoke Signal BBQ Founder dedicated to authentic Texas BBQ since 2011"
-            />
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="absolute right-0 bottom-8 w-[50%] h-[60%] z-20"
+            >
+              <img
+                src="/founder.jpg"
+                className="w-full h-full object-cover rounded-2xl shadow-2xl border-4 border-charcoal hover:scale-[1.02] transition-transform duration-500"
+                alt="Smoke Signal BBQ Founder dedicated to authentic Texas BBQ since 2011"
+              />
+            </motion.div>
+
+            {/* Decorative Element */}
+            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-fire/20 rounded-full blur-2xl -z-10" />
+            <div className="absolute top-12 right-12 w-32 h-32 bg-texasRed/20 rounded-full blur-3xl -z-10" />
           </div>
 
           {/* Text Content */}
