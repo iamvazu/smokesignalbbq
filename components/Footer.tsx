@@ -4,18 +4,28 @@ import { CONTACT_INFO } from '../constants';
 
 export const Footer: React.FC = () => {
   return (
-    <footer id="contact" className="bg-burnt text-white pt-20 pb-10 border-t border-white/5">
-      <div className="container mx-auto px-4">
+    <footer id="contact" className="relative bg-charcoal text-white pt-24 pb-12 border-t border-white/5 overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/footer-bg.jpg"
+          alt="BBQ Background_footer"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/90 to-charcoal/60" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 mb-16 items-start">
 
           {/* Brand - Left */}
-          <div className="flex flex-col items-center md:items-start space-y-6">
+          <div className="flex flex-col items-center space-y-6">
             <img
               src="/logo_final.png"
               alt="Smoke Signal BBQ"
-              className="h-48 md:h-56 w-auto object-contain transition-transform hover:scale-105 duration-300"
+              className="h-64 md:h-72 w-auto object-contain transition-transform hover:scale-105 duration-300 drop-shadow-2xl"
             />
-            <p className="text-gray-400 font-body text-sm leading-relaxed max-w-xs text-center md:text-left">
+            <p className="text-gray-300 font-body text-sm leading-relaxed max-w-xs text-center font-medium">
               Bangalore's Original American BBQ Truck. Serving authentic smoked meats and handmade sauces since 2011.
             </p>
           </div>
