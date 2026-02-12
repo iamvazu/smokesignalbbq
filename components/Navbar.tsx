@@ -75,26 +75,27 @@ export const Navbar: React.FC = () => {
             </Button>
           </div>
 
-          {/* Mobile Toggle */}
-          <button
-            className="lg:hidden text-cream z-50"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Mobile Controls (Cart + Menu) */}
+          <div className="lg:hidden flex items-center gap-4 z-50">
+            <button
+              onClick={toggleCart}
+              className="text-cream hover:text-fire transition-colors relative"
+            >
+              <ShoppingBag size={24} />
+              {items.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-fire text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                  {items.length}
+                </span>
+              )}
+            </button>
 
-          {/* Mobile Cart Icon (Always Visible) */}
-          <button
-            onClick={toggleCart}
-            className="lg:hidden text-cream hover:text-fire transition-colors relative mr-4"
-          >
-            <ShoppingBag size={24} />
-            {items.length > 0 && (
-              <span className="absolute -top-2 -right-2 bg-fire text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                {items.length}
-              </span>
-            )}
-          </button>
+            <button
+              className="text-cream"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
