@@ -8,7 +8,8 @@ async function build() {
 
         // 1. Build Main Site (Vite)
         console.log('📦 Building Main Site...');
-        execSync('npm run build', { stdio: 'inherit' });
+        execSync('npx vite build', { stdio: 'inherit' });
+
 
         // 2. Build Admin Dashboard (Next.js)
         console.log('📦 Building Admin Dashboard...');
