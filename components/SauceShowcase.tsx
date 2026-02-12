@@ -21,19 +21,33 @@ export const SauceShowcase: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="relative overflow-hidden rounded-2xl min-h-[400px] flex flex-col justify-center"
           >
-            <span className="text-fire uppercase tracking-widest text-sm font-bold">Bottled Greatness</span>
-            <h2 className="section-title font-display text-4xl md:text-5xl text-cream mt-2 mb-6 leading-tight">
-              Bring the Texas Taste Home with Our Sauces
-            </h2>
-            <p className="font-body text-gray-300 text-lg mb-8 leading-relaxed">
-              Our award-winning sauces and rubs are handcrafted in small batches.
-              Whether you need a sweet glaze for your ribs or a spicy kick for your wings,
-              we've bottled the essence of Smoke Signal BBQ.
-            </p>
-            <Button onClick={() => window.open('https://wa.me/918147093243?text=I want to buy sauces', '_blank')}>
-              Shop Sauces
-            </Button>
+            {/* Background Video */}
+            <div className="absolute inset-0 z-0">
+              <div className="absolute inset-0 bg-black/60 z-10" /> {/* Overlay for readability */}
+              <iframe
+                className="absolute top-1/2 left-1/2 w-[300%] h-[150%] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 grayscale-[30%]"
+                src="https://www.youtube.com/embed/laY6AOECYyw?autoplay=1&mute=1&controls=0&loop=1&playlist=laY6AOECYyw&rel=0&showinfo=0&iv_load_policy=3&playsinline=1"
+                title="Sauce Background"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
+            </div>
+
+            <div className="relative z-10 p-8 md:p-12">
+              <span className="text-fire uppercase tracking-widest text-sm font-bold">Bottled Greatness</span>
+              <h2 className="section-title font-display text-4xl md:text-5xl text-cream mt-2 mb-6 leading-tight">
+                Bring the Texas Taste Home with Our Sauces
+              </h2>
+              <p className="font-body text-gray-200 text-lg mb-8 leading-relaxed drop-shadow-md">
+                Our award-winning sauces and rubs are handcrafted in small batches.
+                Whether you need a sweet glaze for your ribs or a spicy kick for your wings,
+                we've bottled the essence of Smoke Signal BBQ.
+              </p>
+              <Button onClick={() => window.open('https://wa.me/918147093243?text=I want to buy sauces', '_blank')}>
+                Shop Sauces
+              </Button>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
