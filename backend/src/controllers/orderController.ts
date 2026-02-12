@@ -28,7 +28,8 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
 
     try {
         const order = await prisma.order.update({
-            where: { id },
+            where: { id: id as string },
+
             data: {
                 orderStatus,
                 paymentStatus,
@@ -46,7 +47,8 @@ export const getOrderById = async (req: Request, res: Response) => {
 
     try {
         const order = await prisma.order.findUnique({
-            where: { id },
+            where: { id: id as string },
+
             include: {
                 customer: true,
                 address: true,

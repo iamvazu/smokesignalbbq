@@ -45,7 +45,8 @@ export const updateProduct = async (req: Request, res: Response) => {
 
     try {
         const product = await prisma.product.update({
-            where: { id },
+            where: { id: id as string },
+
             data: {
                 ...data,
                 images: data.images ? {
@@ -65,7 +66,8 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
-        await prisma.product.delete({ where: { id } });
+        await prisma.product.delete({ where: { id: id as string } });
+
         res.json({ message: 'Product deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to delete product' });
