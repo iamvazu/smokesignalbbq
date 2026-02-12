@@ -37,7 +37,7 @@ export const Navbar: React.FC = () => {
                 className={`${isScrolled ? 'h-16 md:h-20 lg:h-24' : 'h-32 md:h-40 lg:h-52'} w-auto object-contain transition-all duration-300`}
               />
             </a>
-            <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-8 opacity-100 mt-1'}`}>
+            <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-8 opacity-100 -mt-2'}`}>
               <span className="text-[10px] text-cream font-bold tracking-[0.1em] uppercase block px-3 py-1 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg whitespace-nowrap">
                 Est. 2011 • Bangalore
               </span>
@@ -70,7 +70,7 @@ export const Navbar: React.FC = () => {
                 </span>
               )}
             </button>
-            <Button variant="primary" icon onClick={() => window.location.href = '#menu'}>
+            <Button variant="primary" icon onClick={() => window.location.href = '#menu'} className="rounded-full">
               Order Now
             </Button>
           </div>
