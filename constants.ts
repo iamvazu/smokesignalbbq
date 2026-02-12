@@ -18,7 +18,8 @@ export const MENU_ITEMS: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80',
     tag: 'Signature',
     category: 'steaks',
-    isVeg: false
+    isVeg: false,
+    alt: 'Slow-smoked beef brisket cooked over oak charcoal at Smoke Signal BBQ'
   },
   {
     id: 'ribs',

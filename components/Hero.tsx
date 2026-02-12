@@ -38,9 +38,7 @@ export const Hero: React.FC = () => {
 
 
           <h1 className="font-display text-5xl md:text-7xl lg:text-7xl text-cream leading-tight mb-6 drop-shadow-2xl">
-            Authentic <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-fire to-texasRed">American BBQ</span> <br />
-            With a Twist
+            Authentic American Charcoal BBQ in Bangalore
           </h1>
 
           <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">

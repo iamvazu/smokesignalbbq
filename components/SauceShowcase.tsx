@@ -23,8 +23,8 @@ export const SauceShowcase: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="text-fire uppercase tracking-widest text-sm font-bold">Bottled Greatness</span>
-            <h2 className="font-display text-4xl md:text-5xl text-cream mt-2 mb-6 leading-tight">
-              Bring the <span className="text-fire">Texas Taste</span> Home
+            <h2 className="section-title font-display text-4xl md:text-5xl text-cream mt-2 mb-6 leading-tight">
+              Bring the Texas Taste Home with Our Sauces
             </h2>
             <p className="font-body text-gray-300 text-lg mb-8 leading-relaxed">
               Our award-winning sauces and rubs are handcrafted in small batches.
@@ -48,7 +48,7 @@ export const SauceShowcase: React.FC = () => {
                 className="bg-charcoal/50 p-6 rounded-xl border border-white/5 text-center group"
               >
                 <div className="w-full h-64 mb-4 rounded-lg overflow-hidden relative bg-black/20">
-                  <img src={sauce.image} alt={sauce.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+                  <img src={sauce.image} alt={sauce.alt || sauce.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
                 </div>
                 <h4 className="font-display text-xl text-cream mb-2">{sauce.name}</h4>
                 <p className="font-body text-xs text-gray-400 mb-3">{sauce.description}</p>

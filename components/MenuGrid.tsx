@@ -35,7 +35,7 @@ const Card: React.FC<CardProps> = ({ item, index }) => {
         )}
         <img
           src={item.image}
-          alt={item.name}
+          alt={item.alt || item.name}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
         />
       </div>
@@ -104,7 +104,7 @@ export const MenuGrid: React.FC = () => {
           className="text-center mb-12"
         >
           <span className="text-fire uppercase tracking-widest text-sm font-bold">From the Pit</span>
-          <h2 className="font-display text-4xl md:text-5xl text-cream mt-2 mb-4">Our Signature Smoked Items</h2>
+          <h2 className="section-title font-display text-4xl md:text-5xl text-cream mt-2 mb-4">Our Signature Smoked Items</h2>
           <div className="w-24 h-1 bg-fire mx-auto rounded-full mb-8" />
 
           {/* Filters */}
@@ -116,8 +116,8 @@ export const MenuGrid: React.FC = () => {
                   key={cat}
                   onClick={() => setActiveTab(cat)}
                   className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 ${activeTab === cat
-                      ? 'bg-fire text-white shadow-lg'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'bg-fire text-white shadow-lg'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                     }`}
                 >
                   {cat}

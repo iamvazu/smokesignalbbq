@@ -9,6 +9,7 @@ export interface MenuItem {
   tag?: string;
   category?: 'burgers' | 'steaks' | 'wings' | 'ribs' | 'sides';
   isVeg?: boolean;
+  alt?: string;
 }
 
 export interface ProductItem {
@@ -19,6 +20,7 @@ export interface ProductItem {
   priceValue: number; // For calculations
   image: string;
   type: 'sauce' | 'rub';
+  alt?: string;
 }
 
 export interface Testimonial {

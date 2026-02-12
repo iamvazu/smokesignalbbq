@@ -16,7 +16,7 @@ export const AboutSection: React.FC = () => {
               transition={{ duration: 0.6 }}
               src="/pitmaster.jpg"
               className="rounded-lg shadow-2xl mt-12 w-full h-64 object-cover"
-              alt="Pitmaster at work"
+              alt="Smoke Signal BBQ Authentic Pitmaster slow smoking brisket in Bangalore"
             />
             <motion.img
               initial={{ opacity: 0, scale: 0.8 }}
@@ -25,7 +25,7 @@ export const AboutSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               src="/founder.jpg"
               className="rounded-lg shadow-2xl w-full h-64 object-cover object-top"
-              alt="Founder"
+              alt="Smoke Signal BBQ Founder dedicated to authentic Texas BBQ since 2011"
             />
           </div>
 
@@ -38,16 +38,17 @@ export const AboutSection: React.FC = () => {
             transition={{ duration: 0.8 }}
           >
             <span className="text-fire uppercase tracking-widest text-sm font-bold">Our Heritage</span>
-            <h2 className="font-display text-4xl md:text-5xl text-cream mt-2 mb-6">Smoke, Fire & Passion since 2011</h2>
+            <h2 className="section-title font-display text-4xl md:text-5xl text-cream mt-2 mb-4">Our Heritage: Smoke, Fire & Passion since 2011</h2>
+            <h3 className="font-display text-2xl text-fire mb-6">The Original Bangalore Pitmasters</h3>
             <div className="space-y-6 text-gray-300 font-body leading-relaxed">
               <p>
-                Smoke Signal BBQ started as a humble food truck in 2011, driven by a singular obsession: bringing authentic American BBQ to the streets of Bangalore.
+                Smoke Signal BBQ didn't start in a corporate kitchen; it began as a humble food truck in 2011, driven by a singular obsession: bringing the uncompromising soul of American BBQ to the streets of Bangalore.
               </p>
               <p>
-                We believe in the old ways. No electric smokers. No gas shortcuts. Just premium meat, quality hardwood charcoal, and time. Lots of time. Our brisket is smoked for up to 14 hours until it's tender enough to slice with a spoon.
+                While others took shortcuts with electric smokers or gas grills, we stayed true to the old ways. For over 12 years, we have mastered the art of 100% charcoal-fired cooking. Our signature <a href="#menu" className="text-fire hover:underline hover:text-red-400 transition-colors">brisket</a> is slow-smoked for up to 14 hours over premium hardwood charcoal until it is tender enough to slice with a spoon.
               </p>
               <p>
-                From our homemade Texas-style rubs to our spicy Peri Peri twists, everything we serve is a labor of love, crafted to give you the ultimate carnivorous experience.
+                From our <a href="#sauces" className="text-fire hover:underline hover:text-red-400 transition-colors">handcrafted Texas-style rubs</a> to our spicy Peri Peri twists, every item on our <a href="#menu" className="text-fire hover:underline hover:text-red-400 transition-colors">menu</a> is a labor of love. We don't just serve meat; we deliver a decade of fire-tested expertise in every bite.
               </p>
 
               <div className="pt-6 border-t border-white/10 flex gap-8">
