@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-48 md:pt-40">
+      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-56 md:pt-72 lg:pt-80">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

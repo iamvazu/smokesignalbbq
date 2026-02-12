@@ -34,7 +34,7 @@ export const Navbar: React.FC = () => {
               <img
                 src="/logo_final.png"
                 alt="Smoke Signal BBQ"
-                className="h-24 md:h-28 lg:h-40 w-auto object-contain transition-transform hover:scale-105 duration-300"
+                className="h-32 md:h-40 lg:h-52 w-auto object-contain transition-transform hover:scale-105 duration-300"
               />
             </a>
             <span className="text-[10px] text-cream font-bold tracking-[0.1em] uppercase mt-1 px-3 py-1 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg">
