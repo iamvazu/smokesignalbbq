@@ -7,6 +7,7 @@ import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 
 import path from 'path';
+import fs from 'fs';
 
 dotenv.config();
 
@@ -27,26 +28,64 @@ app.get('/health', (req, res) => {
 
 // Serve Static Files
 const publicPath = path.join(__dirname, '../public');
+console.log('Serving static files from:', publicPath);
 
-// 1. Admin Dashboard (SPA)
-app.use('/admin', express.static(path.join(publicPath, 'admin')));
-app.get('/admin/*', (req, res) => {
-    res.sendFile(path.join(publicPath, 'admin', 'index.html'));
+if (fs.existsSync(publicPath)) {
+    // 1. Admin Dashboard (SPA)
+    const adminPath = path.join(publicPath, 'admin');
+    if (fs.existsSync(adminPath)) {
+        console.log('Admin path found:', adminPath);
+        app.use('/admin', express.static(adminPath));
+        app.get('/admin/*', (req, res) => {
+            res.sendFile(path.join(adminPath, 'index.html'));
+        });
+    }
+
+    // 2. Main Site (SPA)
+    const mainPath = path.join(publicPath, 'main');
+    if (fs.existsSync(mainPath)) {
+        console.log('Main path found:', mainPath);
+        app.use(express.static(mainPath));
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(mainPath, 'index.html'));
+        });
+    }
+} else {
+    console.warn('CRITICAL: Public directory not found at', publicPath);
+}
+
+// Global Error Handler
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.error('Unhandled error:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
 });
-
-// 2. Main Site (SPA)
-app.use(express.static(path.join(publicPath, 'main')));
-app.get('*', (req, res) => {
-    res.sendFile(path.join(publicPath, 'main', 'index.html'));
-});
-
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+try {
+    app.listen(PORT, () => {
+        console.log(`🚀 Monolith Server running on port ${PORT}`);
+        console.log(`- API: http://localhost:${PORT}/api/v1`);
+        console.log(`- Admin: http://localhost:${PORT}/admin`);
+        console.log(`- Site: http://localhost:${PORT}/`);
+    });
+} catch (error) {
+    console.error('FATAL: Failed to start server:', error);
+    process.exit(1);
+}
 
+// Graceful Shutdown
 process.on('SIGINT', async () => {
     await prisma.$disconnect();
     process.exit(0);
 });
+
+// Handle uncaught errors
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    process.exit(1);
+});
+
