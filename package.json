@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "start": "npx serve -s dist"
+    "build": "node build.cjs",
+    "postinstall": "npm install --prefix backend && npm install --prefix admin",
+    "start": "npm start --prefix backend"
   },
   "dependencies": {
     "framer-motion": "^12.34.0",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@types/node": "^22.19.11",
     "@vitejs/plugin-react": "^5.1.4",
+    "fs-extra": "^11.3.3",
     "typescript": "~5.8.2",
     "vite": "^6.4.1"
   }
