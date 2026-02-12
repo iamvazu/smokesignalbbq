@@ -1,0 +1,179 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  passwordHash  String
+  role          String   @default("staff")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Customer {
+  id        String    @id @default(uuid())
+  name      String?
+  email     String?
+  phone     String
+  createdAt DateTime  @default(now())
+  addresses Address[]
+  orders    Order[]
+
+  @@map("customers")
+}
+
+model Address {
+  id           String   @id @default(uuid())
+  customerId   String
+  customer     Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  addressLine1 String
+  addressLine2 String?
+  city         String?
+  state        String?
+  postalCode   String?
+  latitude     Decimal?
+  longitude    Decimal?
+  createdAt    DateTime @default(now())
+  orders       Order[]
+
+  @@map("addresses")
+}
+
+model Product {
+  id                String         @id @default(uuid())
+  name              String
+  description       String?
+  category          String?
+  sku               String?        @unique
+  weight            Int?
+  price             Int
+  discountPrice     Int?
+  costPrice         Int?
+  stock             Int            @default(0)
+  status            String         @default("active")
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  images            ProductImage[]
+  comboItems        ComboItem[]
+  orderItems        OrderItem[]
+  inventoryLogs     InventoryLog[]
+
+  @@map("products")
+}
+
+model ProductImage {
+  id        String   @id @default(uuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  imageUrl  String
+  createdAt DateTime @default(now())
+
+  @@map("product_images")
+}
+
+model ComboPack {
+  id            String      @id @default(uuid())
+  name          String?
+  description   String?
+  price         Int?
+  originalPrice Int?
+  status        String      @default("active")
+  createdAt     DateTime    @default(now())
+  items         ComboItem[]
+  orderItems    OrderItem[]
+
+  @@map("combo_packs")
+}
+
+model ComboItem {
+  id        String    @id @default(uuid())
+  comboId   String
+  combo     ComboPack @relation(fields: [comboId], references: [id])
+  productId String
+  product   Product   @relation(fields: [productId], references: [id])
+  quantity  Int       @default(1)
+
+  @@map("combo_items")
+}
+
+model Order {
+  id             String      @id @default(uuid())
+  customerId     String?
+  customer       Customer?   @relation(fields: [customerId], references: [id])
+  addressId      String?
+  address        Address?    @relation(fields: [addressId], references: [id])
+  totalAmount    Int
+  deliveryFee    Int         @default(0)
+  taxAmount      Int         @default(0)
+  paymentStatus  String      @default("pending")
+  orderStatus    String      @default("pending")
+  deliveryStatus String      @default("pending")
+  paymentMethod  String?
+  createdAt      DateTime    @default(now())
+  items          OrderItem[]
+  payments       Payment[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String     @id @default(uuid())
+  orderId   String
+  order     Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product?   @relation(fields: [productId], references: [id])
+  comboId   String?
+  combo     ComboPack? @relation(fields: [comboId], references: [id])
+  quantity  Int
+  price     Int
+
+  @@map("order_items")
+}
+
+model Payment {
+  id             String   @id @default(uuid())
+  orderId        String
+  order          Order    @relation(fields: [orderId], references: [id])
+  amount         Int
+  paymentMethod  String
+  paymentStatus  String
+  transactionId  String?
+  createdAt      DateTime @now()
+
+  @@map("payments")
+}
+
+model DiscountCode {
+  id            String   @id @default(uuid())
+  code          String   @unique
+  discountType  String
+  discountValue Int
+  expiryDate    DateTime
+  usageLimit    Int?
+  createdAt     DateTime @default(now())
+
+  @@map("discount_codes")
+}
+
+model InventoryLog {
+  id           String   @id @default(uuid())
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id])
+  changeAmount Int
+  reason       String?
+  createdAt    DateTime @default(now())
+
+  @@map("inventory_logs")
+}
