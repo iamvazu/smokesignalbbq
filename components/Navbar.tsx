@@ -70,9 +70,10 @@ export const Navbar: React.FC = () => {
                 </span>
               )}
             </button>
-            <Button variant="primary" icon onClick={() => window.location.href = '#menu'} className="rounded-full">
+            <Button variant="primary" icon onClick={() => window.location.href = '#shop'} className="rounded-full">
               Order Now
             </Button>
+
           </div>
 
           {/* Mobile Controls (Cart + Menu) */}

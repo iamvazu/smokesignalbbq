@@ -1,123 +1,256 @@
-import { MenuItem, ProductItem, Testimonial } from './types';
+import { Product, Testimonial } from './types';
 
 export const NAV_LINKS = [
   { name: 'Home', href: '#home' },
-  { name: 'Menu', href: '#menu' },
-  { name: 'Sauces', href: '#sauces' },
-  { name: 'Story', href: '#story' },
+  { name: 'Shop', href: '#shop' },
+  { name: 'How It Works', href: '#how-it-works' },
+  { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
 ];
 
-export const MENU_ITEMS: MenuItem[] = [
+export const PRODUCTS: Product[] = [
+  // WINGS
   {
-    id: 'brisket',
-    name: 'Smoked Brisket',
-    description: 'Slow-smoked for 14 hours over oak charcoal. Tender, juicy, and packed with authentic flavor.',
-    price: 'Market Price',
-    priceValue: 0,
-    image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80',
-    tag: 'Signature',
-    category: 'steaks',
-    isVeg: false,
-    alt: 'Slow-smoked beef brisket cooked over oak charcoal at Smoke Signal BBQ'
-  },
-  {
-    id: 'ribs',
-    name: 'Smoked Pork Ribs',
-    description: 'Fall-off-the-bone pork ribs glazed with our signature sticky BBQ sauce.',
-    price: '₹450 Onwards',
-    priceValue: 450,
-    image: '/pork_ribs_menu.jpg',
-    tag: 'Best Seller',
-    category: 'ribs',
-    isVeg: false
-  },
-  {
-    id: 'burger-steak',
-    name: 'Pepper Garlic Steak Burger',
-    description: 'Juicy charcoal-grilled patty topped with pepper garlic sauce, fresh lettuce, and tomatoes.',
-    price: '₹250 / ₹350',
-    priceValue: 250,
-    variants: [
-      { name: 'Single', price: 250 },
-      { name: 'Regular', price: 350 }
-    ],
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
-    category: 'burgers',
-    isVeg: false
-  },
-  {
-    id: 'wings',
+    id: 'wings-texas-saucy',
     name: 'Texas Style Saucy Wings',
-    description: 'Crispy smoked wings tossed in your choice of BBQ, Buffalo, or Peri Peri sauce.',
-    price: '₹180',
-    priceValue: 180,
+    description: 'Classic pitmaster style wings with a rich Texas glaze.',
+    longDescription: 'Our Texas Style Saucy Wings are slow-smoked over premium charcoal for hours, then tossed in a bold, savory BBQ glaze that captures the heart of Texas BBQ.',
+    price: '₹280',
+    priceValue: 280,
     image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80',
-    category: 'wings',
-    isVeg: false
+    category: 'bbq',
+    subCategory: 'wings',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Microwave for 2 mins or oven bake at 180°C for 5 mins until sizzling.',
+    ingredients: 'Chicken wings, signature Texas BBQ glaze, garlic, onion, charcoal smoke.',
+    storageInstructions: 'Store in refrigerator at 0-4°C. Good for 5 days.',
+    relatedProductIds: ['wings-bbq-spicy', 'sauce-texas']
   },
   {
-    id: 'strips-beef',
-    name: 'BBQ Beef Strips',
-    description: 'Tender strips of marinated beef, grilled to perfection over open coals.',
-    price: '₹300',
-    priceValue: 300,
-    image: '/beef_strips_menu.jpg',
-    category: 'steaks',
-    isVeg: false
+    id: 'wings-bbq-spicy',
+    name: 'BBQ Spicy Wings',
+    description: 'Slow smoked wings with a fiery kick.',
+    longDescription: 'For those who crave heat, these wings are marinated in a spicy BBQ blend and smoked to perfection. Every bite delivers a punch of flavor and fire.',
+    price: '₹280',
+    priceValue: 280,
+    image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'wings',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Microwave for 2 mins or pan-sear for a crispy finish.',
+    ingredients: 'Chicken wings, cayenne pepper, paprika, molasses, vinegar, spices.',
+    storageInstructions: 'Keep chilled. Use within 5 days.',
+    relatedProductIds: ['wings-peri-peri', 'sauce-spicy-mango']
   },
   {
-    id: 'peri-burger',
-    name: 'Peri Peri Steak Burger',
-    description: 'A spicy kick! Charcoal grilled patty with our house-made spicy Peri Peri sauce.',
-    price: '₹250 / ₹350',
-    priceValue: 250,
-    variants: [
-      { name: 'Single', price: 250 },
-      { name: 'Regular', price: 350 }
-    ],
-    image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=80',
-    category: 'burgers',
-    isVeg: false
+    id: 'wings-peri-peri',
+    name: 'Peri Peri Wings',
+    description: 'Zesty and spicy wings with a citrus punch.',
+    longDescription: 'Flame-grilled flavor meets slow-smoked tenderness. Our Peri Peri wings are infused with bird\'s eye chili, citrus, and herbs for a refreshing yet spicy experience.',
+    price: '₹280',
+    priceValue: 280,
+    image: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'wings',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Best enjoyed after heating in an oven at 200°C for 4 mins.',
+    ingredients: 'Chicken wings, peri-peri chili, lemon juice, garlic, oil, herbs.',
+    storageInstructions: 'Store at 0-4°C. Do not freeze after thawing.',
+    relatedProductIds: ['sauce-peri-peri']
   },
-];
 
-export const SAUCES: ProductItem[] = [
+  // CHICKEN
   {
-    id: 'texas-sauce',
-    name: 'Classic Texas Sauce',
-    description: 'Our signature tangy and smoky blend. The perfect all-rounder.',
+    id: 'chicken-pepper-garlic',
+    name: 'Pepper Garlic Chicken Steak',
+    description: 'Tender chicken steak infused with bold pepper and garlic.',
+    longDescription: 'A pitmaster favorite. This juicy chicken steak is marinated in crushed black pepper and roasted garlic, then smoked until it reaches peak tenderness.',
     price: '₹350',
     priceValue: 350,
-    image: '/Texas_Sauce.jpg',
-    type: 'sauce'
+    image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'chicken',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Heat on a skillet with a dash of butter for 3-4 mins per side.',
+    ingredients: 'Chicken breast, black pepper, roasted garlic, sea salt, olive oil.',
+    storageInstructions: 'Keep refrigerated. Consume within 48 hours of opening.',
+    relatedProductIds: ['sauce-pepper-garlic', 'beef-pepper-garlic']
+  },
+
+  // BEEF
+  {
+    id: 'beef-brisket',
+    name: 'Beef Brisket',
+    description: '12-hour slow smoked signature Texas brisket.',
+    longDescription: 'The King of BBQ. Our beef brisket is slow-smoked for 12 hours over oak charcoal, resulting in a deep smoke ring and melt-in-your-mouth texture.',
+    price: '₹650',
+    priceValue: 650,
+    image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'beef',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Wrap in foil and heat in oven at 150°C for 10-15 mins to maintain juiciness.',
+    ingredients: 'Premium beef brisket, salt, black pepper, smoke.',
+    storageInstructions: 'Vacuum sealed. Keep refrigerated for up to 7 days.',
+    relatedProductIds: ['beef-steak-texas', 'sauce-texas']
   },
   {
-    id: 'brisket-sauce',
-    name: 'Brisket Master Blend',
-    description: 'Deep, rich flavors crafted specifically to enhance smoked beef.',
+    id: 'beef-pepper-garlic',
+    name: 'Beef Pepper Garlic Steak',
+    description: 'Savory beef steak with a robust pepper-garlic crust.',
+    longDescription: 'A bold take on beef steak. Sliced from premium cuts, this steak is seasoned with a thick layer of crushed pepper and garlic, then smoked to medium-well perfection.',
+    price: '₹550',
+    priceValue: 550,
+    image: 'https://images.unsplash.com/photo-1546241072-48010ad28c2c?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'beef',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Quickly pan-sear for 1-2 mins on each side over high heat.',
+    ingredients: 'Beef steak, black pepper, garlic, salt, Worcestershire sauce.',
+    storageInstructions: 'Keep at 0-4°C.',
+    relatedProductIds: ['chicken-pepper-garlic', 'sauce-pepper-garlic']
+  },
+  {
+    id: 'beef-steak-texas',
+    name: 'Texas Beef Steak',
+    description: 'Hardcore Texas flavor. Smoked and bold.',
+    longDescription: 'Deep, smoky, and intensely flavorful. This beef steak is treated with a traditional Texas rub and smoked over hardwood for a truly authentic ranch experience.',
+    price: '₹550',
+    priceValue: 550,
+    image: 'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'beef',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Oven bake at 180°C for 6-8 mins or grill for 3 mins.',
+    ingredients: 'Beef, paprika, cumin, brown sugar, salt, coffee-infused smoke.',
+    storageInstructions: 'Refrigerate immediately.',
+    relatedProductIds: ['beef-brisket', 'sauce-texas']
+  },
+
+  // PORK
+  {
+    id: 'pork-ribs',
+    name: 'Texas Smoked Pork Ribs',
+    description: 'Fall-off-the-bone ribs with a sticky BBQ glaze.',
+    longDescription: 'Our award-winning pork ribs are slow-smoked until they are incredibly tender. Finished with a glaze that balances sweet and savory perfectly.',
+    price: '₹480',
+    priceValue: 480,
+    image: 'https://images.unsplash.com/photo-1544077960-604201fe74bc?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'pork',
+    weight: '250g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Oven bake at 160°C for 10 mins covered with foil.',
+    ingredients: 'Pork ribs, BBQ sauce, molasses, apple cider vinegar, salt.',
+    storageInstructions: 'Keep chilled. Use within 5 days.',
+    relatedProductIds: ['pork-belly', 'sauce-texas']
+  },
+  {
+    id: 'pork-belly',
+    name: 'Texas Smoked Pork Belly',
+    description: 'Rich, juicy, and smoky pork belly slices.',
+    longDescription: 'Decadent layers of fat and meat, smoked slowly to render the fat and infuse deep charcoal flavor. It\'s the ultimate comfort BBQ.',
+    price: '₹680',
+    priceValue: 680,
+    image: 'https://images.unsplash.com/photo-1615937657715-bc7b4b7962c1?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'pork',
+    weight: '350g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Pan-fry for 2 mins per side to crisp up the edges.',
+    ingredients: 'Pork belly, brown sugar rub, smoked paprika, garlic powder.',
+    storageInstructions: 'Store in refrigerator. Consumption within 3 days recommended.',
+    relatedProductIds: ['pork-spicy', 'sauce-spicy-mango']
+  },
+  {
+    id: 'pork-spicy',
+    name: 'Smokey Spicy Pork',
+    description: 'Infused with smoke and fire. A spicy pork delight.',
+    longDescription: 'This isn\'t for the faint of heart. Our spicy pork is rubbed with a blend of dried chilies and smoked over hot coals for a lingering, deep heat.',
+    price: '₹580',
+    priceValue: 580,
+    image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=800&q=80',
+    category: 'bbq',
+    subCategory: 'pork',
+    weight: '350g',
+    badges: ['Slow Smoked', 'Ready to Heat & Serve'],
+    heatingInstructions: 'Heat in microwave for 3 mins or stir-fry briefly.',
+    ingredients: 'Pork, chili pepper flakes, habanero powder, garlic, vinegar.',
+    storageInstructions: 'Keep at 0-4°C.',
+    relatedProductIds: ['pork-belly', 'wings-bbq-spicy']
+  },
+
+  // SAUCES
+  {
+    id: 'sauce-texas',
+    name: 'BBQ Texas Sauce',
+    description: 'Classic pitmaster style. Smoky, rich, authentic.',
+    longDescription: 'The one that started it all. A balanced blend of tang, sweetness, and deep smoke. Perfect for brisket, ribs, or as a dipping sauce.',
+    price: '₹350',
+    priceValue: 350,
+    image: 'https://images.unsplash.com/photo-1585325701956-60dd9c8524bc?auto=format&fit=crop&w=800&q=80',
+    category: 'sauce',
+    subCategory: 'sauces',
+    volume: '250ml',
+    badges: ['Pitmaster Crafted'],
+    ingredients: 'Tomato paste, molasses, apple cider vinegar, hickory smoke, secret spice blend.',
+    storageInstructions: 'Refrigerate after opening. Shake well before use.',
+    relatedProductIds: ['beef-brisket', 'pork-ribs']
+  },
+  {
+    id: 'sauce-spicy-mango',
+    name: 'BBQ Spicy Mango Sauce',
+    description: 'Sweet, tangy, and spicy fusion sauce.',
+    longDescription: 'A tropical twist on traditional BBQ. Real mango pulp blended with habanero peppers for a sauce that\'s sweet up front with a kick at the end.',
     price: '₹380',
     priceValue: 380,
-    image: '/brisket_sauce.jpg',
-    type: 'sauce'
+    image: 'https://images.unsplash.com/photo-1478144592103-258219070793?auto=format&fit=crop&w=800&q=80',
+    category: 'sauce',
+    subCategory: 'sauces',
+    volume: '250ml',
+    badges: ['Pitmaster Crafted'],
+    ingredients: 'Mango pulp, habanero peppers, honey, vinegar, lime juice, ginger.',
+    storageInstructions: 'Refrigerate after opening.',
+    relatedProductIds: ['wings-bbq-spicy', 'pork-spicy']
   },
   {
-    id: 'rib-glaze',
-    name: 'Sticky Rib Glaze',
-    description: 'Sweet and sticky finish that gives ribs that perfect shine.',
+    id: 'sauce-pepper-garlic',
+    name: 'Smokey Pepper Garlic Sauce',
+    description: 'Savory, smoky garlic pepper flavor.',
+    longDescription: 'A heavy-hitter for garlic lovers. This sauce features roasted garlic cloves and cracked black pepper for a savory, umami-rich experience.',
     price: '₹350',
     priceValue: 350,
-    image: '/Pork_Ribs.jpg', // Using user provided image
-    type: 'sauce'
+    image: 'https://images.unsplash.com/photo-1631402242084-3c66289f81da?auto=format&fit=crop&w=800&q=80',
+    category: 'sauce',
+    subCategory: 'sauces',
+    volume: '250ml',
+    badges: ['Pitmaster Crafted'],
+    ingredients: 'Roasted garlic, black pepper, onion powder, vinegar, sunflower oil, smoke flavoring.',
+    storageInstructions: 'Refrigerate after opening.',
+    relatedProductIds: ['chicken-pepper-garlic', 'beef-pepper-garlic']
   },
   {
-    id: 'wing-sauce',
-    name: 'Spicy Wing Coating',
-    description: 'A fiery blend for coating wings or dipping fried treats.',
-    price: '₹320',
-    priceValue: 320,
-    image: '/Saucy_Wings.jpg', // Using user provided image
-    type: 'sauce'
+    id: 'sauce-peri-peri',
+    name: 'Peri Peri Sauce',
+    description: 'Flame-grilled flavor. Zesty and spicy.',
+    longDescription: 'Authentic Peri Peri flavor with a smoky undertone. Made with real bird\'s eye chilies and toasted spices.',
+    price: '₹350',
+    priceValue: 350,
+    image: 'https://images.unsplash.com/photo-1598511796318-7b82ea7bc88c?auto=format&fit=crop&w=800&q=80',
+    category: 'sauce',
+    subCategory: 'sauces',
+    volume: '250ml',
+    badges: ['Pitmaster Crafted'],
+    ingredients: 'Bird\'s eye chili, lemon, garlic, paprika, oregano, oil.',
+    storageInstructions: 'Refrigerate after opening.',
+    relatedProductIds: ['wings-peri-peri']
   }
 ];
 

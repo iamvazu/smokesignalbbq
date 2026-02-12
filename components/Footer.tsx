@@ -35,10 +35,11 @@ export const Footer: React.FC = () => {
             <h4 className="font-display text-2xl text-fire tracking-wide">Explore</h4>
             <ul className="space-y-4 text-center md:text-left">
               <li><a href="#" className="text-cream hover:text-fire transition-colors text-lg font-medium">Home</a></li>
-              <li><a href="#menu" className="text-cream hover:text-fire transition-colors text-lg font-medium">Our Menu</a></li>
-              <li><a href="#sauces" className="text-cream hover:text-fire transition-colors text-lg font-medium">Sauces</a></li>
-              <li><a href="#story" className="text-cream hover:text-fire transition-colors text-lg font-medium">Our Story</a></li>
+              <li><a href="#shop" className="text-cream hover:text-fire transition-colors text-lg font-medium">Shop</a></li>
+              <li><a href="#how-it-works" className="text-cream hover:text-fire transition-colors text-lg font-medium">How It Works</a></li>
+              <li><a href="#about" className="text-cream hover:text-fire transition-colors text-lg font-medium">About</a></li>
               <li><a href="#contact" className="text-cream hover:text-fire transition-colors text-lg font-medium">Contact</a></li>
+
             </ul>
           </div>
 

@@ -36,23 +36,24 @@ export const Hero: React.FC = () => {
           className="max-w-4xl"
         >
 
-
-          <h1 className="font-display text-5xl md:text-7xl lg:text-7xl text-cream leading-tight mb-6 drop-shadow-2xl">
-            Authentic American Charcoal BBQ in Bangalore
+          <h1 className="font-display text-5xl md:text-7xl lg:text-7xl text-cream leading-tight mb-6 drop-shadow-2xl italic">
+            Authentic Texas BBQ. <br />
+            <span className="text-fire">Ready to Heat.</span> Ready to Eat.
           </h1>
 
           <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
-            Slow-smoked brisket, fall-off-the-bone ribs, and handcrafted Texas sauces. Cooked entirely on charcoal grills for that unmistakable smoky flavor.
+            Slow-smoked for hours over real charcoal, delivered fresh to your door. Authentic pitmaster flavor, ready in minutes.
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-            <Button variant="primary" icon onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}>
-              Start Order
+            <Button variant="primary" icon onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}>
+              Order Now
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}>
-              Our Story
+            <Button variant="outline" onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}>
+              View Menu
             </Button>
           </div>
+
         </motion.div>
       </div>
 

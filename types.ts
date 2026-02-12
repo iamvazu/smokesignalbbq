@@ -1,26 +1,23 @@
-export interface MenuItem {
-  id: string;
-  name: string;
-  description: string;
-  price: string;
-  priceValue: number; // For calculations
-  variants?: { name: string; price: number }[];
-  image: string;
-  tag?: string;
-  category?: 'burgers' | 'steaks' | 'wings' | 'ribs' | 'sides';
-  isVeg?: boolean;
-  alt?: string;
-}
+export type Category = 'bbq' | 'sauce';
+export type SubCategory = 'wings' | 'chicken' | 'beef' | 'pork' | 'sauces' | 'all';
 
-export interface ProductItem {
+export interface Product {
   id: string;
   name: string;
   description: string;
+  longDescription?: string;
   price: string;
-  priceValue: number; // For calculations
+  priceValue: number;
   image: string;
-  type: 'sauce' | 'rub';
-  alt?: string;
+  category: Category;
+  subCategory: SubCategory;
+  weight?: string;
+  volume?: string;
+  badges: string[];
+  heatingInstructions?: string;
+  ingredients?: string;
+  storageInstructions?: string;
+  relatedProductIds?: string[];
 }
 
 export interface Testimonial {
