@@ -8,13 +8,19 @@ import {
     Clock,
     AlertCircle,
     ChevronRight,
-    ArrowUpRight
+    ArrowUpRight,
+    Package,
+    Tag,
+    Truck
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import api from '@/lib/api';
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+
 
 export default function DashboardPage() {
     const [stats, setStats] = useState<any>(null);
@@ -175,7 +181,5 @@ export default function DashboardPage() {
     );
 }
 
-// Helper for conditional classes
-import { cn } from '@/lib/utils';
-import { Package, Tag } from 'lucide-react';
-import Link from 'next/link';
+
+
