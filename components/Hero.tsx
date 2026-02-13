@@ -1,9 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
+import { useNavigate } from 'react-router-dom';
 
 export const Hero: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
+
     <section id="home" className="relative h-screen w-full overflow-hidden flex items-start bg-charcoal">
       {/* Background Image */}
       {/* Background Video */}
@@ -52,14 +56,14 @@ export const Hero: React.FC = () => {
               variant="primary"
               icon
               className="rounded-full lg:px-10 lg:py-4 lg:text-sm shadow-[0_0_25px_rgba(239,68,68,0.5)]"
-              onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => document.getElementById('combos')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Order Now
             </Button>
             <Button
               variant="outline"
               className="rounded-full lg:px-10 lg:py-4 lg:text-sm"
-              onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => navigate('/shop')}
             >
               View Menu
             </Button>
