@@ -93,6 +93,9 @@ const FAQ_ITEMS = [
 export const EventsPage: React.FC = () => {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submissionSuccess, setSubmissionSuccess] = useState(false);
+    const [submittedInquiryId, setSubmittedInquiryId] = useState<string | null>(null);
+
     const [formData, setFormData] = useState({
         fullName: '',
         phoneNumber: '',
@@ -102,27 +105,19 @@ export const EventsPage: React.FC = () => {
         message: ''
     });
 
-    const handleWhatsAppQuote = async () => {
+
+    const handleFormSubmit = async () => {
         setIsSubmitting(true);
         try {
             // 1. Save to Database
             const response = await axios.post(`${API_URL}/events`, formData);
             const inquiryId = response.data.id.split('-')[0].toUpperCase();
 
-            // 2. Clear form (optional)
-            // setFormData({ ... });
+            setSubmittedInquiryId(inquiryId);
+            setSubmissionSuccess(true);
 
-            // 3. Open WhatsApp
-            let waMessage = `*New Event Inquiry #${inquiryId}*\n\n`;
-            waMessage += `*Details:*\n`;
-            waMessage += `Name: ${formData.fullName}\n`;
-            waMessage += `Phone: ${formData.phoneNumber}\n`;
-            waMessage += `Type: ${formData.eventType}\n`;
-            waMessage += `Date: ${formData.eventDate}\n`;
-            waMessage += `Guests: ${formData.guestCount}\n`;
-            if (formData.message) waMessage += `\n*Message:*\n${formData.message}`;
+            // Clear form data for next time if needed, but we keep it for the WhatsApp message construction
 
-            window.open(`https://wa.me/91${CONTACT_INFO.phone}?text=${encodeURIComponent(waMessage)}`, '_blank');
         } catch (error) {
             console.error('Failed to submit inquiry:', error);
             alert('Failed to submit inquiry. Please try again or message us directly on WhatsApp.');
@@ -130,6 +125,22 @@ export const EventsPage: React.FC = () => {
             setIsSubmitting(false);
         }
     };
+
+    const handleWhatsAppRedirect = () => {
+        if (!submittedInquiryId) return;
+
+        let waMessage = `*New Event Inquiry #${submittedInquiryId}*\n\n`;
+        waMessage += `*Details:*\n`;
+        waMessage += `Name: ${formData.fullName}\n`;
+        waMessage += `Phone: ${formData.phoneNumber}\n`;
+        waMessage += `Type: ${formData.eventType}\n`;
+        waMessage += `Date: ${formData.eventDate}\n`;
+        waMessage += `Guests: ${formData.guestCount}\n`;
+        if (formData.message) waMessage += `\n*Message:*\n${formData.message}`;
+
+        window.open(`https://wa.me/91${CONTACT_INFO.phone}?text=${encodeURIComponent(waMessage)}`, '_blank');
+    };
+
 
 
     return (
@@ -452,8 +463,43 @@ export const EventsPage: React.FC = () => {
                             </div>
                         </div>
 
-                        <div className="bg-charcoal border border-white/10 p-10 rounded-[3rem] shadow-2xl">
-                            <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); handleWhatsAppQuote(); }}>
+                        <div className="bg-charcoal border border-white/10 p-10 rounded-[3rem] shadow-2xl relative overflow-hidden">
+                            {submissionSuccess ? (
+                                <div className="absolute inset-0 z-10 bg-charcoal flex flex-col items-center justify-center p-8 text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
+                                    <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mb-6">
+                                        <CheckCircle2 size={40} className="text-green-500" />
+                                    </div>
+                                    <h3 className="text-2xl font-display italic text-cream mb-4">Inquiry Received!</h3>
+                                    <p className="text-gray-400 mb-8 max-w-sm">
+                                        Thanks {formData.fullName.split(' ')[0]}! We've saved your details (Ref: #{submittedInquiryId}). We'll get back to you within 24 hours.
+                                    </p>
+
+                                    <div className="space-y-4 w-full max-w-xs">
+                                        <Button
+                                            variant="primary"
+                                            className="w-full py-4 rounded-xl shadow-lg bg-[#25D366] hover:bg-[#128C7E] border-transparent text-white"
+                                            onClick={handleWhatsAppRedirect}
+                                        >
+                                            <MessageSquare className="mr-2" size={20} />
+                                            Send on WhatsApp
+                                            <span className="text-[10px] block opacity-80 mt-1 font-normal">(Faster Response)</span>
+                                        </Button>
+
+                                        <button
+                                            onClick={() => {
+                                                setSubmissionSuccess(false);
+                                                setFormData({ ...formData, message: '', eventDate: '', guestCount: '' }); // Reset partial form
+                                                setSubmittedInquiryId(null);
+                                            }}
+                                            className="text-sm text-gray-500 hover:text-white transition-colors underline decoration-dotted underline-offset-4"
+                                        >
+                                            Submit another inquiry
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : null}
+
+                            <form className={`space-y-6 transition-opacity duration-500 ${submissionSuccess ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} onSubmit={(e) => { e.preventDefault(); handleFormSubmit(); }}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Full Name *</label>
