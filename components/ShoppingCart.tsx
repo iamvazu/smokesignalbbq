@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Trash2, Plus, Minus, ShoppingBag, MapPin, Loader2, ShieldCheck } from 'lucide-react';
-
+import axios from 'axios';
 import { useCartStore } from '../store';
 import { Button } from './Button';
+
+// @ts-ignore
+const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
+
 
 // RS Palaya, Kammanahalli Coordinates (Approx)
 const STORE_LOCATION = { lat: 13.0097, lng: 77.6366 };
 
 export const ShoppingCart: React.FC = () => {
     const { items, isOpen, toggleCart, updateQuantity, removeItem } = useCartStore();
+
     const [deliveryFee, setDeliveryFee] = useState<number | null>(null);
     const [isCalculating, setIsCalculating] = useState(false);
     const [deliveryError, setDeliveryError] = useState<string | null>(null);
@@ -73,37 +78,69 @@ export const ShoppingCart: React.FC = () => {
         );
     };
 
-    const handleCheckout = () => {
+    const handleCheckout = async () => {
         if (!userDetails.name || !userDetails.mobile || !userDetails.address) {
             alert("Please fill in all delivery details");
             return;
         }
 
-        // Generate WhatsApp message
-        let message = `*New Order Request*\n\n`;
-        message += `*Customer Details:*\n`;
-        message += `Name: ${userDetails.name}\n`;
-        message += `Mobile: ${userDetails.mobile}\n`;
-        message += `Address: ${userDetails.address}\n\n`;
+        setIsCalculating(true); // Re-use for loading state
+        try {
+            // 1. Create Order in Backend
+            const orderData = {
+                customerName: userDetails.name,
+                customerPhone: userDetails.mobile,
+                addressLine1: userDetails.address,
+                city: "Bangalore", // Default for now
+                items: items.map(item => ({
+                    productId: item.id.includes('-') ? item.id : undefined, // Check if it's a UUID
+                    quantity: item.quantity,
+                    price: item.priceValue
+                })),
+                totalAmount: Math.round(finalTotal),
+                deliveryFee: deliveryFee || 0,
+                taxAmount: Math.round(gst),
+                paymentMethod: "WhatsApp/COD"
+            };
 
-        message += `*Order Summary:*\n`;
-        items.forEach(item => {
-            message += `• ${item.quantity}x ${item.name} ${item.variant ? `(${item.variant})` : ''} - ₹${(item.priceValue || 0) * item.quantity}\n`;
-        });
+            const response = await axios.post(`${API_URL}/orders`, orderData);
+            console.log('Order created in DB:', response.data);
 
-        message += `\n*Subtotal:* ₹${subtotal}`;
-        message += `\n*GST (18%):* ₹${gst.toFixed(2)}`;
+            // 2. Clear Cart (optional, maybe after WhatsApp)
+            // useCartStore.getState().clearCart(); 
 
-        if (deliveryFee) {
-            message += `\n*Delivery (Est):* ₹${deliveryFee}`;
-        } else {
-            message += `\n*Delivery:* To be calculated`;
+            // 3. Generate WhatsApp message
+            let message = `*New Order Request*\n`;
+            message += `Order ID: #${response.data.id.split('-')[0].toUpperCase()}\n\n`;
+            message += `*Customer Details:*\n`;
+            message += `Name: ${userDetails.name}\n`;
+            message += `Mobile: ${userDetails.mobile}\n`;
+            message += `Address: ${userDetails.address}\n\n`;
+
+            message += `*Order Summary:*\n`;
+            items.forEach(item => {
+                message += `• ${item.quantity}x ${item.name} ${item.variant ? `(${item.variant})` : ''} - ₹${(item.priceValue || 0) * item.quantity}\n`;
+            });
+
+            message += `\n*Subtotal:* ₹${subtotal}`;
+            message += `\n*GST (18%):* ₹${gst.toFixed(2)}`;
+
+            if (deliveryFee !== null) {
+                message += `\n*Delivery (Est):* ₹${deliveryFee}`;
+            }
+
+            message += `\n\n*GRAND TOTAL:* ₹${finalTotal.toFixed(2)}`;
+
+            window.open(`https://wa.me/918147093243?text=${encodeURIComponent(message)}`, '_blank');
+            toggleCart();
+        } catch (error) {
+            console.error('Failed to create order', error);
+            alert("Something went wrong while placing your order. Please try again or contact us directly.");
+        } finally {
+            setIsCalculating(false);
         }
-
-        message += `\n\n*GRAND TOTAL:* ₹${finalTotal.toFixed(2)}`;
-
-        window.open(`https://wa.me/918147093243?text=${encodeURIComponent(message)}`, '_blank');
     };
+
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;

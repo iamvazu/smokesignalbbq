@@ -95,16 +95,23 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
   );
 };
 
-export const MenuGrid: React.FC = () => {
+interface MenuGridProps {
+  products?: Product[];
+}
+
+export const MenuGrid: React.FC<MenuGridProps> = ({ products: initialProducts }) => {
   const [activeFilter, setActiveFilter] = useState<SubCategory | 'all' | 'bbq' | 'sauce'>('all');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  const products = initialProducts || PRODUCTS;
+
   const filteredProducts = useMemo(() => {
-    if (activeFilter === 'all') return PRODUCTS;
-    if (activeFilter === 'bbq') return PRODUCTS.filter(p => p.category === 'bbq');
-    if (activeFilter === 'sauce') return PRODUCTS.filter(p => p.category === 'sauce');
-    return PRODUCTS.filter(p => p.subCategory === activeFilter);
-  }, [activeFilter]);
+    if (activeFilter === 'all') return products;
+    if (activeFilter === 'bbq') return products.filter(p => p.category === 'bbq');
+    if (activeFilter === 'sauce') return products.filter(p => p.category === 'sauce');
+    return products.filter(p => p.subCategory === activeFilter);
+  }, [activeFilter, products]);
+
 
   return (
     <section id="shop" className="py-24 bg-charcoal relative min-h-screen">

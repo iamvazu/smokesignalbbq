@@ -20,18 +20,30 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import api from '@/lib/api';
 import { cn } from '@/lib/utils';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import { ProductForm } from '@/components/dashboard/product-form';
 
 export default function ProductsPage() {
     const [products, setProducts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('all');
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [editingProduct, setEditingProduct] = useState<any>(null);
 
     useEffect(() => {
         fetchProducts();
     }, []);
 
     const fetchProducts = async () => {
+        setLoading(true);
         try {
             const res = await api.get('/products');
             setProducts(res.data);
@@ -42,12 +54,35 @@ export default function ProductsPage() {
         }
     };
 
+    const handleEdit = (product: any) => {
+        setEditingProduct(product);
+        setIsDialogOpen(true);
+    };
+
+    const handleDelete = async (id: string) => {
+        if (confirm('Are you sure you want to delete this product?')) {
+            try {
+                await api.delete(`/products/${id}`);
+                fetchProducts();
+            } catch (err) {
+                console.error('Failed to delete product', err);
+            }
+        }
+    };
+
+    const handleSuccess = () => {
+        setIsDialogOpen(false);
+        setEditingProduct(null);
+        fetchProducts();
+    };
+
     const filteredProducts = products.filter(product => {
         const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             product.sku?.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesCategory = categoryFilter === 'all' || product.category === categoryFilter;
         return matchesSearch && matchesCategory;
     });
+
 
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -56,9 +91,25 @@ export default function ProductsPage() {
                     <h1 className="text-4xl font-bold text-foreground">Products</h1>
                     <p className="text-muted-foreground mt-1 text-sm uppercase tracking-wide">Manage your BBQ menu and inventory</p>
                 </div>
-                <Button className="rounded-xl px-6 py-6 text-sm font-bold uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all flex items-center gap-2">
-                    <Plus size={18} strokeWidth={3} /> Add New Product
-                </Button>
+                <Dialog open={isDialogOpen} onOpenChange={(open) => {
+                    setIsDialogOpen(open);
+                    if (!open) setEditingProduct(null);
+                }}>
+                    <DialogTrigger asChild>
+                        <Button className="rounded-xl px-6 py-6 text-sm font-bold uppercase tracking-widest shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all flex items-center gap-2">
+                            <Plus size={18} strokeWidth={3} /> Add New Product
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[600px] bg-card border-white/10">
+                        <DialogHeader>
+                            <DialogTitle>{editingProduct ? 'Edit Product' : 'Add New Product'}</DialogTitle>
+                            <DialogDescription>
+                                Fill in the details for your BBQ masterpiece.
+                            </DialogDescription>
+                        </DialogHeader>
+                        <ProductForm product={editingProduct} onSuccess={handleSuccess} />
+                    </DialogContent>
+                </Dialog>
             </div>
 
             <Card className="border-white/5 bg-card/50 backdrop-blur-sm">
@@ -164,16 +215,27 @@ export default function ProductsPage() {
                                             <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-white/5 hover:text-primary">
                                                 <Eye size={16} />
                                             </Button>
-                                            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-white/5 hover:text-blue-500">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-9 w-9 rounded-xl hover:bg-white/5 hover:text-blue-500"
+                                                onClick={() => handleEdit(product)}
+                                            >
                                                 <Edit size={16} />
                                             </Button>
-                                            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-xl hover:bg-white/5 hover:text-red-500">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className="h-9 w-9 rounded-xl hover:bg-white/5 hover:text-red-500"
+                                                onClick={() => handleDelete(product.id)}
+                                            >
                                                 <Trash2 size={16} />
                                             </Button>
                                         </div>
                                     </TableCell>
                                 </TableRow>
                             )) : (
+
                                 <TableRow>
                                     <TableCell colSpan={7} className="h-64 text-center">
                                         <div className="flex flex-col items-center justify-center gap-2 text-muted-foreground">

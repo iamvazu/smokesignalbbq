@@ -56,7 +56,9 @@ model Product {
   name              String
   description       String?
   category          String?
+  subCategory       String?
   sku               String?        @unique
+
   weight            Int?
   price             Int
   discountPrice     Int?

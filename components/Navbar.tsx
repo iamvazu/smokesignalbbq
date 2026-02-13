@@ -4,13 +4,18 @@ import { Menu, X, ShoppingBag, MapPin } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 import { Button } from './Button';
 import { useCartStore, useLocationStore } from '../store';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
+const MotionLink = motion(Link);
 
 export const Navbar: React.FC = () => {
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { city, setShowLocationPrompt } = useLocationStore();
   const { items, toggleCart } = useCartStore();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +24,22 @@ export const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      if (location.pathname === '/') {
+        e.preventDefault();
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // Navigate to home with hash
+        navigate('/' + href);
+      }
+    }
+    setIsMobileMenuOpen(false);
+  };
 
 
   return (
@@ -34,14 +55,14 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center gap-4 z-50">
             <div className="flex flex-col items-center">
               {/* Logo Image */}
-              <a href="#" className="block" aria-label="Smoke Signal BBQ Home">
+              <Link to="/" className="block" aria-label="Smoke Signal BBQ Home">
                 <img
                   src="/logo_final.png"
                   alt="Smoke Signal BBQ - Authentic American Charcoal BBQ since 2011"
                   className={`${isScrolled ? 'h-14 md:h-16 lg:h-18' : 'h-28 md:h-32 lg:h-36'} w-auto object-contain transition-all duration-300`}
                   fetchPriority="high"
                 />
-              </a>
+              </Link>
               <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-6 opacity-100 -mt-1'}`}>
                 <span className="text-[8px] text-cream font-bold tracking-[0.1em] uppercase block px-2 py-0.5 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg whitespace-nowrap">
                   Est. 2011 • Bangalore
@@ -71,14 +92,15 @@ export const Navbar: React.FC = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href === '#shop' ? '/shop' : (link.href === '#' ? '/' : link.href)}
+                onClick={(e) => link.href !== '#shop' && link.href !== '#' && handleLinkClick(e as any, link.href)}
                 className="text-sm font-semibold text-cream hover:text-fire uppercase tracking-wider transition-colors relative group"
               >
                 {link.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-fire transition-all group-hover:w-full" />
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -95,7 +117,7 @@ export const Navbar: React.FC = () => {
                 </span>
               )}
             </button>
-            <Button variant="primary" icon onClick={() => window.location.href = '#shop'} className="rounded-full">
+            <Button variant="primary" icon onClick={() => navigate('/shop')} className="rounded-full">
               Order Now
             </Button>
 
@@ -139,18 +161,26 @@ export const Navbar: React.FC = () => {
           >
             <div className="flex flex-col gap-8 text-center">
               {NAV_LINKS.map((link, index) => (
-                <motion.a
+                <MotionLink
                   key={link.name}
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  to={link.href === '#shop' ? '/shop' : (link.href === '#' ? '/' : link.href)}
+                  onClick={(e: any) => {
+                    if (link.href !== '#shop' && link.href !== '#') {
+                      handleLinkClick(e, link.href);
+                    } else {
+                      setIsMobileMenuOpen(false);
+                    }
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   className="text-2xl font-display text-cream hover:text-fire uppercase"
                 >
                   {link.name}
-                </motion.a>
+                </MotionLink>
               ))}
+
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
