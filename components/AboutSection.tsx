@@ -3,9 +3,18 @@ import { motion } from 'framer-motion';
 
 export const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="py-24 bg-charcoal relative">
+    <section id="about" className="py-24 bg-charcoal relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/footer_bg.jpg"
+          alt="Heritage Background"
+          className="w-full h-full object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal via-charcoal/90 to-charcoal/80" />
+      </div>
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
 
           {/* Images Grid - Modern Collage Layout */}
