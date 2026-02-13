@@ -14,6 +14,8 @@ import { ShoppingCart } from './components/ShoppingCart';
 import { PRODUCTS } from './constants';
 import { ComboShowcase } from './components/ComboShowcase';
 import { AbandonedCartPopup } from './components/AbandonedCartPopup';
+import { OffersPopup } from './components/OffersPopup';
+
 
 
 function App() {
@@ -93,6 +95,8 @@ function App() {
 
       <Footer />
       <AbandonedCartPopup />
+      <OffersPopup />
+
     </div>
 
   );

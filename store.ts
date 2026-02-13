@@ -90,3 +90,29 @@ export const useCartStore = create<CartStore>()(
         }
     )
 );
+interface LocationStore {
+    location: { lat: number; lng: number } | null;
+    city: string | null;
+    hasCheckedLocation: boolean;
+    showLocationPrompt: boolean;
+    setLocation: (loc: { lat: number; lng: number }, city: string) => void;
+    setShowLocationPrompt: (show: boolean) => void;
+    setHasCheckedLocation: (checked: boolean) => void;
+}
+
+export const useLocationStore = create<LocationStore>()(
+    persist(
+        (set) => ({
+            location: null,
+            city: null,
+            hasCheckedLocation: false,
+            showLocationPrompt: false,
+            setLocation: (loc, city) => set({ location: loc, city, hasCheckedLocation: true, showLocationPrompt: false }),
+            setShowLocationPrompt: (show) => set({ showLocationPrompt: show }),
+            setHasCheckedLocation: (checked) => set({ hasCheckedLocation: checked }),
+        }),
+        {
+            name: 'smoke-signal-location',
+        }
+    )
+);

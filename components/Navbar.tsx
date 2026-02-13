@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ShoppingBag } from 'lucide-react';
+import { Menu, X, ShoppingBag, MapPin } from 'lucide-react';
 import { NAV_LINKS } from '../constants';
 import { Button } from './Button';
-import { useCartStore } from '../store';
+import { useCartStore, useLocationStore } from '../store';
+
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { city, setShowLocationPrompt } = useLocationStore();
   const { items, toggleCart } = useCartStore();
 
   useEffect(() => {
@@ -17,6 +19,7 @@ export const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
 
   return (
     <>
@@ -28,22 +31,41 @@ export const Navbar: React.FC = () => {
           }`}
       >
         <div className="w-full pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] md:pl-[max(3rem,env(safe-area-inset-left))] md:pr-[max(3rem,env(safe-area-inset-right))] lg:pl-[max(5rem,env(safe-area-inset-left))] lg:pr-[max(5rem,env(safe-area-inset-right))] flex items-center justify-between">
-          <div className="flex flex-col items-center z-50">
-            {/* Logo Image */}
-            <a href="#" className="block" aria-label="Smoke Signal BBQ Home">
-              <img
-                src="/logo_final.png"
-                alt="Smoke Signal BBQ - Authentic American Charcoal BBQ since 2011"
-                className={`${isScrolled ? 'h-16 md:h-20 lg:h-24' : 'h-32 md:h-40 lg:h-52'} w-auto object-contain transition-all duration-300`}
-                fetchPriority="high"
-              />
-            </a>
-            <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-8 opacity-100 -mt-2'}`}>
-              <span className="text-[10px] text-cream font-bold tracking-[0.1em] uppercase block px-3 py-1 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg whitespace-nowrap">
-                Est. 2011 • Bangalore
-              </span>
+          <div className="flex items-center gap-4 z-50">
+            <div className="flex flex-col items-center">
+              {/* Logo Image */}
+              <a href="#" className="block" aria-label="Smoke Signal BBQ Home">
+                <img
+                  src="/logo_final.png"
+                  alt="Smoke Signal BBQ - Authentic American Charcoal BBQ since 2011"
+                  className={`${isScrolled ? 'h-16 md:h-20 lg:h-24' : 'h-32 md:h-40 lg:h-52'} w-auto object-contain transition-all duration-300`}
+                  fetchPriority="high"
+                />
+              </a>
+              <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-8 opacity-100 -mt-2'}`}>
+                <span className="text-[10px] text-cream font-bold tracking-[0.1em] uppercase block px-3 py-1 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg whitespace-nowrap">
+                  Est. 2011 • Bangalore
+                </span>
+              </div>
             </div>
+
+            {/* Location Selector */}
+            <button
+              onClick={() => setShowLocationPrompt(true)}
+              className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all ${isScrolled ? 'opacity-100 translate-x-0' : 'opacity-70 translate-x-0'}`}
+            >
+              <MapPin size={14} className="text-fire" />
+              <div className="text-left">
+                <p className="text-[8px] uppercase tracking-widest text-gray-500 font-bold">Delivering to</p>
+                <div className="flex items-center gap-1">
+                  <p className="text-[11px] font-bold text-cream truncate max-w-[100px]">{city || "Select Location"}</p>
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                </div>
+              </div>
+            </button>
+
           </div>
+
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
