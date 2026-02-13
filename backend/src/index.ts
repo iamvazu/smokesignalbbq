@@ -10,6 +10,7 @@ import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
 import eventRoutes from './routes/eventRoutes';
+import blogRoutes from './routes/blogRoutes';
 
 
 import path from 'path';
@@ -72,6 +73,8 @@ app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
 app.use('/api/v1/events', eventRoutes);
+app.use('/api/v1/posts', blogRoutes);
+
 
 
 app.get('/health', (req, res) => {

@@ -15,8 +15,10 @@ import {
     Settings,
     Flame,
     LogOut,
-    Calendar
+    Calendar,
+    BookOpen
 } from 'lucide-react';
+
 
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -32,9 +34,10 @@ const navigation = [
     { name: 'Discounts', href: '/discounts', icon: Tag },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
     { name: 'Event Inquiries', href: '/events', icon: Calendar },
+    { name: 'Blog', href: '/blog', icon: BookOpen },
     { name: 'Settings', href: '/settings', icon: Settings },
-
 ];
+
 
 export function Sidebar() {
     const pathname = usePathname();

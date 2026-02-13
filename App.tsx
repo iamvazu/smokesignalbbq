@@ -11,6 +11,8 @@ import { useCartStore } from './store';
 import { Home } from './pages/Home';
 import { ShopPage } from './pages/ShopPage';
 import { EventsPage } from './pages/EventsPage';
+import { BlogPage } from './pages/BlogPage';
+import { BlogPostPage } from './pages/BlogPostPage';
 
 
 
@@ -35,6 +37,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/events" element={<EventsPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/blog/:slug" element={<BlogPostPage />} />
+
         {/* Redirect old anchor links if needed or just let Navbar handle it */}
       </Routes>
 
