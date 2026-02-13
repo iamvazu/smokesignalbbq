@@ -98,9 +98,11 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
 
 interface MenuGridProps {
   products?: Product[];
+  showTitle?: boolean;
 }
 
-export const MenuGrid: React.FC<MenuGridProps> = ({ products: initialProducts }) => {
+export const MenuGrid: React.FC<MenuGridProps> = ({ products: initialProducts, showTitle = true }) => {
+
   const [activeFilter, setActiveFilter] = useState<SubCategory | 'all' | 'bbq' | 'sauce'>('all');
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
@@ -115,23 +117,26 @@ export const MenuGrid: React.FC<MenuGridProps> = ({ products: initialProducts })
 
 
   return (
-    <section id="shop" className="py-24 bg-charcoal relative min-h-screen">
+    <section id="shop" className={`${showTitle ? 'py-24' : 'py-0'} bg-charcoal relative min-h-screen`}>
       <div className="container mx-auto px-4">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <span className="text-fire uppercase tracking-widest text-sm font-bold">The Smoke Signal Store</span>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-cream mt-2 mb-4 italic">Ready To Heat & Serve</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto font-body">Authentic Texas BBQ. Slow smoked over charcoal. Ready in minutes.</p>
-          <div className="w-24 h-1 bg-fire mx-auto rounded-full mt-8" />
-        </motion.div>
+        {showTitle && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <span className="text-fire uppercase tracking-widest text-sm font-bold">The Smoke Signal Store</span>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-cream mt-2 mb-4 italic">Ready To Heat & Serve</h2>
+            <p className="text-gray-400 max-w-2xl mx-auto font-body">Authentic Texas BBQ. Slow smoked over charcoal. Ready in minutes.</p>
+            <div className="w-24 h-1 bg-fire mx-auto rounded-full mt-8" />
+          </motion.div>
+        )}
 
         {/* Filters */}
-        <div className="sticky top-24 z-30 mb-12 flex justify-center">
+        <div className={`sticky top-24 z-30 ${showTitle ? 'mb-12' : 'mb-8'} flex justify-center`}>
+
           <div className="flex flex-wrap justify-center gap-2 p-1 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/5 shadow-2xl max-w-full">
             {categories.map((cat) => (
               <button

@@ -54,19 +54,23 @@ export const ShopPage: React.FC = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-16"
+                    className="text-center mb-20"
                 >
-                    <h1 className="font-display text-5xl md:text-6xl text-cream mb-4">The Pitmaster Shop</h1>
-                    <p className="text-gray-400 max-w-2xl mx-auto uppercase tracking-widest text-sm font-bold">
-                        Authentic Low & Slow BBQ • Delivered Fresh to Your Door
+                    <span className="text-fire uppercase tracking-[0.3em] text-xs md:text-sm font-extrabold block mb-4">THE SMOKE SIGNAL BBQ STORE</span>
+                    <h1 className="font-display text-5xl md:text-7xl text-cream mb-6 italic leading-tight">
+                        The Pitmaster Shop
+                        <span className="text-gray-500 block md:inline-block md:ml-4 font-body not-italic text-2xl md:text-4xl align-middle">— Ready To Heat & Serve</span>
+                    </h1>
+                    <p className="text-gray-400 max-w-3xl mx-auto uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold leading-relaxed">
+                        Authentic Low & Slow BBQ Smoked Over Charcoal • Delivered Fresh to Your Door
                     </p>
+                    <div className="w-32 h-1 bg-fire mx-auto rounded-full mt-12 opacity-50" />
                 </motion.div>
 
-                {/* Filters/Categories could go here if MenuGrid doesn't handle it well enough for a full page */}
-
                 <div id="shop">
-                    <MenuGrid products={products as any} />
+                    <MenuGrid products={products as any} showTitle={false} />
                 </div>
+
 
             </div>
         </div>
