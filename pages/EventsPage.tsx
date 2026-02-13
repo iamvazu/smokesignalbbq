@@ -351,8 +351,16 @@ export const EventsPage: React.FC = () => {
             </section>
 
             {/* Difference Section */}
-            <section className="py-24 bg-[#0a0a0a]">
-                <div className="container mx-auto px-4">
+            <section className="py-24 bg-[#0a0a0a] relative overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/footer_bg.jpg"
+                        alt="Background"
+                        className="w-full h-full object-cover opacity-20"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/90 to-[#0a0a0a]/60" />
+                </div>
+                <div className="container mx-auto px-4 relative z-10">
                     <div className="max-w-4xl mx-auto">
                         <h2 className="font-display text-4xl md:text-5xl mb-16 text-center italic">The Smoke Signal Difference</h2>
 
