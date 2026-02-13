@@ -25,21 +25,7 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      if (location.pathname === '/') {
-        e.preventDefault();
-        const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else {
-        // Navigate to home with hash
-        navigate('/' + href);
-      }
-    }
-    setIsMobileMenuOpen(false);
-  };
+
 
 
   return (
@@ -91,18 +77,36 @@ export const Navbar: React.FC = () => {
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href === '#shop' ? '/shop' : (link.href === '#' ? '/' : link.href)}
-                onClick={(e) => link.href !== '#shop' && link.href !== '#' && handleLinkClick(e as any, link.href)}
-                className="text-sm font-semibold text-cream hover:text-fire uppercase tracking-wider transition-colors relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-fire transition-all group-hover:w-full" />
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) => {
+              const isShopLink = link.href === '#shop';
+              const isHomeLink = link.href === '#home';
+              const targetPath = isShopLink ? '/shop' : '/';
+              const targetHash = isHomeLink ? '' : link.href;
+
+              return (
+                <Link
+                  key={link.name}
+                  to={targetPath + targetHash}
+                  onClick={(e) => {
+                    if (location.pathname === targetPath && targetHash.startsWith('#')) {
+                      e.preventDefault();
+                      const element = document.querySelector(targetHash);
+                      if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="text-sm font-semibold text-cream hover:text-fire uppercase tracking-wider transition-colors relative group"
+                >
+                  {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-fire transition-all group-hover:w-full" />
+                </Link>
+              );
+            })}
           </div>
+
+
 
           <div className="hidden lg:flex items-center gap-6">
             <button
@@ -160,25 +164,36 @@ export const Navbar: React.FC = () => {
             className="fixed inset-0 bg-charcoal z-40 flex flex-col items-center justify-center lg:hidden"
           >
             <div className="flex flex-col gap-8 text-center">
-              {NAV_LINKS.map((link, index) => (
-                <MotionLink
-                  key={link.name}
-                  to={link.href === '#shop' ? '/shop' : (link.href === '#' ? '/' : link.href)}
-                  onClick={(e: any) => {
-                    if (link.href !== '#shop' && link.href !== '#') {
-                      handleLinkClick(e, link.href);
-                    } else {
+              {NAV_LINKS.map((link, index) => {
+                const isShopLink = link.href === '#shop';
+                const isHomeLink = link.href === '#home';
+                const targetPath = isShopLink ? '/shop' : '/';
+                const targetHash = isHomeLink ? '' : link.href;
+
+                return (
+                  <MotionLink
+                    key={link.name}
+                    to={targetPath + targetHash}
+                    onClick={(e: any) => {
+                      if (location.pathname === targetPath && targetHash.startsWith('#')) {
+                        e.preventDefault();
+                        const element = document.querySelector(targetHash);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }
                       setIsMobileMenuOpen(false);
-                    }
-                  }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-2xl font-display text-cream hover:text-fire uppercase"
-                >
-                  {link.name}
-                </MotionLink>
-              ))}
+                    }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="text-2xl font-display text-cream hover:text-fire uppercase"
+                  >
+                    {link.name}
+                  </MotionLink>
+                );
+              })}
+
 
 
               <motion.div

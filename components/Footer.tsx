@@ -1,6 +1,8 @@
 import React from 'react';
 import { MapPin, Phone, Instagram, Facebook } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { CONTACT_INFO } from '../constants';
+
 
 export const Footer: React.FC = () => {
   return (
@@ -28,16 +30,23 @@ export const Footer: React.FC = () => {
             <p className="text-gray-300 font-body text-sm leading-relaxed max-w-xs text-center font-medium">
               Bangalore's Original American BBQ Truck. Serving authentic smoked meats and handmade sauces since 2011.
             </p>
-            <div className="flex items-center gap-2 mt-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 group cursor-default">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/en/thumb/9/90/FSSAI_logo.svg/330px-FSSAI_logo.svg.png"
-                alt="FSSAI"
-                className="h-4 brightness-0 invert opacity-50 group-hover:opacity-80 transition-opacity"
-              />
-              <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-body">
-                Lic. No <span className="text-gray-400">21224191000177</span>
-              </p>
+            <div className="flex flex-col items-center gap-4 mt-2">
+              <div className="flex items-center gap-3 px-5 py-2 rounded-2xl bg-white/5 border border-white/10 group hover:border-fire/30 transition-all duration-300">
+                <img
+                  src="/fssai.png"
+                  alt="FSSAI Licensed"
+                  className="h-6 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/FSSAI_logo.svg/330px-FSSAI_logo.svg.png";
+                  }}
+                />
+                <div className="h-6 w-px bg-white/10 mx-1" />
+                <p className="text-[11px] text-gray-400 font-bold uppercase tracking-[0.2em] font-body">
+                  Lic. No <span className="text-cream">21224191000177</span>
+                </p>
+              </div>
             </div>
+
 
           </div>
 
@@ -45,13 +54,13 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col items-center md:items-start space-y-6 md:pt-8">
             <h4 className="font-display text-2xl text-fire tracking-wide">Explore</h4>
             <ul className="space-y-4 text-center md:text-left">
-              <li><a href="#" className="text-cream hover:text-fire transition-colors text-lg font-medium">Home</a></li>
-              <li><a href="#shop" className="text-cream hover:text-fire transition-colors text-lg font-medium">Shop</a></li>
-              <li><a href="#how-it-works" className="text-cream hover:text-fire transition-colors text-lg font-medium">How It Works</a></li>
-              <li><a href="#about" className="text-cream hover:text-fire transition-colors text-lg font-medium">About</a></li>
-              <li><a href="#contact" className="text-cream hover:text-fire transition-colors text-lg font-medium">Contact</a></li>
-
+              <li><Link to="/" className="text-cream hover:text-fire transition-colors text-lg font-medium">Home</Link></li>
+              <li><Link to="/shop" className="text-cream hover:text-fire transition-colors text-lg font-medium">Shop</Link></li>
+              <li><Link to="/#how-it-works" className="text-cream hover:text-fire transition-colors text-lg font-medium">How It Works</Link></li>
+              <li><Link to="/#about" className="text-cream hover:text-fire transition-colors text-lg font-medium">About</Link></li>
+              <li><Link to="/#contact" className="text-cream hover:text-fire transition-colors text-lg font-medium">Contact</Link></li>
             </ul>
+
           </div>
 
           {/* Contact & Hours - Right */}
