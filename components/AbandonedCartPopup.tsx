@@ -76,7 +76,7 @@ export const AbandonedCartPopup: React.FC = () => {
 
                             {/* CTA Button */}
                             <a
-                                href="https://wa.me/918147093243?text=Hi! I need help choosing the best BBQ for my party."
+                                href="https://wa.me/917899870957?text=Hi! I need help choosing the best BBQ for my party."
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center justify-between w-full md:w-auto px-8 h-[70px] bg-white border-2 border-[#5E33FF] rounded-2xl group hover:bg-[#5E33FF] transition-all duration-300"
@@ -86,10 +86,11 @@ export const AbandonedCartPopup: React.FC = () => {
                                         {/* WhatsApp colored icon would be better, but lucide phone for now */}
                                         <MessageSquare size={20} className="text-white group-hover:text-[#5E33FF]" />
                                     </div>
-                                    <span className="text-xl font-bold text-[#5E33FF] group-hover:text-white">+91 81470 93243</span>
+                                    <span className="text-xl font-bold text-[#5E33FF] group-hover:text-white">+91 78998 70957</span>
                                 </div>
                                 <div className="ml-4 w-2 h-2 rounded-full bg-[#5E33FF] group-hover:bg-white animate-pulse" />
                             </a>
+
                         </div>
 
                         {/* Right Content (Visual) */}

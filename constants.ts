@@ -2,11 +2,13 @@ import { Product, Testimonial } from './types';
 
 export const NAV_LINKS = [
   { name: 'Home', href: '#home' },
-  { name: 'Shop', href: '#shop' },
+  { name: 'Shop', href: '/shop' },
+  { name: 'Events', href: '/events' },
   { name: 'How It Works', href: '#how-it-works' },
   { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
 ];
+
 
 export const PRODUCTS: Product[] = [
   // COMBOS (Top of the list for visibility)
@@ -340,6 +342,9 @@ export const PRODUCTS: Product[] = [
   }
 ];
 
+export const SAUCES = PRODUCTS.filter(p => p.category === 'sauce');
+
+
 export const TESTIMONIALS: Testimonial[] = [
   { id: 1, name: 'Rahul K.', text: 'Best brisket in Bangalore, hands down. The smoky flavor is authentic Texas style.', rating: 5 },
   { id: 2, name: 'Sarah J.', text: 'The ribs literally fell off the bone. And that spicy sauce? Incredible.', rating: 5 },
@@ -347,8 +352,8 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const CONTACT_INFO = {
-  phone: '8147093243',
+  phone: '7899870957',
   location: 'RS Palaya, Kammanahalli, Bangalore',
   gpay: '9886328867',
-  whatsapp: 'https://wa.me/918147093243',
+  whatsapp: 'https://wa.me/917899870957',
 };

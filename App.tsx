@@ -10,6 +10,8 @@ import { OffersPopup } from './components/OffersPopup';
 import { useCartStore } from './store';
 import { Home } from './pages/Home';
 import { ShopPage } from './pages/ShopPage';
+import { EventsPage } from './pages/EventsPage';
+
 
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/events" element={<EventsPage />} />
         {/* Redirect old anchor links if needed or just let Navbar handle it */}
       </Routes>
 

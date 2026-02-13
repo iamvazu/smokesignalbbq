@@ -78,10 +78,10 @@ export const Navbar: React.FC = () => {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((link) => {
-              const isShopLink = link.href === '#shop';
-              const isHomeLink = link.href === '#home';
-              const targetPath = isShopLink ? '/shop' : '/';
-              const targetHash = isHomeLink ? '' : link.href;
+              const isExternal = link.href.startsWith('/');
+              const targetPath = isExternal ? link.href : '/';
+              const targetHash = (!isExternal && link.href !== '#home') ? link.href : '';
+
 
               return (
                 <Link
@@ -165,10 +165,10 @@ export const Navbar: React.FC = () => {
           >
             <div className="flex flex-col gap-8 text-center">
               {NAV_LINKS.map((link, index) => {
-                const isShopLink = link.href === '#shop';
-                const isHomeLink = link.href === '#home';
-                const targetPath = isShopLink ? '/shop' : '/';
-                const targetHash = isHomeLink ? '' : link.href;
+                const isExternal = link.href.startsWith('/');
+                const targetPath = isExternal ? link.href : '/';
+                const targetHash = (!isExternal && link.href !== '#home') ? link.href : '';
+
 
                 return (
                   <MotionLink

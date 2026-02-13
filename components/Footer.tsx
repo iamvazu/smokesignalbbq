@@ -74,7 +74,9 @@ export const Footer: React.FC = () => {
             <ul className="space-y-4 text-center md:text-left">
               <li><Link to="/" className="text-cream hover:text-fire transition-colors text-lg font-medium">Home</Link></li>
               <li><Link to="/shop" className="text-cream hover:text-fire transition-colors text-lg font-medium">Shop</Link></li>
+              <li><Link to="/events" className="text-cream hover:text-fire transition-colors text-lg font-medium">Events</Link></li>
               <li><Link to="/#how-it-works" className="text-cream hover:text-fire transition-colors text-lg font-medium">How It Works</Link></li>
+
               <li><Link to="/#about" className="text-cream hover:text-fire transition-colors text-lg font-medium">About</Link></li>
               <li><Link to="/#contact" className="text-cream hover:text-fire transition-colors text-lg font-medium">Contact</Link></li>
             </ul>
@@ -117,8 +119,9 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex items-center gap-3 text-gray-400 justify-center md:justify-start">
                 <Phone className="text-fire shrink-0" size={20} />
-                <p>+91 {CONTACT_INFO.phone}</p>
+                <p>+91 78998-70957</p>
               </div>
+
             </div>
 
           </div>

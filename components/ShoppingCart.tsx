@@ -131,7 +131,8 @@ export const ShoppingCart: React.FC = () => {
 
             message += `\n\n*GRAND TOTAL:* ₹${finalTotal.toFixed(2)}`;
 
-            window.open(`https://wa.me/918147093243?text=${encodeURIComponent(message)}`, '_blank');
+            window.open(`https://wa.me/917899870957?text=${encodeURIComponent(message)}`, '_blank');
+
             toggleCart();
         } catch (error) {
             console.error('Failed to create order', error);

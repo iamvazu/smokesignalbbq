@@ -44,9 +44,10 @@ export const SauceShowcase: React.FC = () => {
                 Whether you need a sweet glaze for your ribs or a spicy kick for your wings,
                 we've bottled the essence of Smoke Signal BBQ.
               </p>
-              <Button onClick={() => window.open('https://wa.me/918147093243?text=I want to buy sauces', '_blank')}>
+              <Button onClick={() => window.open('https://wa.me/917899870957?text=I want to buy sauces', '_blank')}>
                 Shop Sauces
               </Button>
+
             </div>
           </motion.div>
 
