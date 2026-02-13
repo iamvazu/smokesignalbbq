@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-48 md:pt-56 lg:pt-60">
+      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-36 md:pt-44 lg:pt-48">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -42,32 +42,32 @@ export const Hero: React.FC = () => {
             Ready to Eat.
           </h1>
 
-          <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+          <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
             Slow-smoked for hours over real charcoal, delivered fresh to your door. <br className="hidden lg:block" />
             Authentic pitmaster flavor, ready in minutes.
           </p>
 
-          <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start">
+          <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start items-center">
             <Button
               variant="primary"
               icon
-              className="lg:px-10 lg:py-3.5 lg:text-sm shadow-[0_0_25px_rgba(239,68,68,0.5)]"
+              className="rounded-full lg:px-10 lg:py-4 lg:text-sm shadow-[0_0_25px_rgba(239,68,68,0.5)]"
               onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Order Now
             </Button>
             <Button
               variant="outline"
-              className="lg:px-10 lg:py-3.5 lg:text-sm"
+              className="rounded-full lg:px-10 lg:py-4 lg:text-sm"
               onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View Menu
             </Button>
           </div>
 
-
         </motion.div>
       </div>
+
 
       {/* Scroll Indicator */}
       <motion.div
