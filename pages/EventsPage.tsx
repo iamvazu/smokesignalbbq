@@ -461,8 +461,16 @@ export const EventsPage: React.FC = () => {
             </section>
 
             {/* Quote Form / CTA */}
-            <section id="quote" className="py-24 bg-burnt/20 relative">
-                <div className="container mx-auto px-4 max-w-5xl">
+            <section id="quote" className="py-24 relative overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/footer_bg.jpg"
+                        alt="Background"
+                        className="w-full h-full object-cover opacity-25"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/90 to-charcoal/80" />
+                </div>
+                <div className="container mx-auto px-4 max-w-5xl relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                         <div>
                             <h2 className="font-display text-4xl md:text-5xl mb-6 italic">Get Your Quote</h2>
