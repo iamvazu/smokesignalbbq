@@ -31,7 +31,19 @@ export const getPostBySlug = async (req: Request, res: Response) => {
     }
 };
 
-// ...
+// Admin: Get all posts (including drafts)
+export const getAllPostsAdmin = async (req: Request, res: Response) => {
+    try {
+        const posts = await prisma.blogPost.findMany({
+            orderBy: { createdAt: 'desc' }
+        });
+        res.json(posts);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch posts' });
+    }
+};
+
+// Admin: Get single post by ID
 
 // Admin: Get single post by ID
 export const getPostById = async (req: Request, res: Response) => {
