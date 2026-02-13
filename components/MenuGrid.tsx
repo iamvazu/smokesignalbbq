@@ -38,12 +38,13 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
     >
       {/* Badges */}
       <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
-        {product.badges.map((badge) => (
+        {product.badges?.map((badge) => (
           <span key={badge} className="bg-fire text-white text-[8px] md:text-[10px] font-bold px-2 py-1 rounded-full shadow-lg backdrop-blur-md">
             {badge}
           </span>
         ))}
       </div>
+
 
       {/* Image Container */}
       <div className="relative aspect-[4/3] overflow-hidden">

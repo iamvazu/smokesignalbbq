@@ -21,9 +21,23 @@ export const ShopPage: React.FC = () => {
             try {
                 const response = await axios.get(`${API_URL}/products`);
                 if (response.data && response.data.length > 0) {
-                    // Map backend product to frontend Product type if necessary
-                    setProducts(response.data);
+                    // Map backend product to frontend Product type
+                    const mappedProducts = response.data.map((p: any) => ({
+                        id: p.id,
+                        name: p.name,
+                        description: p.description || '',
+                        price: `₹${p.price}`,
+                        priceValue: p.price,
+                        image: p.images?.[0]?.imageUrl || 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?q=80&w=800&auto=format&fit=crop',
+                        category: p.category || 'bbq',
+                        subCategory: p.subCategory || 'all',
+                        badges: p.badges || [],
+                        weight: p.weight ? `${p.weight}g` : undefined,
+                        // Add other fields as needed
+                    }));
+                    setProducts(mappedProducts);
                 }
+
             } catch (error) {
                 console.error('Failed to fetch products, using local fallback', error);
             } finally {

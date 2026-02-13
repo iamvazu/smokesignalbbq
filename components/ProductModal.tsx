@@ -47,7 +47,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
                             alt={product.name}
                             className="w-full h-full object-cover"
                         />
-                        {product.badges.map((badge, i) => (
+                        {product.badges?.map((badge, i) => (
                             <span
                                 key={badge}
                                 className="absolute top-4 left-4 bg-fire text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg"
@@ -56,6 +56,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({ product, onClose }) 
                                 {badge}
                             </span>
                         ))}
+
                     </div>
 
                     {/* Content Section */}
