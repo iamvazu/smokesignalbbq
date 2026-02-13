@@ -25,10 +25,20 @@ const steps = [
     }
 ];
 
-export const HowItWorks: React.FC = () => {
+const HowItWorks: React.FC = () => {
     return (
-        <section id="how-it-works" className="py-24 bg-burnt/10 relative overflow-hidden">
-            <div className="container mx-auto px-4">
+        <section id="how-it-works" className="py-24 bg-charcoal relative overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+                <img
+                    src="/events_bg.jpg"
+                    alt="Process Background"
+                    className="w-full h-full object-cover opacity-20"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-charcoal/90 via-charcoal/80 to-charcoal/90" />
+            </div>
+
+            <div className="container mx-auto px-4 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -78,3 +88,6 @@ export const HowItWorks: React.FC = () => {
         </section>
     );
 };
+
+export { HowItWorks };
+
