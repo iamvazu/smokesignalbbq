@@ -4,7 +4,7 @@ import { Button } from './Button';
 
 export const Hero: React.FC = () => {
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-charcoal">
+    <section id="home" className="relative h-screen w-full overflow-hidden flex items-start bg-charcoal">
       {/* Background Image */}
       {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden">
@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-32 md:pt-40 lg:pt-0">
+      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-48 md:pt-56 lg:pt-60">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export const Hero: React.FC = () => {
           className="max-w-4xl"
         >
 
-          <h1 className="font-display text-4xl md:text-6xl lg:text-5xl text-cream leading-tight mb-4 drop-shadow-2xl italic">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-5xl text-cream leading-tight mb-4 drop-shadow-2xl italic">
             Authentic American Charcoal BBQ <span className="text-fire block md:inline">in Bangalore.</span> <br />
             <span className="text-fire">Ready to Heat.</span> <br />
             Ready to Eat.
@@ -51,14 +51,14 @@ export const Hero: React.FC = () => {
             <Button
               variant="primary"
               icon
-              className="lg:px-12 lg:py-4 lg:text-base shadow-[0_0_25px_rgba(239,68,68,0.5)]"
+              className="lg:px-10 lg:py-3.5 lg:text-sm shadow-[0_0_25px_rgba(239,68,68,0.5)]"
               onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Order Now
             </Button>
             <Button
               variant="outline"
-              className="lg:px-12 lg:py-4 lg:text-base"
+              className="lg:px-10 lg:py-3.5 lg:text-sm"
               onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
             >
               View Menu

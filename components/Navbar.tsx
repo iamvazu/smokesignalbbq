@@ -38,15 +38,16 @@ export const Navbar: React.FC = () => {
                 <img
                   src="/logo_final.png"
                   alt="Smoke Signal BBQ - Authentic American Charcoal BBQ since 2011"
-                  className={`${isScrolled ? 'h-16 md:h-20 lg:h-24' : 'h-32 md:h-40 lg:h-52'} w-auto object-contain transition-all duration-300`}
+                  className={`${isScrolled ? 'h-14 md:h-16 lg:h-18' : 'h-28 md:h-32 lg:h-36'} w-auto object-contain transition-all duration-300`}
                   fetchPriority="high"
                 />
               </a>
-              <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-8 opacity-100 -mt-2'}`}>
-                <span className="text-[10px] text-cream font-bold tracking-[0.1em] uppercase block px-3 py-1 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg whitespace-nowrap">
+              <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-6 opacity-100 -mt-1'}`}>
+                <span className="text-[8px] text-cream font-bold tracking-[0.1em] uppercase block px-2 py-0.5 bg-black/40 rounded-full backdrop-blur-sm border border-white/10 shadow-lg whitespace-nowrap">
                   Est. 2011 • Bangalore
                 </span>
               </div>
+
             </div>
 
             {/* Location Selector */}
