@@ -21,27 +21,28 @@ The platform is built as a cohesive monorepo-style application:
 ## ✨ Features Breakdown
 
 ### 🎯 Customer Frontend
+-   **Robust Order Engine**: Implements a "Persistence-First" workflow where orders are logged in the database (generating a unique Order ID) before redirecting to WhatsApp for final fulfillment.
 -   **Immersive Home Page**: Hero storytelling, live-fire aesthetics, and "How it Works" visuals.
--   **Dynamic Shop**: Real-time product fetching with category filtering and persistent "Quick Add" cart.
+-   **Dynamic Shop**: Real-time product fetching with category filtering and persistent "Quick Add" cart with automated cleanup post-checkout.
 -   **Pitmaster Combos**: Specialized bundle showcase with "Most Popular" and "Best Value" highlighting.
--   **Event Quote System**: Lead generation form for private/corporate events with automated **WhatsApp Integration**.
+-   **Event Quote System**: Lead generation form for private/corporate events with automated **WhatsApp Integration** and background-image branding.
 -   **Blog Platform**: Narrative-driven content focused on BBQ culture and pitmaster secrets.
 -   **Engagement Tools**: Offers Popups and Abandoned Cart recovery systems.
 -   **SEO Optimized**: Dynamic metadata, sitemap generation, and robots.txt.
 
 ### 🛠️ Admin Dashboard
--   **Unified Inventory**: Integrated management table for both individual products and combo packs.
--   **Combo Pack Engineer**: Specialized tool to bundle products, set dynamic prices, and toggle marketing highlights.
--   **Event Lead Manager**: Real-time tracking and status management for catering and private event inquiries.
+-   **Unified Management**: A centralized interface where products and combo packs are managed side-by-side, sharing a unified inventory logic.
+-   **Combo Pack Engineer**: Specialized tool to bundle products, set dynamic prices, and toggle marketing highlights (`isMostPopular`, `isBestValue`).
+-   **Order Tracking**: Real-time visibility of incoming orders with customer details, itemized billing, and status management.
+-   **Event Lead Manager**: Tracking and status management for catering and private event inquiries.
 -   **Blog Editor**: Full CRUD interface for creating and publishing BBQ-related content.
--   **Order Tracking**: Oversight of customer orders and payment statuses (Initial structure).
 -   **User Management**: Role-based access for staff and administrators.
 
 ### ⚙️ Backend & Database
--   **RESTful API**: Clean `/api/v1` architecture with protected routes.
+-   **RESTful API**: Clean `/api/v1` architecture with protected routes and UUID-validated order processing.
 -   **Prisma ORM**: Type-safe database interactions with PostgreSQL.
+-   **Error Resilience**: Robust controllers that handle legacy product IDs and schema mismatches gracefully.
 -   **Auth Services**: Secure login and session management for administrative tasks.
--   **Performance**: Optimized queries for parallel fetching of products and combos.
 
 ---
 
@@ -61,7 +62,8 @@ The platform is built as a cohesive monorepo-style application:
 ### ✅ Completed
 - [x] Full-stack architecture setup.
 - [x] Core e-commerce engine (Shop/Cart/Combos).
-- [x] Admin Dashboard infrastructure & Sidebar.
+- [x] **Robust Order-to-WhatsApp Persistence Flow**.
+- [x] Admin Dashboard infrastructure & Unified Inventory.
 - [x] Lead Generation system for Events & Inquiries tracking.
 - [x] Dynamic Badge/Flag management for products/combos.
 - [x] Monorepo build scripts & deployment configurations.
@@ -97,8 +99,8 @@ The platform is built as a cohesive monorepo-style application:
    npx prisma generate
    npx prisma db push
    ```
-3. **Environment**:
-   Configure `VITE_API_URL` in your `.env` to point to `http://localhost:5000/api/v1`.
+3. **Internal Documentation**:
+   For developers, check `.agent/workflows/order-whatsapp-flow.md` for details on the e-commerce logic.
 
 4. **Run**:
    - Backend: `npm run dev` (inside /backend)
