@@ -19,10 +19,16 @@ export const ShopPage: React.FC = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get(`${API_URL}/products`);
-                if (response.data && response.data.length > 0) {
+                const [productsRes, combosRes] = await Promise.all([
+                    axios.get(`${API_URL}/products`),
+                    axios.get(`${API_URL}/combos`)
+                ]);
+
+                let allItems: any[] = [];
+
+                if (productsRes.data && Array.isArray(productsRes.data)) {
                     // Map backend product to frontend Product type
-                    const mappedProducts = response.data.map((p: any) => ({
+                    const mappedProducts = productsRes.data.map((p: any) => ({
                         id: p.id,
                         name: p.name,
                         description: p.description || '',
@@ -33,13 +39,33 @@ export const ShopPage: React.FC = () => {
                         subCategory: p.subCategory || 'all',
                         badges: p.badges || [],
                         weight: p.weight ? `${p.weight}g` : undefined,
-                        // Add other fields as needed
                     }));
-                    setProducts(mappedProducts);
+                    allItems = [...allItems, ...mappedProducts];
+                }
+
+                if (combosRes.data && Array.isArray(combosRes.data)) {
+                    const mappedCombos = combosRes.data.map((c: any) => ({
+                        id: c.id,
+                        name: c.name || 'Unnamed Combo',
+                        description: c.description || '',
+                        price: `₹${c.price}`,
+                        priceValue: c.price,
+                        image: c.image || '/combo_pack.jpg',
+                        category: 'combo',
+                        subCategory: 'combos',
+                        badges: c.items && c.items.length > 3 ? ['Best Value'] : [],
+                        weight: 'Various',
+                    }));
+                    allItems = [...allItems, ...mappedCombos];
+                }
+
+                if (allItems.length > 0) {
+                    setProducts(allItems);
                 }
 
             } catch (error) {
-                console.error('Failed to fetch products, using local fallback', error);
+                console.error('Failed to fetch products/combos, using local fallback', error);
+                // Keep default PRODUCTS
             } finally {
                 setLoading(false);
             }

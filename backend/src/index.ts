@@ -11,6 +11,7 @@ import orderRoutes from './routes/orderRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
 import eventRoutes from './routes/eventRoutes';
 import blogRoutes from './routes/blogRoutes';
+import comboRoutes from './routes/comboRoutes';
 
 
 import path from 'path';
@@ -74,6 +75,7 @@ app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
 app.use('/api/v1/events', eventRoutes);
 app.use('/api/v1/posts', blogRoutes);
+app.use('/api/v1/combos', comboRoutes);
 
 
 

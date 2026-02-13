@@ -91,6 +91,7 @@ model ComboPack {
   description   String?
   price         Int?
   originalPrice Int?
+  image         String?
   status        String      @default("active")
   createdAt     DateTime    @default(now())
   items         ComboItem[]
