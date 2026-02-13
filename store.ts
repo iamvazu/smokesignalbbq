@@ -16,6 +16,7 @@ export interface CartItem {
 interface CartStore {
     items: CartItem[];
     isOpen: boolean;
+    lastUpdated: number;
     addItem: (product: Product) => void;
     removeItem: (variantId: string) => void;
     updateQuantity: (variantId: string, update: 'increase' | 'decrease') => void;
@@ -24,11 +25,13 @@ interface CartStore {
 }
 
 
+
 export const useCartStore = create<CartStore>()(
     persist(
         (set) => ({
             items: [],
             isOpen: false,
+            lastUpdated: Date.now(),
 
             addItem: (product) => set((state) => {
                 const existingItem = state.items.find((item) => item.id === product.id);
@@ -41,6 +44,7 @@ export const useCartStore = create<CartStore>()(
                                 : item
                         ),
                         isOpen: true,
+                        lastUpdated: Date.now(),
                     };
                 }
 
@@ -55,12 +59,14 @@ export const useCartStore = create<CartStore>()(
                         quantity: 1
                     }],
                     isOpen: true,
+                    lastUpdated: Date.now(),
                 };
             }),
 
 
             removeItem: (variantId) => set((state) => ({
                 items: state.items.filter((item) => item.variantId !== variantId),
+                lastUpdated: Date.now(),
             })),
 
             updateQuantity: (variantId, update) => set((state) => ({
@@ -71,11 +77,13 @@ export const useCartStore = create<CartStore>()(
                     }
                     return item;
                 }).filter((item) => item.quantity > 0),
+                lastUpdated: Date.now(),
             })),
 
             toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
 
-            clearCart: () => set({ items: [] }),
+            clearCart: () => set({ items: [], lastUpdated: Date.now() }),
+
         }),
         {
             name: 'smoke-signal-cart',

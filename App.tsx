@@ -13,10 +13,11 @@ import { Footer } from './components/Footer';
 import { ShoppingCart } from './components/ShoppingCart';
 import { PRODUCTS } from './constants';
 import { ComboShowcase } from './components/ComboShowcase';
-
+import { AbandonedCartPopup } from './components/AbandonedCartPopup';
 
 
 function App() {
+
   const { items, toggleCart } = useCartStore();
 
   // Smooth scroll behavior for anchor links
@@ -91,7 +92,9 @@ function App() {
       </motion.button>
 
       <Footer />
+      <AbandonedCartPopup />
     </div>
+
   );
 }
 
