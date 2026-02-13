@@ -13,7 +13,7 @@ const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 const STORE_LOCATION = { lat: 13.0097, lng: 77.6366 };
 
 export const ShoppingCart: React.FC = () => {
-    const { items, isOpen, toggleCart, updateQuantity, removeItem } = useCartStore();
+    const { items, isOpen, toggleCart, updateQuantity, removeItem, clearCart } = useCartStore();
 
     const [deliveryFee, setDeliveryFee] = useState<number | null>(null);
     const [isCalculating, setIsCalculating] = useState(false);
@@ -26,13 +26,13 @@ export const ShoppingCart: React.FC = () => {
         address: ''
     });
 
-    // Calculations - Added safe check for priceValue
+    // Calculations
     const subtotal = items.reduce((acc, item) => acc + ((item.priceValue || 0) * item.quantity), 0);
     const gst = subtotal * 0.18;
     const finalTotal = subtotal + gst + (deliveryFee || 0);
 
     const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-        const R = 6371; // Radius of the earth in km
+        const R = 6371;
         const dLat = (lat2 - lat1) * (Math.PI / 180);
         const dLon = (lon2 - lon1) * (Math.PI / 180);
         const a =
@@ -40,8 +40,7 @@ export const ShoppingCart: React.FC = () => {
             Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
             Math.sin(dLon / 2) * Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const d = R * c; // Distance in km
-        return d;
+        return R * c;
     };
 
     const handleCalculateDelivery = () => {
@@ -58,18 +57,15 @@ export const ShoppingCart: React.FC = () => {
             (position) => {
                 const userLat = position.coords.latitude;
                 const userLng = position.coords.longitude;
-
                 const distance = calculateDistance(STORE_LOCATION.lat, STORE_LOCATION.lng, userLat, userLng);
 
                 if (subtotal >= 999) {
                     setDeliveryFee(0);
                 } else {
-                    // Formula: 55 Base + 15 per km
                     const cost = 55 + (Math.ceil(distance) * 15);
                     setDeliveryFee(Math.round(cost));
                 }
                 setIsCalculating(false);
-
             },
             () => {
                 setDeliveryError("Enable location for delivery estimate");
@@ -84,14 +80,14 @@ export const ShoppingCart: React.FC = () => {
             return;
         }
 
-        setIsCalculating(true); // Re-use for loading state
+        setIsCalculating(true);
         try {
             // 1. Create Order in Backend
             const orderData = {
                 customerName: userDetails.name,
                 customerPhone: userDetails.mobile,
                 addressLine1: userDetails.address,
-                city: "Bangalore", // Default for now
+                city: "Bangalore",
                 items: items.map(item => ({
                     productId: item.category !== 'combo' ? item.id : undefined,
                     comboId: item.category === 'combo' ? item.id : undefined,
@@ -105,39 +101,45 @@ export const ShoppingCart: React.FC = () => {
             };
 
             const response = await axios.post(`${API_URL}/orders`, orderData);
-            console.log('Order created in DB:', response.data);
+            const orderId = response.data.id.split('-')[0].toUpperCase();
 
-            // 2. Clear Cart (optional, maybe after WhatsApp)
-            // useCartStore.getState().clearCart(); 
+            // 2. Generate WhatsApp message
+            let message = `*🔥 NEW ORDER REQUEST 🔥*\n`;
+            message += `Order ID: #${orderId}\n`;
+            message += `----------------------------\n\n`;
 
-            // 3. Generate WhatsApp message
-            let message = `*New Order Request*\n`;
-            message += `Order ID: #${response.data.id.split('-')[0].toUpperCase()}\n\n`;
-            message += `*Customer Details:*\n`;
+            message += `*👤 CUSTOMER DETAILS*\n`;
             message += `Name: ${userDetails.name}\n`;
-            message += `Mobile: ${userDetails.mobile}\n`;
+            message += `Phone: ${userDetails.mobile}\n`;
             message += `Address: ${userDetails.address}\n\n`;
 
-            message += `*Order Summary:*\n`;
+            message += `*🛒 ORDER SUMMARY*\n`;
             items.forEach(item => {
                 message += `• ${item.quantity}x ${item.name} ${item.variant ? `(${item.variant})` : ''} - ₹${(item.priceValue || 0) * item.quantity}\n`;
             });
 
-            message += `\n*Subtotal:* ₹${subtotal}`;
-            message += `\n*GST (18%):* ₹${gst.toFixed(2)}`;
+            message += `\n*💰 BILLING*\n`;
+            message += `Subtotal: ₹${subtotal}\n`;
+            message += `GST (18%): ₹${gst.toFixed(2)}\n`;
 
             if (deliveryFee !== null) {
-                message += `\n*Delivery (Est):* ₹${deliveryFee}`;
+                message += `Delivery: ${deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}\n`;
             }
 
-            message += `\n\n*GRAND TOTAL:* ₹${finalTotal.toFixed(2)}`;
+            message += `\n*TOTAL: ₹${finalTotal.toFixed(2)}*\n`;
+            message += `----------------------------\n`;
+            message += `_Please confirm your order by replying to this message._`;
 
+            // 3. Redirect to WhatsApp
             window.open(`https://wa.me/917899870957?text=${encodeURIComponent(message)}`, '_blank');
 
+            // 4. Cleanup UI & State
+            clearCart();
             toggleCart();
+
         } catch (error) {
             console.error('Failed to create order', error);
-            alert("Something went wrong while placing your order. Please try again or contact us directly.");
+            alert("Something went wrong while placing your order. Please try again.");
         } finally {
             setIsCalculating(false);
         }
