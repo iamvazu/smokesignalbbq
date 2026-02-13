@@ -12,10 +12,11 @@ export const Footer: React.FC = () => {
         <img
           src="/footer_bg.jpg"
           alt="BBQ Background_footer"
-          className="w-full h-full object-cover opacity-20"
+          className="w-full h-full object-cover opacity-40"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/90 to-charcoal/60" />
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/80 to-charcoal/50" />
+
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
