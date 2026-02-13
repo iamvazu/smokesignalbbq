@@ -30,7 +30,8 @@ export const Footer: React.FC = () => {
             <p className="text-gray-300 font-body text-sm leading-relaxed max-w-xs text-center font-medium">
               Bangalore's Original American BBQ Truck. Serving authentic smoked meats and handmade sauces since 2011.
             </p>
-            <div className="flex flex-col items-center gap-4 mt-2">
+            <div className="flex flex-col items-center gap-3 mt-4">
+              {/* FSSAI Badge */}
               <div className="flex items-center gap-3 px-5 py-2 rounded-2xl bg-white/5 border border-white/10 group hover:border-fire/30 transition-all duration-300">
                 <img
                   src="/fssai.png"
@@ -45,7 +46,24 @@ export const Footer: React.FC = () => {
                   Lic. No <span className="text-cream">21224191000177</span>
                 </p>
               </div>
+
+              {/* Quality Badges */}
+              <div className="flex flex-wrap justify-center gap-3">
+                <div className="px-4 py-1.5 rounded-xl bg-white/5 border border-white/5 hover:border-green-500/30 transition-all duration-300">
+                  <p className="text-[9px] text-gray-500 font-extrabold uppercase tracking-[0.2em] font-body flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                    100% Antibiotic-Free
+                  </p>
+                </div>
+                <div className="px-4 py-1.5 rounded-xl bg-white/5 border border-white/5 hover:border-fire/30 transition-all duration-300">
+                  <p className="text-[9px] text-gray-500 font-extrabold uppercase tracking-[0.2em] font-body flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-fire" />
+                    Halal Certified
+                  </p>
+                </div>
+              </div>
             </div>
+
 
 
           </div>
