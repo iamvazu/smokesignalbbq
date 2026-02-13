@@ -27,7 +27,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-56 md:pt-72 lg:pt-80">
+      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-32 md:pt-40 lg:pt-0">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -36,26 +36,35 @@ export const Hero: React.FC = () => {
           className="max-w-4xl"
         >
 
-          <h1 className="font-display text-5xl md:text-7xl lg:text-7xl text-cream leading-tight mb-6 drop-shadow-2xl italic">
+          <h1 className="font-display text-4xl md:text-6xl lg:text-5xl text-cream leading-tight mb-4 drop-shadow-2xl italic">
             Authentic American Charcoal BBQ <span className="text-fire block md:inline">in Bangalore.</span> <br />
             <span className="text-fire">Ready to Heat.</span> <br />
             Ready to Eat.
           </h1>
 
-
-
-          <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
-            Slow-smoked for hours over real charcoal, delivered fresh to your door. Authentic pitmaster flavor, ready in minutes.
+          <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-8 leading-relaxed">
+            Slow-smoked for hours over real charcoal, delivered fresh to your door. <br className="hidden lg:block" />
+            Authentic pitmaster flavor, ready in minutes.
           </p>
 
-          <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-            <Button variant="primary" icon onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}>
+          <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start">
+            <Button
+              variant="primary"
+              icon
+              className="lg:px-12 lg:py-4 lg:text-base shadow-[0_0_25px_rgba(239,68,68,0.5)]"
+              onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Order Now
             </Button>
-            <Button variant="outline" onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}>
+            <Button
+              variant="outline"
+              className="lg:px-12 lg:py-4 lg:text-base"
+              onClick={() => document.getElementById('shop')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               View Menu
             </Button>
           </div>
+
 
         </motion.div>
       </div>

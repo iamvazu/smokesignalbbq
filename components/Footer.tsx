@@ -28,6 +28,17 @@ export const Footer: React.FC = () => {
             <p className="text-gray-300 font-body text-sm leading-relaxed max-w-xs text-center font-medium">
               Bangalore's Original American BBQ Truck. Serving authentic smoked meats and handmade sauces since 2011.
             </p>
+            <div className="flex items-center gap-2 mt-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 group cursor-default">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/en/thumb/9/90/FSSAI_logo.svg/330px-FSSAI_logo.svg.png"
+                alt="FSSAI"
+                className="h-4 brightness-0 invert opacity-50 group-hover:opacity-80 transition-opacity"
+              />
+              <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest font-body">
+                Lic. No <span className="text-gray-400">21224191000177</span>
+              </p>
+            </div>
+
           </div>
 
           {/* Explore - Center */}
