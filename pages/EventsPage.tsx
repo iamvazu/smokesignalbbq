@@ -101,9 +101,11 @@ export const EventsPage: React.FC = () => {
         phoneNumber: '',
         eventType: 'Birthday Party',
         eventDate: '',
+        location: '',
         guestCount: '',
         message: ''
     });
+
 
 
     const handleFormSubmit = async () => {
@@ -116,7 +118,11 @@ export const EventsPage: React.FC = () => {
             setSubmittedInquiryId(inquiryId);
             setSubmissionSuccess(true);
 
-            // Clear form data for next time if needed, but we keep it for the WhatsApp message construction
+            // Auto-open WhatsApp
+            setTimeout(() => {
+                const waLink = generateWhatsAppLink(inquiryId, formData);
+                window.open(waLink, '_blank');
+            }, 1000);
 
         } catch (error) {
             console.error('Failed to submit inquiry:', error);
@@ -126,20 +132,26 @@ export const EventsPage: React.FC = () => {
         }
     };
 
+    const generateWhatsAppLink = (id: string, data: typeof formData) => {
+        let waMessage = `*New Event Inquiry #${id}*\n\n`;
+        waMessage += `*Details:*\n`;
+        waMessage += `Name: ${data.fullName}\n`;
+        waMessage += `Phone: ${data.phoneNumber}\n`;
+        waMessage += `Type: ${data.eventType}\n`;
+        waMessage += `Date: ${data.eventDate}\n`;
+        if (data.location) waMessage += `Location: ${data.location}\n`;
+        waMessage += `Guests: ${data.guestCount}\n`;
+        if (data.message) waMessage += `\n*Message:*\n${data.message}`;
+
+        return `https://wa.me/91${CONTACT_INFO.phone}?text=${encodeURIComponent(waMessage)}`;
+    };
+
     const handleWhatsAppRedirect = () => {
         if (!submittedInquiryId) return;
-
-        let waMessage = `*New Event Inquiry #${submittedInquiryId}*\n\n`;
-        waMessage += `*Details:*\n`;
-        waMessage += `Name: ${formData.fullName}\n`;
-        waMessage += `Phone: ${formData.phoneNumber}\n`;
-        waMessage += `Type: ${formData.eventType}\n`;
-        waMessage += `Date: ${formData.eventDate}\n`;
-        waMessage += `Guests: ${formData.guestCount}\n`;
-        if (formData.message) waMessage += `\n*Message:*\n${formData.message}`;
-
-        window.open(`https://wa.me/91${CONTACT_INFO.phone}?text=${encodeURIComponent(waMessage)}`, '_blank');
+        const waLink = generateWhatsAppLink(submittedInquiryId, formData);
+        window.open(waLink, '_blank');
     };
+
 
 
 
@@ -540,6 +552,18 @@ export const EventsPage: React.FC = () => {
                                         <option>Other</option>
                                     </select>
                                 </div>
+
+                                <div className="space-y-2">
+                                    <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Event Location</label>
+                                    <input
+                                        type="text"
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
+                                        placeholder="Area, Venue, or City"
+                                        value={formData.location}
+                                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                    />
+                                </div>
+
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">

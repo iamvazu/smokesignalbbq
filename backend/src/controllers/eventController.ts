@@ -7,6 +7,7 @@ export const createEventInquiry = async (req: Request, res: Response) => {
         phoneNumber,
         eventType,
         eventDate,
+        location,
         guestCount,
         message
     } = req.body;
@@ -18,11 +19,13 @@ export const createEventInquiry = async (req: Request, res: Response) => {
                 phoneNumber,
                 eventType,
                 eventDate,
+                location,
                 guestCount: parseInt(guestCount.toString()),
                 message,
                 status: 'pending'
             }
         });
+
 
         res.status(201).json(inquiry);
     } catch (error) {

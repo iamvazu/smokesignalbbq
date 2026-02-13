@@ -187,8 +187,10 @@ model EventInquiry {
   phoneNumber String
   eventType   String
   eventDate   String
+  location    String?
   guestCount  Int
   message     String?
+
   status      String   @default("pending") // pending, contacted, booked, cancelled
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
