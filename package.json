@@ -6,9 +6,9 @@
     "dev": "vite",
     "build": "node build.cjs",
     "postinstall": "npm install --prefix backend && npm install --prefix admin",
-    "start": "npm start --prefix backend",
+    "start": "npm run migrate && npm start --prefix backend",
     "seed": "npm run prisma:seed --prefix backend",
-    "migrate": "npx prisma db push --schema=backend/prisma/schema.prisma"
+    "migrate": "cd backend && npx prisma db push"
   },
   "dependencies": {
     "framer-motion": "^12.34.0",

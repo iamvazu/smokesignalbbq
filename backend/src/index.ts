@@ -11,6 +11,38 @@ import orderRoutes from './routes/orderRoutes';
 
 import path from 'path';
 import fs from 'fs';
+import bcrypt from 'bcryptjs';
+
+async function bootstrap() {
+    console.log('🛡️  Running startup checks...');
+    try {
+        const adminEmail = 'admin@smokesignal.com';
+        const admin = await prisma.user.findUnique({ where: { email: adminEmail } });
+
+        if (!admin) {
+            console.log('✨ No admin found. Creating default admin...');
+            const hashedPassword = await bcrypt.hash('admin123', 10);
+            await prisma.user.create({
+                data: {
+                    email: adminEmail,
+                    name: 'Super Admin',
+                    passwordHash: hashedPassword,
+                    role: 'admin'
+                }
+            });
+            console.log('✅ Default admin created: admin@smokesignal.com / admin123');
+        } else {
+            console.log('✅ Admin user verified.');
+        }
+    } catch (error: any) {
+        if (error.code === 'P2021') {
+            console.error('❌ DATABASE ERROR: Tables do not exist. Please run migrate command.');
+        } else {
+            console.error('⚠️  Startup check failed:', error.message);
+        }
+    }
+}
+
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -68,17 +100,23 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 });
 
 // Start server
-try {
-    app.listen(PORT, () => {
-        console.log(`🚀 Monolith Server running on port ${PORT}`);
-        console.log(`- API: http://localhost:${PORT}/api/v1`);
-        console.log(`- Admin: http://localhost:${PORT}/admin`);
-        console.log(`- Site: http://localhost:${PORT}/`);
-    });
-} catch (error) {
-    console.error('FATAL: Failed to start server:', error);
-    process.exit(1);
-}
+const startServer = async () => {
+    try {
+        await bootstrap();
+        app.listen(PORT, () => {
+            console.log(`🚀 Monolith Server running on port ${PORT}`);
+            console.log(`- API: http://localhost:${PORT}/api/v1`);
+            console.log(`- Admin: http://localhost:${PORT}/admin`);
+            console.log(`- Site: http://localhost:${PORT}/`);
+        });
+    } catch (error) {
+        console.error('FATAL: Failed to start server:', error);
+        process.exit(1);
+    }
+};
+
+startServer();
+
 
 // Graceful Shutdown
 process.on('SIGINT', async () => {
