@@ -14,8 +14,10 @@ import {
     BarChart3,
     Settings,
     Flame,
-    LogOut
+    LogOut,
+    Calendar
 } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/useAuthStore';
 
@@ -29,7 +31,9 @@ const navigation = [
     { name: 'Payments', href: '/payments', icon: CreditCard },
     { name: 'Discounts', href: '/discounts', icon: Tag },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+    { name: 'Event Inquiries', href: '/events', icon: Calendar },
     { name: 'Settings', href: '/settings', icon: Settings },
+
 ];
 
 export function Sidebar() {

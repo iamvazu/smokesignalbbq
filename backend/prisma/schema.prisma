@@ -180,3 +180,19 @@ model InventoryLog {
 
   @@map("inventory_logs")
 }
+
+model EventInquiry {
+  id          String   @id @default(uuid())
+  fullName    String
+  phoneNumber String
+  eventType   String
+  eventDate   String
+  guestCount  Int
+  message     String?
+  status      String   @default("pending") // pending, contacted, booked, cancelled
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("event_inquiries")
+}
+

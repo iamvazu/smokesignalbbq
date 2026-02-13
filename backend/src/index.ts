@@ -9,6 +9,8 @@ import authRoutes from './routes/authRoutes';
 import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
+import eventRoutes from './routes/eventRoutes';
+
 
 import path from 'path';
 
@@ -69,6 +71,8 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
+app.use('/api/v1/events', eventRoutes);
+
 
 app.get('/health', (req, res) => {
 

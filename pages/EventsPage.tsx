@@ -16,6 +16,11 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/Button';
 import { CONTACT_INFO } from '../constants';
+import axios from 'axios';
+
+// @ts-ignore
+const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
+
 
 const EVENT_TYPES = [
     {
@@ -87,11 +92,45 @@ const FAQ_ITEMS = [
 
 export const EventsPage: React.FC = () => {
     const [openFaq, setOpenFaq] = useState<number | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formData, setFormData] = useState({
+        fullName: '',
+        phoneNumber: '',
+        eventType: 'Birthday Party',
+        eventDate: '',
+        guestCount: '',
+        message: ''
+    });
 
-    const handleWhatsAppQuote = () => {
-        const message = `Hi Smoke Signal! I'm interested in booking you for an event. \n\nEvent Type: \nDate: \nLocation: \nGuests: `;
-        window.open(`https://wa.me/91${CONTACT_INFO.phone}?text=${encodeURIComponent(message)}`, '_blank');
+    const handleWhatsAppQuote = async () => {
+        setIsSubmitting(true);
+        try {
+            // 1. Save to Database
+            const response = await axios.post(`${API_URL}/events`, formData);
+            const inquiryId = response.data.id.split('-')[0].toUpperCase();
+
+            // 2. Clear form (optional)
+            // setFormData({ ... });
+
+            // 3. Open WhatsApp
+            let waMessage = `*New Event Inquiry #${inquiryId}*\n\n`;
+            waMessage += `*Details:*\n`;
+            waMessage += `Name: ${formData.fullName}\n`;
+            waMessage += `Phone: ${formData.phoneNumber}\n`;
+            waMessage += `Type: ${formData.eventType}\n`;
+            waMessage += `Date: ${formData.eventDate}\n`;
+            waMessage += `Guests: ${formData.guestCount}\n`;
+            if (formData.message) waMessage += `\n*Message:*\n${formData.message}`;
+
+            window.open(`https://wa.me/91${CONTACT_INFO.phone}?text=${encodeURIComponent(waMessage)}`, '_blank');
+        } catch (error) {
+            console.error('Failed to submit inquiry:', error);
+            alert('Failed to submit inquiry. Please try again or message us directly on WhatsApp.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+
 
     return (
         <div className="bg-charcoal min-h-screen text-cream">
@@ -418,17 +457,35 @@ export const EventsPage: React.FC = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Full Name *</label>
-                                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors" placeholder="John Doe" required />
+                                        <input
+                                            type="text"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
+                                            placeholder="John Doe"
+                                            required
+                                            value={formData.fullName}
+                                            onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                                        />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Phone / WhatsApp *</label>
-                                        <input type="tel" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors" placeholder="+91" required />
+                                        <input
+                                            type="tel"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
+                                            placeholder="+91"
+                                            required
+                                            value={formData.phoneNumber}
+                                            onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Event Type *</label>
-                                    <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors appearance-none text-gray-400">
+                                    <select
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors appearance-none text-gray-400"
+                                        value={formData.eventType}
+                                        onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
+                                    >
                                         <option>Birthday Party</option>
                                         <option>Corporate Event</option>
                                         <option>Wedding</option>
@@ -441,22 +498,48 @@ export const EventsPage: React.FC = () => {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Event Date *</label>
-                                        <input type="date" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors text-gray-400" required />
+                                        <input
+                                            type="date"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors text-gray-400"
+                                            required
+                                            value={formData.eventDate}
+                                            onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
+                                        />
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Guest Count *</label>
-                                        <input type="number" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors" placeholder="e.g. 50" required />
+                                        <input
+                                            type="number"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
+                                            placeholder="e.g. 50"
+                                            required
+                                            value={formData.guestCount}
+                                            onChange={(e) => setFormData({ ...formData, guestCount: e.target.value })}
+                                        />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Tell us more</label>
-                                    <textarea className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-fire transition-colors h-32 resize-none" placeholder="Venue details, specific menu requirements, etc..."></textarea>
+                                    <textarea
+                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-fire transition-colors h-32 resize-none"
+                                        placeholder="Venue details, specific menu requirements, etc..."
+                                        value={formData.message}
+                                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                    ></textarea>
                                 </div>
 
-                                <Button variant="primary" icon className="w-full py-5 rounded-2xl shadow-xl">Submit for Quote</Button>
+                                <Button
+                                    variant="primary"
+                                    icon
+                                    className="w-full py-5 rounded-2xl shadow-xl disabled:opacity-50"
+                                    disabled={isSubmitting}
+                                >
+                                    {isSubmitting ? 'Submitting...' : 'Submit for Quote'}
+                                </Button>
                             </form>
                         </div>
+
                     </div>
                 </div>
             </section>
