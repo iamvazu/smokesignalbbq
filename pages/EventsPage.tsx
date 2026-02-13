@@ -106,16 +106,17 @@ export const EventsPage: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-charcoal/40 to-charcoal" />
                 </div>
 
-                <div className="container mx-auto px-4 z-10 text-center">
+                <div className="container mx-auto px-4 z-10 text-center pt-32 md:pt-40">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="text-fire uppercase tracking-[0.4em] text-sm font-bold mb-6 block">Bring the Smoke to Your Celebration</span>
-                        <h1 className="font-display text-5xl md:text-8xl mb-6 italic leading-tight">
+                        <span className="text-fire uppercase tracking-[0.4em] text-xs md:text-sm font-bold mb-6 block">Bring the Smoke to Your Celebration</span>
+                        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl mb-6 italic leading-tight">
                             The Pitmaster <br /> <span className="text-fire">Comes to You</span>
                         </h1>
+
                         <p className="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl font-body leading-relaxed mb-10">
                             From Bangalore's hottest flea markets to intimate birthday gatherings across South India — we bring 14 hours of authentic Texas smoke to your event.
                         </p>
