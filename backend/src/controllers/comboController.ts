@@ -38,7 +38,40 @@ export const getComboById = async (req: Request, res: Response) => {
     }
 };
 
-// ... (createCombo is mostly fine, image might be issue if type defs aren't updated, but will compile if I ignore or if generate worked)
+export const createCombo = async (req: Request, res: Response) => {
+    const { name, description, price, originalPrice, image, status, items } = req.body;
+    // items should be array of { productId, quantity }
+
+    try {
+        const combo = await prisma.comboPack.create({
+            data: {
+                name,
+                description,
+                price: Number(price),
+                originalPrice: Number(originalPrice),
+                image,
+                status: status || 'active',
+                items: {
+                    create: items.map((item: any) => ({
+                        productId: item.productId,
+                        quantity: Number(item.quantity)
+                    }))
+                }
+            },
+            include: {
+                items: {
+                    include: {
+                        product: true
+                    }
+                }
+            }
+        });
+        res.status(201).json(combo);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to create combo' });
+    }
+};
 
 export const updateCombo = async (req: Request, res: Response) => {
     const { id } = req.params;
