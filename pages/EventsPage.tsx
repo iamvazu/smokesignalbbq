@@ -416,8 +416,17 @@ export const EventsPage: React.FC = () => {
             </section>
 
             {/* Cities We Serve */}
-            <section className="py-24 bg-charcoal">
-                <div className="container mx-auto px-4">
+            <section className="py-24 bg-charcoal relative overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                    <img
+                        src="/events_bg.jpg"
+                        alt="Background"
+                        className="w-full h-full object-cover opacity-20"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/90 to-charcoal/60" />
+                </div>
+                <div className="container mx-auto px-4 relative z-10">
+
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="font-display text-4xl mb-12 italic">Cities We Serve</h2>
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
