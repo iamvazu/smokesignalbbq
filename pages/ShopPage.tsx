@@ -61,16 +61,12 @@ export const ShopPage: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal/30 via-charcoal/60 to-charcoal" />
                 </div>
 
-                <div className="container mx-auto px-4 relative z-10 text-center pt-32">
+                <div className="container mx-auto px-4 relative z-10 text-center pt-48">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                     >
-                        <span className="text-fire uppercase tracking-[0.3em] text-[10px] md:text-xs font-extrabold block mb-6">THE SMOKE SIGNAL BBQ STORE</span>
-
-                        <div className="inline-block bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-1 rounded-full mb-6">
-                            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">EST. 2011 • BANGALORE</span>
-                        </div>
+                        <span className="text-fire uppercase tracking-[0.3em] text-sm md:text-2xl font-black block mb-4">THE SMOKE SIGNAL BBQ STORE</span>
 
                         <h1 className="font-display text-5xl md:text-6xl text-cream mb-6 italic leading-tight">
                             The Pitmaster Shop
