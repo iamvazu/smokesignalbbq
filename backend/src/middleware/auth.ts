@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-
 export interface AuthRequest extends Request {
     user?: {
         userId: string;
@@ -11,6 +9,7 @@ export interface AuthRequest extends Request {
 }
 
 export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
+    const JWT_SECRET = process.env.JWT_SECRET || 'secret';
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {

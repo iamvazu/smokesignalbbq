@@ -4,9 +4,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import prisma from '../lib/prisma';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-
 export const login = async (req: Request, res: Response) => {
+    const JWT_SECRET = process.env.JWT_SECRET || 'secret';
     const { email, password } = req.body;
 
     try {
@@ -43,8 +42,10 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const register = async (req: Request, res: Response) => {
+    const JWT_SECRET = process.env.JWT_SECRET || 'secret';
     // Usually this would be restricted to Admin or first user setup
     const { name, email, password, role } = req.body;
+
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
