@@ -8,8 +8,10 @@ import prisma from './lib/prisma';
 import authRoutes from './routes/authRoutes';
 import productRoutes from './routes/productRoutes';
 import orderRoutes from './routes/orderRoutes';
+import analyticsRoutes from './routes/analyticsRoutes';
 
 import path from 'path';
+
 import fs from 'fs';
 import bcrypt from 'bcryptjs';
 
@@ -59,8 +61,10 @@ app.use(express.json());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/analytics', analyticsRoutes);
 
 app.get('/health', (req, res) => {
+
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
