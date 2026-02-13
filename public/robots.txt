@@ -1,6 +1,3 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /config/
-
 Sitemap: https://smokesignalbbq.in/sitemap.xml

@@ -63,8 +63,9 @@ export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent z-10" />
                                     <img
                                         src={product.image}
-                                        alt={product.name}
+                                        alt={`${product.name} - Authentic slow-smoked BBQ combo bundle from Smoke Signal BBQ`}
                                         className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 opacity-60"
+                                        loading="lazy"
                                     />
                                     <div className="absolute bottom-4 left-6 z-20">
                                         <h3 className="font-display text-2xl text-white mb-1">{product.name}</h3>
@@ -89,13 +90,15 @@ export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
 
                                     <button
                                         onClick={() => addItem(product)}
+                                        aria-label={`Add ${product.name} to cart`}
                                         className={`w-full py-4 rounded-xl font-bold uppercase tracking-widest text-xs transition-all duration-300 flex items-center justify-center gap-2 ${isMostPopular
-                                                ? 'bg-fire text-white shadow-[0_0_30px_rgba(255,107,0,0.3)] hover:bg-fire/80'
-                                                : 'bg-white/5 text-cream border border-white/10 hover:border-fire hover:text-fire'
+                                            ? 'bg-fire text-white shadow-[0_0_30px_rgba(255,107,0,0.3)] hover:bg-fire/80'
+                                            : 'bg-white/5 text-cream border border-white/10 hover:border-fire hover:text-fire'
                                             }`}
                                     >
-                                        <Flame size={16} /> Quick Add to Cart
+                                        <Flame size={16} aria-hidden="true" /> Quick Add to Cart
                                     </button>
+
                                 </div>
                             </motion.div>
                         );

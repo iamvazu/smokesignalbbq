@@ -39,8 +39,9 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) 
                         >
                             <img
                                 src={product.image}
-                                alt={product.name}
+                                alt={`Pitmaster Favorite: ${product.name} - Smoke Signal BBQ Best Seller`}
                                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
@@ -60,11 +61,13 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) 
                                     <span className="text-fire font-bold text-2xl">{product.price}</span>
                                     <button
                                         onClick={() => addItem(product)}
+                                        aria-label={`Add ${product.name} to cart`}
                                         className="p-4 bg-fire text-white rounded-2xl hover:bg-fire/80 transition-colors shadow-xl"
                                     >
-                                        <Flame size={20} />
+                                        <Flame size={20} aria-hidden="true" />
                                     </button>
                                 </div>
+
                             </div>
                         </motion.div>
                     ))}

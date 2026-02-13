@@ -37,10 +37,11 @@ export const Hero: React.FC = () => {
         >
 
           <h1 className="font-display text-5xl md:text-7xl lg:text-7xl text-cream leading-tight mb-6 drop-shadow-2xl italic">
-            Authentic Texas BBQ. <br />
+            Authentic American Charcoal BBQ <span className="text-fire block md:inline">in Bangalore.</span> <br />
             <span className="text-fire">Ready to Heat.</span> <br />
             Ready to Eat.
           </h1>
+
 
 
           <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">

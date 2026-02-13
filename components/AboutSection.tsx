@@ -20,6 +20,7 @@ export const AboutSection: React.FC = () => {
                 src="/pitmaster.jpg"
                 className="w-full h-full object-cover rounded-2xl shadow-2xl brightness-90 hover:brightness-100 transition-all duration-500"
                 alt="Smoke Signal BBQ Authentic Pitmaster slow smoking brisket in Bangalore"
+                loading="lazy"
               />
             </motion.div>
 
@@ -34,7 +35,9 @@ export const AboutSection: React.FC = () => {
                 src="/founder.jpg"
                 className="w-full h-full object-cover object-top rounded-2xl shadow-2xl border-4 border-charcoal hover:scale-[1.02] transition-transform duration-500"
                 alt="Smoke Signal BBQ Founder dedicated to authentic Texas BBQ since 2011"
+                loading="lazy"
               />
+
             </motion.div>
 
             {/* Decorative Element */}

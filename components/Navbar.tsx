@@ -30,11 +30,12 @@ export const Navbar: React.FC = () => {
         <div className="w-full pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] md:pl-[max(3rem,env(safe-area-inset-left))] md:pr-[max(3rem,env(safe-area-inset-right))] lg:pl-[max(5rem,env(safe-area-inset-left))] lg:pr-[max(5rem,env(safe-area-inset-right))] flex items-center justify-between">
           <div className="flex flex-col items-center z-50">
             {/* Logo Image */}
-            <a href="#" className="block">
+            <a href="#" className="block" aria-label="Smoke Signal BBQ Home">
               <img
                 src="/logo_final.png"
-                alt="Smoke Signal BBQ"
+                alt="Smoke Signal BBQ - Authentic American Charcoal BBQ since 2011"
                 className={`${isScrolled ? 'h-16 md:h-20 lg:h-24' : 'h-32 md:h-40 lg:h-52'} w-auto object-contain transition-all duration-300`}
+                fetchPriority="high"
               />
             </a>
             <div className={`overflow-hidden transition-all duration-300 ${isScrolled ? 'h-0 opacity-0 mt-0' : 'h-8 opacity-100 -mt-2'}`}>
@@ -61,9 +62,10 @@ export const Navbar: React.FC = () => {
           <div className="hidden lg:flex items-center gap-6">
             <button
               onClick={toggleCart}
+              aria-label={`View shopping cart - ${items.length} items`}
               className="relative text-cream hover:text-fire transition-colors"
             >
-              <ShoppingBag size={24} />
+              <ShoppingBag size={24} aria-hidden="true" />
               {items.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-fire text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
                   {items.length}
@@ -80,9 +82,10 @@ export const Navbar: React.FC = () => {
           <div className="lg:hidden flex items-center gap-4 z-50">
             <button
               onClick={toggleCart}
+              aria-label={`View shopping cart - ${items.length} items`}
               className="text-cream hover:text-fire transition-colors relative"
             >
-              <ShoppingBag size={24} />
+              <ShoppingBag size={24} aria-hidden="true" />
               {items.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-fire text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
                   {items.length}
@@ -93,8 +96,9 @@ export const Navbar: React.FC = () => {
             <button
               className="text-cream"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close mobile menu" : "Open mobile menu"}
             >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+              {isMobileMenuOpen ? <X size={28} aria-hidden="true" /> : <Menu size={28} aria-hidden="true" />}
             </button>
           </div>
         </div>

@@ -56,6 +56,13 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Security Headers
+app.use((req, res, next) => {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    next();
+});
+
+
 
 // API Routes
 app.use('/api/v1/auth', authRoutes);

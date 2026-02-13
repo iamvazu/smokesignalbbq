@@ -50,14 +50,16 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
         <img
           src={product.image}
-          alt={product.name}
+          alt={`${product.name} - ${product.description}`}
           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+          loading="lazy"
         />
         <button
           onClick={() => onViewDetails(product)}
+          aria-label={`View details for ${product.name}`}
           className="absolute top-3 right-3 z-20 p-2 bg-black/50 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-fire"
         >
-          <Info size={16} />
+          <Info size={16} aria-hidden="true" />
         </button>
       </div>
 
@@ -80,12 +82,14 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
         <div className="mt-auto">
           <button
             onClick={() => addItem(product)}
+            aria-label={`Add ${product.name} to cart`}
             className="w-full py-3 bg-charcoal border border-fire/30 text-fire hover:bg-fire hover:text-white uppercase text-xs font-bold tracking-widest transition-all duration-300 rounded-xl flex items-center justify-center gap-2 group/btn shadow-lg"
           >
-            <Flame size={16} className="group-hover/btn:animate-pulse" />
+            <Flame size={16} className="group-hover/btn:animate-pulse" aria-hidden="true" />
             Add to Cart
           </button>
         </div>
+
       </div>
     </motion.div>
   );
@@ -125,11 +129,14 @@ export const MenuGrid: React.FC = () => {
               <button
                 key={cat.value}
                 onClick={() => setActiveFilter(cat.value)}
+                aria-label={`Filter by ${cat.label}`}
+                aria-pressed={activeFilter === cat.value}
                 className={`px-4 md:px-6 py-2.5 rounded-xl text-[10px] md:text-xs font-bold uppercase tracking-wider transition-all duration-300 ${activeFilter === cat.value
                   ? 'bg-fire text-white shadow-[0_0_20px_rgba(255,107,0,0.4)]'
                   : 'text-gray-400 hover:text-white hover:bg-white/5'
                   }`}
               >
+
                 {cat.label}
               </button>
             ))}

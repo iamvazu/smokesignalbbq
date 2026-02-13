@@ -41,8 +41,9 @@ export const CategoryPreview: React.FC<CategoryPreviewProps> = ({ title, subtitl
                             <div className="relative aspect-[4/3] overflow-hidden">
                                 <img
                                     src={product.image}
-                                    alt={product.name}
+                                    alt={`${product.name} - ${title}`}
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                                    loading="lazy"
                                 />
                                 <div className="absolute top-3 left-3 flex flex-col gap-2">
                                     {product.badges.map((badge) => (
@@ -57,10 +58,12 @@ export const CategoryPreview: React.FC<CategoryPreviewProps> = ({ title, subtitl
                                 <p className="text-fire font-bold mb-4">{product.price}</p>
                                 <button
                                     onClick={() => addItem(product)}
+                                    aria-label={`Quick add ${product.name} to cart`}
                                     className="mt-auto w-full py-2.5 bg-transparent border border-fire/30 text-fire hover:bg-fire hover:text-white uppercase text-[10px] font-bold tracking-widest transition-all duration-300 rounded-lg flex items-center justify-center gap-2"
                                 >
-                                    <Flame size={14} /> Quick Add
+                                    <Flame size={14} aria-hidden="true" /> Quick Add
                                 </button>
+
                             </div>
                         </div>
                     ))}
