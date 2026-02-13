@@ -10,10 +10,11 @@ export const Footer: React.FC = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/footer-bg.jpg"
+          src="/footer_bg.jpg"
           alt="BBQ Background_footer"
           className="w-full h-full object-cover opacity-20"
         />
+
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/90 to-charcoal/60" />
       </div>
 
