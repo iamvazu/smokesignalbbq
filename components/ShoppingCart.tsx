@@ -59,6 +59,23 @@ export const ShoppingCart: React.FC = () => {
                 const userLng = position.coords.longitude;
                 const distance = calculateDistance(STORE_LOCATION.lat, STORE_LOCATION.lng, userLat, userLng);
 
+                // Fetch Area Name using Reverse Geocoding (Nominatim)
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${userLat}&lon=${userLng}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        const addr = data.address;
+                        const area = addr.suburb || addr.neighbourhood || addr.village || addr.subdivision || addr.residential || '';
+                        const city = addr.city || addr.town || addr.state_district || '';
+
+                        if (area || city) {
+                            setUserDetails(prev => ({
+                                ...prev,
+                                address: `${area}${area && city ? ', ' : ''}${city}`
+                            }));
+                        }
+                    })
+                    .catch(e => console.error("Geocoding failed", e));
+
                 if (subtotal >= 999) {
                     setDeliveryFee(0);
                 } else {
@@ -279,8 +296,7 @@ export const ShoppingCart: React.FC = () => {
                                                 disabled={isCalculating}
                                                 className="flex items-center gap-1 text-xs text-fire border border-fire/50 px-2 py-0.5 rounded hover:bg-fire hover:text-white transition-colors disabled:opacity-50"
                                             >
-                                                {isCalculating ? <Loader2 size={10} className="animate-spin" /> : <MapPin size={10} />}
-                                                Calculate
+                                                {isCalculating ? "Detecting..." : "Use My Location"}
                                             </button>
                                         )}
                                     </div>

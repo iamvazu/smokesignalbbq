@@ -14,7 +14,12 @@ To implement the "Save to DB then WhatsApp" flow correctly across the applicatio
 - **Category Awareness**: Ensure `CartItem` includes a `category` field so the Checkout logic knows whether to populate `productId` or `comboId`.
 - **Price Reliability**: Ensure `priceValue` is always stored as a number in the store.
 
-### 3. Frontend Checkout Component (`ShoppingCart.tsx` or similar)
+### 3. Location Intelligence (NEW)
+- **Reverse Geocoding**: Integrated OpenStreetMap (Nominatim) to convert GPS coordinates into human-readable area names (e.g., "Indiranagar, Bangalore").
+- **Accuracy**: prioritizes `suburb` and `neighbourhood` fields to give the most specific area name possible.
+- **UX**: "Use My Location" automatically populates the delivery address, reducing friction for mobile users.
+
+### 4. Frontend Checkout Component (`ShoppingCart.tsx` or similar)
 - **Data Mapping**: In the `handleCheckout` function, map cart items to the backend `OrderItem` structure based on their category.
 - **Sequence**:
   1.  **Validate**: Check if delivery details are complete.
