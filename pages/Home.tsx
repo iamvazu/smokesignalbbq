@@ -31,7 +31,9 @@ export const Home: React.FC = () => {
                         priceValue: c.price,
                         category: 'combo',
                         image: c.image || '/combo_pack.jpg', // Fallback image
-                        badges: c.items && c.items.length > 3 ? ['Best Value'] : [], // Simple logic for badges
+                        badges: c.isBestValue ? ['Best Value savings'] : [],
+                        isMostPopular: c.isMostPopular,
+                        isBestValue: c.isBestValue,
                         weight: 'Various',
                         subCategory: 'combos'
                     }));

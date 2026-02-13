@@ -19,6 +19,8 @@ export interface Product {
   ingredients?: string;
   storageInstructions?: string;
   relatedProductIds?: string[];
+  isMostPopular?: boolean;
+  isBestValue?: boolean;
 }
 
 export interface Testimonial {

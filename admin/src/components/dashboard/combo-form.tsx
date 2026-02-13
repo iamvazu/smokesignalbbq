@@ -26,6 +26,8 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
         price: '',
         originalPrice: '',
         image: '',
+        isMostPopular: false,
+        isBestValue: false,
         status: 'active',
         items: [] as { productId: string; quantity: number }[]
     });
@@ -39,6 +41,8 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
                 price: combo.price?.toString() || '',
                 originalPrice: combo.originalPrice?.toString() || '',
                 image: combo.image || '',
+                isMostPopular: combo.isMostPopular || false,
+                isBestValue: combo.isBestValue || false,
                 status: combo.status || 'active',
                 items: combo.items?.map((item: any) => ({
                     productId: item.productId,
@@ -131,6 +135,29 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
                             <SelectItem value="archived">Archived</SelectItem>
                         </SelectContent>
                     </Select>
+                </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4 bg-white/5 p-4 rounded-xl border border-white/5">
+                <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                        <Label className="text-sm">Most Popular</Label>
+                        <p className="text-[10px] text-muted-foreground italic">Add a highlighted badge</p>
+                    </div>
+                    <Switch
+                        checked={formData.isMostPopular}
+                        onCheckedChange={(checked) => setFormData({ ...formData, isMostPopular: checked })}
+                    />
+                </div>
+                <div className="flex items-center justify-between">
+                    <div className="space-y-0.5">
+                        <Label className="text-sm">Best Value</Label>
+                        <p className="text-[10px] text-muted-foreground italic">Highlight as top savings</p>
+                    </div>
+                    <Switch
+                        checked={formData.isBestValue}
+                        onCheckedChange={(checked) => setFormData({ ...formData, isBestValue: checked })}
+                    />
                 </div>
             </div>
 

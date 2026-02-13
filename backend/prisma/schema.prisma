@@ -92,6 +92,8 @@ model ComboPack {
   price         Int?
   originalPrice Int?
   image         String?
+  isMostPopular Boolean     @default(false)
+  isBestValue   Boolean     @default(false)
   status        String      @default("active")
   createdAt     DateTime    @default(now())
   items         ComboItem[]

@@ -45,8 +45,20 @@ export default function ProductsPage() {
     const fetchProducts = async () => {
         setLoading(true);
         try {
-            const res = await api.get('/products');
-            setProducts(res.data);
+            const [productsRes, combosRes] = await Promise.all([
+                api.get('/products'),
+                api.get('/combos')
+            ]);
+
+            const mappedCombos = combosRes.data.map((c: any) => ({
+                ...c,
+                category: 'combos',
+                sku: 'COMBO-' + c.id.split('-')[0].toUpperCase(),
+                stock: '-', // Combos don't have separate stock, they depend on items
+                images: [{ imageUrl: c.image || '/combo_pack.jpg' }]
+            }));
+
+            setProducts([...productsRes.data, ...mappedCombos]);
         } catch (err) {
             console.error('Failed to fetch products', err);
         } finally {
@@ -54,18 +66,27 @@ export default function ProductsPage() {
         }
     };
 
-    const handleEdit = (product: any) => {
-        setEditingProduct(product);
+    const handleEdit = (item: any) => {
+        if (item.category === 'combos') {
+            // For combos, we redirect to the specialized combos page
+            // and we could potentially pass the ID to open the edit dialog there.
+            // But for now, simple navigation is safest.
+            window.location.href = '/combos';
+            return;
+        }
+        setEditingProduct(item);
         setIsDialogOpen(true);
     };
 
-    const handleDelete = async (id: string) => {
-        if (confirm('Are you sure you want to delete this product?')) {
+    const handleDelete = async (id: string, category: string) => {
+        const type = category === 'combos' ? 'combo' : 'product';
+        if (confirm(`Are you sure you want to delete this ${type}?`)) {
             try {
-                await api.delete(`/products/${id}`);
+                const endpoint = category === 'combos' ? `/combos/${id}` : `/products/${id}`;
+                await api.delete(endpoint);
                 fetchProducts();
             } catch (err) {
-                console.error('Failed to delete product', err);
+                console.error(`Failed to delete ${type}`, err);
             }
         }
     };
@@ -227,7 +248,7 @@ export default function ProductsPage() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className="h-9 w-9 rounded-xl hover:bg-white/5 hover:text-red-500"
-                                                onClick={() => handleDelete(product.id)}
+                                                onClick={() => handleDelete(product.id, product.category)}
                                             >
                                                 <Trash2 size={16} />
                                             </Button>

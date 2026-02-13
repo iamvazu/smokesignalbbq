@@ -53,7 +53,9 @@ export const ShopPage: React.FC = () => {
                         image: c.image || '/combo_pack.jpg',
                         category: 'combo',
                         subCategory: 'combos',
-                        badges: c.items && c.items.length > 3 ? ['Best Value'] : [],
+                        badges: c.isBestValue ? ['Best Value'] : [],
+                        isMostPopular: c.isMostPopular,
+                        isBestValue: c.isBestValue,
                         weight: 'Various',
                     }));
                     allItems = [...allItems, ...mappedCombos];

@@ -12,9 +12,14 @@ interface ComboShowcaseProps {
 export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
     const { addItem } = useCartStore();
 
-    // Sorting based on user request: 999, 1499, 699, 1299, 1999, 2499
-    const order = ['combo-pitmaster', 'combo-weekend', 'combo-starter', 'combo-meat-lover', 'combo-family', 'combo-ultimate'];
-    const sortedProducts = [...products].sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+    // Sorting: Most Popular first, then Best Value, then by price
+    const sortedProducts = [...products].sort((a, b) => {
+        if (a.isMostPopular && !b.isMostPopular) return -1;
+        if (!a.isMostPopular && b.isMostPopular) return 1;
+        if (a.isBestValue && !b.isBestValue) return -1;
+        if (!a.isBestValue && b.isBestValue) return 1;
+        return (a.priceValue || 0) - (b.priceValue || 0);
+    });
 
     return (
         <section id="combos" className="py-24 bg-charcoal relative overflow-hidden">
