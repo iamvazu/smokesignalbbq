@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/dialog";
 import { ComboForm } from '@/components/dashboard/combo-form';
 import { cn } from '@/lib/utils';
-import { useToast } from "@/components/ui/use-toast";
 
 export default function CombosPage() {
     const [combos, setCombos] = useState<any[]>([]);
@@ -33,7 +32,6 @@ export default function CombosPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [editingCombo, setEditingCombo] = useState<any>(null);
-    const { toast } = useToast();
 
     useEffect(() => {
         fetchCombos();
@@ -46,11 +44,11 @@ export default function CombosPage() {
             setCombos(res.data);
         } catch (err) {
             console.error('Failed to fetch combos', err);
-            toast({
-                title: "Error",
-                description: "Failed to load combo packs.",
-                variant: "destructive",
-            });
+            // toast({
+            //     title: "Error",
+            //     description: "Failed to load combo packs.",
+            //     variant: "destructive",
+            // });
         } finally {
             setLoading(false);
         }
@@ -66,17 +64,18 @@ export default function CombosPage() {
             try {
                 await api.delete(`/combos/${id}`);
                 fetchCombos();
-                toast({
-                    title: "Success",
-                    description: "Combo pack deleted.",
-                });
+                // toast({
+                //     title: "Success",
+                //     description: "Combo pack deleted.",
+                // });
             } catch (err) {
                 console.error('Failed to delete combo', err);
-                toast({
-                    title: "Error",
-                    description: "Failed to delete combo pack.",
-                    variant: "destructive",
-                });
+                alert("Failed to delete combo pack.");
+                // toast({
+                //     title: "Error",
+                //     description: "Failed to delete combo pack.",
+                //     variant: "destructive",
+                // });
             }
         }
     };
@@ -85,10 +84,10 @@ export default function CombosPage() {
         setIsDialogOpen(false);
         setEditingCombo(null);
         fetchCombos();
-        toast({
-            title: "Success",
-            description: editingCombo ? "Combo updated successfully." : "Combo created successfully.",
-        });
+        // toast({
+        //     title: "Success",
+        //     description: editingCombo ? "Combo updated successfully." : "Combo created successfully.",
+        // });
     };
 
     const filteredCombos = combos.filter(combo =>
