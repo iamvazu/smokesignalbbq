@@ -140,8 +140,8 @@ export default function BlogListPage() {
                                                     <ExternalLink className="w-4 h-4" />
                                                 </a>
                                             )}
-                                            {/* Link to Edit Page - reusing [id] route structure even if not implemented fully yet, the user can now create posts */}
-                                            <Link href={`/blog/${post.id}`}>
+                                            {/* Link to Edit Page using query param for static export compatibility */}
+                                            <Link href={`/blog/edit?id=${post.id}`}>
                                                 <Button variant="ghost" size="icon">
                                                     <Edit className="w-4 h-4 text-primary" />
                                                 </Button>
