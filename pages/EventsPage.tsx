@@ -106,20 +106,22 @@ export const EventsPage: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-charcoal/40 to-charcoal" />
                 </div>
 
-                <div className="container mx-auto px-4 z-10 text-center pt-32 md:pt-40">
+                <div className="container mx-auto px-4 z-10 text-center pt-24 md:pt-32">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="text-fire uppercase tracking-[0.4em] text-xs md:text-sm font-bold mb-6 block">Bring the Smoke to Your Celebration</span>
-                        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl mb-6 italic leading-tight">
+                        <span className="text-fire uppercase tracking-[0.4em] text-xs md:text-sm font-bold mb-4 block">Bring the Smoke to Your Celebration</span>
+                        <h1 className="font-display text-4xl md:text-6xl lg:text-7xl mb-4 italic leading-tight">
                             The Pitmaster <br /> <span className="text-fire">Comes to You</span>
                         </h1>
 
-                        <p className="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl font-body leading-relaxed mb-10">
+
+                        <p className="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl font-body leading-relaxed mb-6">
                             From Bangalore's hottest flea markets to intimate birthday gatherings across South India — we bring 14 hours of authentic Texas smoke to your event.
                         </p>
+
                         <div className="flex flex-col md:flex-row gap-6 justify-center">
                             <Button
                                 variant="primary"
@@ -154,8 +156,9 @@ export const EventsPage: React.FC = () => {
                             <div className="w-full lg:w-1/2">
                                 <div className="relative group">
                                     <div className="absolute -inset-4 bg-fire/20 rounded-[2rem] blur-2xl group-hover:bg-fire/30 transition-all duration-500" />
-                                    <img src="/pitmaster.jpg" className="relative rounded-[2rem] shadow-2xl object-cover aspect-[4/3]" alt="Flea Market Setup" />
+                                    <img src="/fleemarket.jpg" className="relative rounded-[2rem] shadow-2xl object-cover aspect-[4/3]" alt="Flea Market Setup" />
                                 </div>
+
                             </div>
                             <div className="w-full lg:w-1/2">
                                 <span className="text-fire text-4xl mb-4 block">🔥</span>
@@ -191,8 +194,9 @@ export const EventsPage: React.FC = () => {
                             <div className="w-full lg:w-1/2">
                                 <div className="relative group">
                                     <div className="absolute -inset-4 bg-fire/20 rounded-[2rem] blur-2xl group-hover:bg-fire/30 transition-all duration-500" />
-                                    <img src="/brisket_sauce.jpg" className="relative rounded-[2rem] shadow-2xl object-cover aspect-[4/3]" alt="Birthday Event" />
+                                    <img src="/birthday_truck.jpg" className="relative rounded-[2rem] shadow-2xl object-cover aspect-[4/3]" alt="Birthday Event" />
                                 </div>
+
                             </div>
                             <div className="w-full lg:w-1/2">
                                 <span className="text-fire text-4xl mb-4 block">🎂</span>
