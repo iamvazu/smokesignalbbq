@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import prisma from '../lib/prisma';
 
+const isUUID = (id: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+
 export const createOrder = async (req: Request, res: Response) => {
     const {
         customerName,
@@ -40,15 +42,16 @@ export const createOrder = async (req: Request, res: Response) => {
             data: {
                 customerId: customer.id,
                 addressId: address.id,
-                totalAmount,
-                deliveryFee,
-                taxAmount,
+                totalAmount: Math.round(Number(totalAmount)),
+                deliveryFee: Math.round(Number(deliveryFee)),
+                taxAmount: Math.round(Number(taxAmount)),
                 paymentMethod,
                 items: {
                     create: items.map((item: any) => ({
-                        productId: item.productId,
-                        quantity: item.quantity,
-                        price: item.price
+                        productId: (item.productId && isUUID(item.productId)) ? item.productId : null,
+                        comboId: (item.comboId && isUUID(item.comboId)) ? item.comboId : null,
+                        quantity: Number(item.quantity),
+                        price: Math.round(Number(item.price))
                     }))
                 }
             },

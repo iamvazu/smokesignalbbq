@@ -11,6 +11,7 @@ export interface CartItem {
     quantity: number;
     image: string;
     variant?: string;
+    category?: string;
 }
 
 interface CartStore {
@@ -56,6 +57,7 @@ export const useCartStore = create<CartStore>()(
                         price: product.price,
                         priceValue: product.priceValue,
                         image: product.image,
+                        category: product.category,
                         quantity: 1
                     }],
                     isOpen: true,

@@ -93,9 +93,10 @@ export const ShoppingCart: React.FC = () => {
                 addressLine1: userDetails.address,
                 city: "Bangalore", // Default for now
                 items: items.map(item => ({
-                    productId: item.id.includes('-') ? item.id : undefined, // Check if it's a UUID
+                    productId: item.category !== 'combo' ? item.id : undefined,
+                    comboId: item.category === 'combo' ? item.id : undefined,
                     quantity: item.quantity,
-                    price: item.priceValue
+                    price: Number(item.priceValue)
                 })),
                 totalAmount: Math.round(finalTotal),
                 deliveryFee: deliveryFee || 0,
