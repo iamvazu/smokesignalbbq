@@ -2,9 +2,14 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from './Button';
 import { useNavigate } from 'react-router-dom';
+import { useLocationStore } from '../store';
 
 export const Hero: React.FC = () => {
   const navigate = useNavigate();
+  const { city } = useLocationStore();
+
+  // Extract major area or city name for headline
+  const displayCity = city ? city.split(',')[0] : 'Bangalore';
 
   return (
 
@@ -41,7 +46,7 @@ export const Hero: React.FC = () => {
         >
 
           <h1 className="font-display text-4xl md:text-5xl lg:text-5xl text-cream leading-tight mb-4 drop-shadow-2xl italic">
-            Authentic American Charcoal BBQ <span className="text-fire block md:inline">in Bangalore.</span> <br />
+            Authentic American Charcoal BBQ <span className="text-fire block md:inline">in {displayCity}.</span> <br />
             <span className="text-fire">Ready to Heat.</span> <br />
             Ready to Eat.
           </h1>

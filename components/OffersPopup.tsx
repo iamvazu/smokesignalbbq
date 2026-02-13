@@ -61,19 +61,24 @@ export const OffersPopup: React.FC = () => {
                 async (position) => {
                     const { latitude, longitude } = position.coords;
 
-                    // In a real app, reverse geocode here. 
-                    // For demo, we'll use Bangalore since that's our base.
+                    // Advanced Reverse Geocoding with Nominatim (Consistent with ShoppingCart)
                     try {
-                        const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
                         const data = await response.json();
-                        const cityName = data.city || data.locality || "Bangalore";
+                        const addr = data.address;
 
-                        setLocation({ lat: latitude, lng: longitude }, cityName);
+                        // Grab neighbourhood/suburb or fallback to city
+                        const area = addr.suburb || addr.neighbourhood || addr.village || addr.subdivision || addr.residential || '';
+                        const cityValue = addr.city || addr.town || addr.state_district || 'Bangalore';
+
+                        const displayName = area ? `${area}, ${cityValue}` : cityValue;
+
+                        setLocation({ lat: latitude, lng: longitude }, displayName);
                         setIsDetecting(false);
                         setShowLocationPrompt(false);
-                        // Show offers after successful location detection
                         setTimeout(() => setIsOffersVisible(true), 1000);
                     } catch (error) {
+                        console.error("Geocoding failed", error);
                         setLocation({ lat: latitude, lng: longitude }, "Bangalore");
                         setIsDetecting(false);
                         setShowLocationPrompt(false);
@@ -83,7 +88,6 @@ export const OffersPopup: React.FC = () => {
                 (error) => {
                     console.error("Error getting location:", error);
                     setIsDetecting(false);
-                    // Fallback to manual or just Bangalore
                     setLocation({ lat: 12.9716, lng: 77.5946 }, "Bangalore");
                     setShowLocationPrompt(false);
                     setTimeout(() => setIsOffersVisible(true), 1000);

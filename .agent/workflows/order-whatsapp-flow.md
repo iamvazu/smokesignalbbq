@@ -15,9 +15,11 @@ To implement the "Save to DB then WhatsApp" flow correctly across the applicatio
 - **Price Reliability**: Ensure `priceValue` is always stored as a number in the store.
 
 ### 3. Location Intelligence (NEW)
+- **Automatic Entry Detection**: When a user first enters the site, a "Location Detection Prompt" appears (via `OffersPopup.tsx`). This checks the user's location to unlock area-specific offers.
 - **Reverse Geocoding**: Integrated OpenStreetMap (Nominatim) to convert GPS coordinates into human-readable area names (e.g., "Indiranagar, Bangalore").
+- **Site Personalization**: The Hero section dynamically updates to greet the user with their detected area (e.g., "Authentic BBQ in Indiranagar").
 - **Accuracy**: prioritizes `suburb` and `neighbourhood` fields to give the most specific area name possible.
-- **UX**: "Use My Location" automatically populates the delivery address, reducing friction for mobile users.
+- **UX**: "Use My Location" in the cart and the entry-point prompt both populate the delivery data automatically.
 
 ### 4. Frontend Checkout Component (`ShoppingCart.tsx` or similar)
 - **Data Mapping**: In the `handleCheckout` function, map cart items to the backend `OrderItem` structure based on their category.
