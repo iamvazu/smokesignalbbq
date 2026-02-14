@@ -80,10 +80,66 @@ app.set('trust proxy', 1);
 
 // SECURITY: Helmet for HTTP security headers
 app.use(helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "'unsafe-eval'",
+                "https://*.google.com",
+                "https://*.googletagmanager.com",
+                "https://*.google-analytics.com",
+                "https://*.youtube.com",
+                "https://*.ytimg.com",
+                "https://cdn.tailwindcss.com"
+            ],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://fonts.googleapis.com",
+                "https://cdn.tailwindcss.com"
+            ],
+            imgSrc: [
+                "'self'",
+                "data:",
+                "https://res.cloudinary.com",
+                "https://images.unsplash.com",
+                "https://*.googletagmanager.com",
+                "https://*.google-analytics.com",
+                "https://*.google.com",
+                "https://*.ytimg.com"
+            ],
+            connectSrc: [
+                "'self'",
+                "https://*.google-analytics.com",
+                "https://*.analytics.google.com",
+                "https://*.googletagmanager.com",
+                "https://*.google.com",
+                "https://*.youtube.com",
+                "https://stats.g.doubleclick.net",
+                "https://nominatim.openstreetmap.org",
+                "https://api.wa.me"
+            ],
+            fontSrc: [
+                "'self'",
+                "https://fonts.gstatic.com",
+                "https://fonts.googleapis.com"
+            ],
+            frameSrc: [
+                "'self'",
+                "https://*.youtube.com",
+                "https://*.youtube-nocookie.com",
+                "https://*.google.com",
+                "https://*.doubleclick.net"
+            ],
+            objectSrc: ["'none'"],
+            upgradeInsecureRequests: [],
+        }
+    },
     crossOriginEmbedderPolicy: false,
     crossOriginResourcePolicy: { policy: "cross-origin" },
-    referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+    referrerPolicy: { policy: "no-referrer-when-downgrade" }, // More permissive for YouTube handshake
     hsts: {
         maxAge: 31536000,
         includeSubDomains: true,
@@ -147,26 +203,44 @@ if (fs.existsSync(publicPath)) {
         extensions: ['json', 'ico', 'png', 'jpg', 'xml', 'txt']
     }));
 
-    // 1. Admin Dashboard (SPA)
+    // 1. Admin Dashboard (SPA with basePath: /admin)
     const adminPath = path.join(publicPath, 'admin');
     if (fs.existsSync(adminPath)) {
-        console.log('Admin path found:', adminPath);
-        app.use('/admin', express.static(adminPath));
-        app.get(/^\/admin\/.*/, (req, res) => {
+        console.log('Serving Admin from:', adminPath);
+
+        // Serve static assets first
+        app.use('/admin', express.static(adminPath, {
+            index: false, // Handle index manually to avoid redirects
+            extensions: ['html', 'htm', 'js', 'css', 'png', 'jpg', 'svg', 'ico']
+        }));
+
+        // Handle the /admin root explicitly
+        app.get('/admin', (req, res) => {
+            res.sendFile(path.join(adminPath, 'index.html'));
+        });
+
+        // SPA fallback for /admin routes
+        app.get('/admin/*', (req, res) => {
+            // Prevent serving index.html for missing static assets (MIME type drift causes refresh loops)
+            if (req.path.includes('.') || req.path.includes('_next')) {
+                return res.status(404).send('Asset not found');
+            }
             res.sendFile(path.join(adminPath, 'index.html'));
         });
     }
 
-    // 2. Main Site (SPA)
+    // 2. Main Site (SPA at root)
     const mainPath = path.join(publicPath, 'main');
     if (fs.existsSync(mainPath)) {
-        console.log('Main path found:', mainPath);
-        // Serve static files with a specific limit to avoid catching SPA routes
+        console.log('Serving Main from:', mainPath);
+
         app.use(express.static(mainPath, {
-            index: false
+            index: false,
+            extensions: ['html', 'htm']
         }));
 
-        // Final fallback for SPA routing
+        // Final fallback for Main Site SPA
+        // Exclude API and Admin from being swallowed by the root SPA
         app.get(/^(?!\/api|\/admin).*/, (req, res) => {
             res.sendFile(path.join(mainPath, 'index.html'));
         });
