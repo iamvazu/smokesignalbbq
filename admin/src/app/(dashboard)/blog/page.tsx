@@ -14,6 +14,8 @@ import {
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { useAuthStore } from '@/store/useAuthStore';
+import api from '@/lib/api';
+
 
 // Define Post type
 interface BlogPost {
@@ -29,19 +31,13 @@ export default function BlogListPage() {
     const [posts, setPosts] = useState<BlogPost[]>([]);
     const [loading, setLoading] = useState(true);
     const token = useAuthStore((state) => state.token);
-    // @ts-ignore
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+
 
     const fetchPosts = async () => {
         try {
-            const res = await fetch(`${API_URL}/posts/admin/all`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            if (!res.ok) throw new Error('Failed to fetch posts');
-            const data = await res.json();
-            setPosts(data);
+            const res = await api.get('/posts/admin/all');
+            setPosts(res.data);
+
         } catch (error) {
             console.error(error);
             // alert('Error: Failed to load posts'); // Don't alert on load, too annoying
@@ -54,14 +50,8 @@ export default function BlogListPage() {
         if (!confirm('Are you sure you want to delete this post?')) return;
 
         try {
-            const res = await fetch(`${API_URL}/posts/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
+            await api.delete(`/posts/${id}`);
 
-            if (!res.ok) throw new Error('Failed to delete');
 
             setPosts(posts.filter(p => p.id !== id));
             alert('Success: Post deleted successfully');

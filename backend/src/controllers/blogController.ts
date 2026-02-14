@@ -72,12 +72,13 @@ export const createPost = async (req: Request, res: Response) => {
                 slug,
                 excerpt,
                 content,
-                coverImage,
+                coverImage: coverImage || '',
                 published: published || false
             }
         });
         res.status(201).json(post);
     } catch (error) {
+        console.error('BLOG_CREATE_ERROR:', error);
         res.status(500).json({ error: 'Failed to create post' });
     }
 };
@@ -100,6 +101,7 @@ export const updatePost = async (req: Request, res: Response) => {
         });
         res.json(post);
     } catch (error) {
+        console.error('BLOG_UPDATE_ERROR:', error);
         res.status(500).json({ error: 'Failed to update post' });
     }
 };

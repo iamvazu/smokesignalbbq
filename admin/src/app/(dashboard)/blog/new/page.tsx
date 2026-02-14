@@ -8,13 +8,14 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useAuthStore } from '@/store/useAuthStore';
+import api from '@/lib/api';
+
 
 export default function NewPostPage() {
     const router = useRouter();
     const token = useAuthStore((state) => state.token);
     const [loading, setLoading] = useState(false);
-    // @ts-ignore
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+
 
     const [form, setForm] = useState({
         title: '',
@@ -36,20 +37,11 @@ export default function NewPostPage() {
         };
 
         try {
-            const res = await fetch(`${API_URL}/posts`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(postData)
-            });
-
-            if (!res.ok) throw new Error('Failed to create post');
-
+            await api.post('/posts', postData);
             alert('Success: Post created successfully');
             router.push('/blog');
         } catch (error) {
+
             console.error(error);
             alert('Error: Failed to create post');
         } finally {

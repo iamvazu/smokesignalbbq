@@ -8,17 +8,16 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useAuthStore } from '@/store/useAuthStore';
+import api from '@/lib/api';
+
 
 // Main component that uses useSearchParams needs to be wrapped in Suspense for static export
 function EditPostContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
-    const token = useAuthStore((state) => state.token);
-    const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    // @ts-ignore
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+
 
     const [form, setForm] = useState({
         title: '',
@@ -34,15 +33,9 @@ function EditPostContent() {
             if (!id || !token) return;
             try {
                 // Fetch from the new admin-specific endpoint
-                const res = await fetch(`${API_URL}/posts/admin/post/${id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+                const res = await api.get(`/posts/admin/post/${id}`);
+                const data = res.data;
 
-                if (!res.ok) throw new Error('Failed to fetch post');
-
-                const data = await res.json();
                 setForm({
                     title: data.title,
                     slug: data.slug,
@@ -61,23 +54,16 @@ function EditPostContent() {
         };
 
         fetchPost();
-    }, [id, token, API_URL, router]);
+    }, [id, router]);
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setSaving(true);
 
         try {
-            const res = await fetch(`${API_URL}/posts/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
-                },
-                body: JSON.stringify(form)
-            });
+            await api.put(`/posts/${id}`, form);
 
-            if (!res.ok) throw new Error('Failed to update post');
 
             alert('Success: Post updated successfully');
             router.push('/blog');
