@@ -218,7 +218,8 @@ if (fs.existsSync(publicPath)) {
         });
 
         // SPA fallback for /admin routes
-        app.get('/admin/(.*)', (req, res) => {
+        // Use RegExp object to bypass Express 5 string parsing issues
+        app.get(/^\/admin\/.*/, (req, res) => {
             // Prevent serving index.html for missing static assets (MIME type drift causes refresh loops)
             const requestPath = req.path;
             if (requestPath.includes('.') || requestPath.includes('_next')) {
@@ -239,12 +240,8 @@ if (fs.existsSync(publicPath)) {
         }));
 
         // Final fallback for Main Site SPA
-        // Catch-all everything else that isn't an API, Admin, or static file
-        app.get('(.*)', (req, res) => {
-            // Double check it's not a leaked API or Admin call
-            if (req.path.startsWith('/api') || req.path.startsWith('/admin')) {
-                return res.status(404).send('Not found');
-            }
+        // Catch-all using RegExp to avoid Express 5 string parsing issues
+        app.get(/^(?!\/(api|admin)).*/, (req, res) => {
             res.sendFile(path.join(mainPath, 'index.html'));
         });
     }
