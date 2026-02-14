@@ -143,6 +143,7 @@ model OrderItem {
   product   Product?   @relation(fields: [productId], references: [id])
   comboId   String?
   combo     ComboPack? @relation(fields: [comboId], references: [id])
+  name      String     @default("Legacy Item")
   quantity  Int
   price     Int
 

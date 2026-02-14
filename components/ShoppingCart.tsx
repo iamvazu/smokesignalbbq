@@ -108,6 +108,7 @@ export const ShoppingCart: React.FC = () => {
                 items: items.map(item => ({
                     productId: item.category !== 'combo' ? item.id : undefined,
                     comboId: item.category === 'combo' ? item.id : undefined,
+                    name: item.name,
                     quantity: item.quantity,
                     price: Number(item.priceValue)
                 })),

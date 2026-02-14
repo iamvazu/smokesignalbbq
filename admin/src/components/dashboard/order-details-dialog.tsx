@@ -143,8 +143,8 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
                                     {order.items?.map((item: any) => (
                                         <tr key={item.id} className="hover:bg-white/5 transition-colors">
                                             <td className="px-4 py-4">
-                                                <div className="font-bold text-foreground">{item.product?.name || item.combo?.name || 'Unknown Item'}</div>
-                                                <div className="text-[10px] text-muted-foreground font-mono">{item.product?.sku || 'COMBO'}</div>
+                                                <div className="font-bold text-foreground">{item.name}</div>
+                                                <div className="text-[10px] text-muted-foreground font-mono">{item.product?.sku || 'ITEM'}</div>
                                             </td>
                                             <td className="px-4 py-4 text-center font-mono">x{item.quantity}</td>
                                             <td className="px-4 py-4 text-right font-mono">₹{item.price}</td>

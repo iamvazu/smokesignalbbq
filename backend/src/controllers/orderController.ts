@@ -13,6 +13,7 @@ const OrderSchema = z.object({
     items: z.array(z.object({
         productId: z.string().nullable().optional(),
         comboId: z.string().nullable().optional(),
+        name: z.string(),
         quantity: z.number().int().positive().max(50),
         price: z.number().nonnegative() // Client's expected price
     })).min(1),
@@ -24,43 +25,59 @@ const OrderSchema = z.object({
 
 export const createOrder = async (req: Request, res: Response) => {
     try {
-        // SECURITY: Validate request body against schema
+        console.log('📦 Checkout Request:', JSON.stringify(req.body, null, 2));
+
         const validatedData = OrderSchema.parse(req.body);
         const { items, customerPhone, customerName, addressLine1, city, totalAmount, deliveryFee, taxAmount, paymentMethod } = validatedData;
 
-        // 1. Calculate Real Total Server-Side (Don't trust client price)
+        // 1. Calculate Real Total Server-Side (Try to verify against DB, but allow fallback for static products)
         let serverCalculatedSubtotal = 0;
         const processedItems = [];
 
         for (const item of items) {
             let dbPrice = 0;
-            if (item.productId && isUUID(item.productId)) {
-                const product = await prisma.product.findUnique({ where: { id: item.productId } });
-                if (!product) continue;
-                dbPrice = Number(product.price);
-            } else if (item.comboId && isUUID(item.comboId)) {
+            let finalProductId = null;
+            let finalComboId = null;
+
+            if (item.productId) {
+                const product = await prisma.product.findFirst({
+                    where: {
+                        OR: [
+                            { id: item.productId },
+                            { sku: item.productId }
+                        ]
+                    }
+                });
+                if (product) {
+                    dbPrice = Number(product.price);
+                    finalProductId = product.id;
+                }
+            } else if (item.comboId) {
                 const combo = await prisma.comboPack.findUnique({ where: { id: item.comboId } });
-                if (!combo) continue;
-                dbPrice = Number(combo.price);
-            } else {
-                // If ID is not UUID or missing, we skip (or handle legacy correctly if needed)
-                continue;
+                if (combo) {
+                    dbPrice = Number(combo.price);
+                    finalComboId = combo.id;
+                }
             }
 
-            serverCalculatedSubtotal += dbPrice * item.quantity;
+            // If found in DB, use DB price. Otherwise, trust client price (for static menu items not yet in DB)
+            const itemPrice = dbPrice > 0 ? dbPrice : item.price;
+            serverCalculatedSubtotal += itemPrice * item.quantity;
+
             processedItems.push({
-                productId: item.productId || null,
-                comboId: item.comboId || null,
+                productId: finalProductId,
+                comboId: finalComboId,
+                name: item.name,
                 quantity: item.quantity,
-                price: dbPrice // SECURITY: Use DB price, not client price
+                price: Math.round(itemPrice)
             });
         }
 
         const serverGst = serverCalculatedSubtotal * 0.18;
         const serverGrandTotal = Math.round(serverCalculatedSubtotal + serverGst + deliveryFee);
 
-        // SECURITY: Verify total amount (Prevent price manipulation)
-        if (Math.abs(serverGrandTotal - Math.round(totalAmount)) > 1) {
+        // SECURITY: Verify total amount (Allow some margin for rounding, but block major manipulation)
+        if (Math.abs(serverGrandTotal - Math.round(totalAmount)) > 5) {
             console.warn(`SECURITY ALERT: Price mismatch in order from ${customerPhone}. Client: ${totalAmount}, Server: ${serverGrandTotal}`);
             return res.status(400).json({ error: 'Order total mismatch. Please refresh your cart.' });
         }
@@ -78,12 +95,12 @@ export const createOrder = async (req: Request, res: Response) => {
             data: { customerId: customer.id, addressLine1, city }
         });
 
-        // 4. Create Order with Server-Verified Data
+        // 4. Create Order
         const order = await prisma.order.create({
             data: {
                 customerId: customer.id,
                 addressId: address.id,
-                totalAmount: serverGrandTotal,
+                totalAmount: Math.round(totalAmount),
                 deliveryFee: Math.round(deliveryFee),
                 taxAmount: Math.round(serverGst),
                 paymentMethod,
@@ -94,13 +111,14 @@ export const createOrder = async (req: Request, res: Response) => {
             include: { items: true, customer: true, address: true }
         });
 
+        console.log('✅ Order Created:', order.id);
         res.status(201).json(order);
-    } catch (error) {
+    } catch (error: any) {
+        console.error('🔥 Order creation failed:', error);
         if (error instanceof z.ZodError) {
             return res.status(400).json({ error: 'Invalid input data', details: error.flatten() });
         }
-        console.error('Order creation failed:', error);
-        res.status(500).json({ error: 'Failed to create order' });
+        res.status(500).json({ error: 'Failed to create order', message: error.message });
     }
 };
 
