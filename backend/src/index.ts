@@ -52,7 +52,9 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import hpp from 'hpp';
 
-// SECURITY: Balanced rate limiting (Higher for static assets and general site usage)
+// DISABLED: Temporarily disabled rate limiting for development ease
+const generalLimiter = (req: any, res: any, next: any) => next();
+/*
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5000,
@@ -61,7 +63,9 @@ const generalLimiter = rateLimit({
     message: { error: 'Too many requests, please try again later.' }
 });
 
-// SECURITY: Strict rate limiting for sensitive endpoints (Auth)
+// DISABLED: Temporarily disabled rate limiting for development ease
+const authLimiter = (req: any, res: any, next: any) => next();
+/*
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 20, // Strict limit for logins/registrations
@@ -216,40 +220,40 @@ if (fs.existsSync(publicPath)) {
 
         // SPA Catch-all for /admin sub-routes
         app.get(/^\/admin\/.*/, (req, res) => {
-            const requestPath = req.path;
+    const requestPath = req.path;
 
-            // If the path looks like a file (has an extension), but reached here, it's missing
-            if (requestPath.includes('.') && !requestPath.endsWith('.html')) {
-                console.log(`- Admin 404 (Missing Asset): ${requestPath}`);
-                return res.status(404).send('Asset not found');
-            }
-
-            console.log(`- Admin SPA Fallback: ${requestPath}`);
-            res.sendFile(path.join(adminPath, 'index.html'));
-        });
+    // If the path looks like a file (has an extension), but reached here, it's missing
+    if (requestPath.includes('.') && !requestPath.endsWith('.html')) {
+        console.log(`- Admin 404 (Missing Asset): ${requestPath}`);
+        return res.status(404).send('Asset not found');
     }
 
-    // 2. Main Site (SPA at root)
-    const mainPath = path.join(publicPath, 'main');
-    if (fs.existsSync(mainPath)) {
-        console.log('Serving Main from:', mainPath);
-
-        app.use(express.static(mainPath, {
-            index: false,
-            extensions: ['html', 'htm']
-        }));
-
-        // Final fallback for Main Site SPA
-        // Catch-all using RegExp to avoid Express 5 string parsing issues
-        app.get(/^(?!\/(api|admin)).*/, (req, res) => {
-            res.sendFile(path.join(mainPath, 'index.html'));
-        });
+    console.log(`- Admin SPA Fallback: ${requestPath}`);
+    res.sendFile(path.join(adminPath, 'index.html'));
+});
     }
 
-    // Explicit API 404 fallback to prevent falling into SPA catch-alls
-    app.use('/api', (req, res) => {
-        res.status(404).json({ error: 'API route not found' });
+// 2. Main Site (SPA at root)
+const mainPath = path.join(publicPath, 'main');
+if (fs.existsSync(mainPath)) {
+    console.log('Serving Main from:', mainPath);
+
+    app.use(express.static(mainPath, {
+        index: false,
+        extensions: ['html', 'htm']
+    }));
+
+    // Final fallback for Main Site SPA
+    // Catch-all using RegExp to avoid Express 5 string parsing issues
+    app.get(/^(?!\/(api|admin)).*/, (req, res) => {
+        res.sendFile(path.join(mainPath, 'index.html'));
     });
+}
+
+// Explicit API 404 fallback to prevent falling into SPA catch-alls
+app.use('/api', (req, res) => {
+    res.status(404).json({ error: 'API route not found' });
+});
 
 } else {
     console.warn('CRITICAL: Public directory not found at', publicPath);

@@ -9,17 +9,13 @@ import {
 } from '../lib/security';
 import crypto from 'crypto';
 
-// SECURITY: Strict registration policy (min 12 chars, mixed case, numbers, symbols)
+// RELAXED: Simple validation for development
 const RegisterSchema = z.object({
     email: z.string().email().toLowerCase(),
-    password: z.string().min(12)
-        .regex(/[a-z]/, 'Password must contain lowercase')
-        .regex(/[A-Z]/, 'Password must contain uppercase')
-        .regex(/[0-9]/, 'Password must contain a number')
-        .regex(/[^a-zA-Z0-9]/, 'Password must contain a symbol')
+    password: z.string().min(6)
 });
 
-// Relaxed login schema to handle legacy/demo credentials while still being typed
+// Relaxed login schema
 const LoginSchema = z.object({
     email: z.string().email().toLowerCase(),
     password: z.string().min(6)
