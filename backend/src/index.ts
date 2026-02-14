@@ -197,7 +197,7 @@ if (fs.existsSync(publicPath)) {
     }
 
     // 3. SPA Fallbacks & Catch-all Routing
-    app.get('*', (req, res) => {
+    app.get('(.*)', (req, res) => {
         const url = req.path;
 
         // Skip API routes (let them 404 naturally)
