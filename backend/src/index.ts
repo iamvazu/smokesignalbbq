@@ -56,10 +56,10 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import hpp from 'hpp';
 
-// SECURITY: General rate limiting for the entire app (increased for static assets)
+// SECURITY: Balanced rate limiting (Higher for static assets and general site usage)
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 1000,
+    max: 5000, 
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: 'Too many requests, please try again later.' }
@@ -173,11 +173,12 @@ app.use(cors({
 }));
 
 app.use(express.json({ limit: '10kb' })); // SECURITY: Limit payload size to prevent DoS
-app.use(generalLimiter);
+// Rate limiting is applied selectively below
 
 
 
-// API Routes
+// API Routes - apply rate limiting here
+app.use('/api/v1', generalLimiter); 
 app.use('/api/v1/auth', authLimiter, authRoutes); // Apply strict limit to auth
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
@@ -206,9 +207,9 @@ if (fs.existsSync(publicPath)) {
     if (fs.existsSync(adminPath)) {
         console.log('Serving Admin from:', adminPath);
 
-        // Serve static assets first
+        // Serve static assets
         app.use('/admin', express.static(adminPath, {
-            index: false, // Handle index manually to avoid redirects
+            index: 'index.html', // Allow index.html for subdirectories
             extensions: ['html', 'htm', 'js', 'css', 'png', 'jpg', 'svg', 'ico']
         }));
 
