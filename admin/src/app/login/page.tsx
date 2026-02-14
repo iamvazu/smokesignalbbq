@@ -16,11 +16,10 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const router = useRouter();
-    const { setAuth, token } = useAuthStore((state) => ({
-        setAuth: state.setAuth,
-        token: state.token
-    }));
+    const token = useAuthStore((state) => state.token);
+    const setAuth = useAuthStore((state) => state.setAuth);
     const [hydrated, setHydrated] = useState(false);
+    const [isInternalRedirecting, setIsInternalRedirecting] = useState(false);
 
     useEffect(() => {
         const unsub = useAuthStore.persist.onFinishHydration(() => setHydrated(true));
@@ -29,10 +28,12 @@ export default function LoginPage() {
     }, []);
 
     useEffect(() => {
-        if (hydrated && token) {
+        // Only redirect if we have a token and aren't already redirecting
+        if (hydrated && token && !isInternalRedirecting) {
+            setIsInternalRedirecting(true);
             router.replace('/');
         }
-    }, [hydrated, token, router]);
+    }, [hydrated, token, isInternalRedirecting, router]);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -11,6 +11,7 @@ interface User {
 interface AuthState {
     user: User | null;
     token: string | null;
+    isLoggingOut: boolean;
     setAuth: (user: User, token: string) => void;
     logout: () => void;
 }
@@ -20,14 +21,17 @@ export const useAuthStore = create<AuthState>()(
         (set) => ({
             user: null,
             token: null,
+            isLoggingOut: false,
             setAuth: (user, token) => {
-                localStorage.setItem('token', token);
-                set({ user, token });
+                set({ user, token, isLoggingOut: false });
             },
             logout: () => {
-                localStorage.removeItem('token');
-                set({ user: null, token: null });
+                const state = useAuthStore.getState();
+                if (state.isLoggingOut) return;
+
+                set({ user: null, token: null, isLoggingOut: true });
                 if (typeof window !== 'undefined') {
+                    // Force a hard reload to the login page to break all React loops
                     window.location.href = '/admin/login';
                 }
             },

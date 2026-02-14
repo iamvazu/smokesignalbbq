@@ -14,6 +14,7 @@ export default function DashboardLayout({
     const router = useRouter();
     const [mounted, setMounted] = useState(false);
     const [hydrated, setHydrated] = useState(false);
+    const [isInternalRedirecting, setIsInternalRedirecting] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -31,10 +32,11 @@ export default function DashboardLayout({
     }, []);
 
     useEffect(() => {
-        if (mounted && hydrated && !token) {
+        if (mounted && hydrated && !token && !isInternalRedirecting) {
+            setIsInternalRedirecting(true);
             router.replace('/login');
         }
-    }, [mounted, hydrated, token, router]);
+    }, [mounted, hydrated, token, isInternalRedirecting, router]);
 
     if (!mounted || !hydrated) {
         return <div className="min-h-screen bg-background flex items-center justify-center">
@@ -42,7 +44,8 @@ export default function DashboardLayout({
         </div>;
     }
 
-    if (!token) return null;
+    // While redirecting, show nothing to avoid mounting children that might trigger API calls
+    if (!token || isInternalRedirecting) return null;
 
 
     return (

@@ -222,9 +222,9 @@ if (fs.existsSync(publicPath)) {
         app.get(/^\/admin\/.*/, (req, res) => {
             const requestPath = req.path;
 
-            // SECURITY: Never serve index.html for requested files that are missing
-            if (requestPath.includes('.') || requestPath.includes('_next')) {
-                console.log(`- Admin 404: ${requestPath}`);
+            // If the path looks like a file (has an extension), but reached here, it's missing
+            if (requestPath.includes('.') && !requestPath.endsWith('.html')) {
+                console.log(`- Admin 404 (Missing Asset): ${requestPath}`);
                 return res.status(404).send('Asset not found');
             }
 
