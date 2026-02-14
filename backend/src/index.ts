@@ -198,10 +198,8 @@ console.log('Serving static files from:', publicPath);
 
 if (fs.existsSync(publicPath)) {
     // Serve shared assets from public root (images, manifests, favicons, etc)
-    app.use(express.static(publicPath, {
-        index: false,
-        extensions: ['json', 'ico', 'png', 'jpg', 'xml', 'txt']
-    }));
+    // Serve shared assets from public root (images, manifests, favicons, etc)
+    app.use(express.static(publicPath));
 
     // 1. Admin Dashboard (SPA with basePath: /admin)
     const adminPath = path.join(publicPath, 'admin');

@@ -18,15 +18,20 @@ async function build() {
         // 3. Prepare Backend Public Folder
         console.log('📂 Preparing Backend Public folder...');
         const publicDir = path.join(__dirname, 'backend', 'public');
+        await fs.ensureDir(publicDir);
         await fs.ensureDir(path.join(publicDir, 'main'));
         await fs.ensureDir(path.join(publicDir, 'admin'));
 
-        // 4. Move Main Site
+        // 4. Copy Global Public Assets (Images, etc)
+        console.log('🚚 Copying Global Assets to Backend Public...');
+        await fs.copy(path.join(__dirname, 'public'), publicDir, { overwrite: true });
+
+        // 5. Move Main Site
         console.log('🚚 Moving Main Site to Backend...');
         await fs.emptyDir(path.join(publicDir, 'main'));
         await fs.copy(path.join(__dirname, 'dist'), path.join(publicDir, 'main'));
 
-        // 5. Move Admin Dashboard
+        // 6. Move Admin Dashboard
         console.log('🚚 Moving Admin Dashboard to Backend...');
         await fs.emptyDir(path.join(publicDir, 'admin'));
         await fs.copy(path.join(__dirname, 'admin', 'out'), path.join(publicDir, 'admin'));
