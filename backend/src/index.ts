@@ -54,25 +54,7 @@ import hpp from 'hpp';
 
 // DISABLED: Temporarily disabled rate limiting for development ease
 const generalLimiter = (req: any, res: any, next: any) => next();
-/*
-const generalLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5000,
-    standardHeaders: true,
-    legacyHeaders: false,
-    message: { error: 'Too many requests, please try again later.' }
-});
-
-// DISABLED: Temporarily disabled rate limiting for development ease
 const authLimiter = (req: any, res: any, next: any) => next();
-/*
-const authLimiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 20, // Strict limit for logins/registrations
-    standardHeaders: true,
-    legacyHeaders: false,
-    message: { error: 'Too many authentication attempts. Please try again in 15 minutes.' }
-});
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -172,14 +154,11 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(express.json({ limit: '10kb' })); // SECURITY: Limit payload size to prevent DoS
-// Rate limiting is applied selectively below
+app.use(express.json({ limit: '10kb' }));
 
-
-
-// API Routes - apply rate limiting here
+// API Routes
 app.use('/api/v1', generalLimiter);
-app.use('/api/v1/auth', authLimiter, authRoutes); // Apply strict limit to auth
+app.use('/api/v1/auth', authLimiter, authRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
@@ -187,10 +166,7 @@ app.use('/api/v1/events', eventRoutes);
 app.use('/api/v1/posts', blogRoutes);
 app.use('/api/v1/combos', comboRoutes);
 
-
-
 app.get('/health', (req, res) => {
-
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
@@ -199,62 +175,45 @@ const publicPath = path.join(__dirname, '../public');
 console.log('Serving static files from:', publicPath);
 
 if (fs.existsSync(publicPath)) {
-    // Serve shared assets from public root (images, manifests, favicons, etc)
     app.use(express.static(publicPath));
 
-    // 1. Admin Dashboard (SPA with basePath: /admin)
+    // 1. Admin Dashboard
     const adminPath = path.join(publicPath, 'admin');
     if (fs.existsSync(adminPath)) {
-        console.log('Serving Admin from:', adminPath);
-
-        // Serve static assets (Next.js out)
         app.use('/admin', express.static(adminPath, {
             index: 'index.html',
             extensions: ['html', 'htm', 'js', 'css', 'png', 'jpg', 'svg', 'ico']
         }));
 
-        // Robust root handlers for /admin and /admin/
         app.get(['/admin', '/admin/'], (req, res) => {
             res.sendFile(path.join(adminPath, 'index.html'));
         });
 
-        // SPA Catch-all for /admin sub-routes
         app.get(/^\/admin\/.*/, (req, res) => {
-    const requestPath = req.path;
-
-    // If the path looks like a file (has an extension), but reached here, it's missing
-    if (requestPath.includes('.') && !requestPath.endsWith('.html')) {
-        console.log(`- Admin 404 (Missing Asset): ${requestPath}`);
-        return res.status(404).send('Asset not found');
+            const requestPath = req.path;
+            if (requestPath.includes('.') && !requestPath.endsWith('.html')) {
+                return res.status(404).send('Asset not found');
+            }
+            res.sendFile(path.join(adminPath, 'index.html'));
+        });
     }
 
-    console.log(`- Admin SPA Fallback: ${requestPath}`);
-    res.sendFile(path.join(adminPath, 'index.html'));
-});
+    // 2. Main Site
+    const mainPath = path.join(publicPath, 'main');
+    if (fs.existsSync(mainPath)) {
+        app.use(express.static(mainPath, {
+            index: false,
+            extensions: ['html', 'htm']
+        }));
+
+        app.get(/^(?!\/(api|admin)).*/, (req, res) => {
+            res.sendFile(path.join(mainPath, 'index.html'));
+        });
     }
 
-// 2. Main Site (SPA at root)
-const mainPath = path.join(publicPath, 'main');
-if (fs.existsSync(mainPath)) {
-    console.log('Serving Main from:', mainPath);
-
-    app.use(express.static(mainPath, {
-        index: false,
-        extensions: ['html', 'htm']
-    }));
-
-    // Final fallback for Main Site SPA
-    // Catch-all using RegExp to avoid Express 5 string parsing issues
-    app.get(/^(?!\/(api|admin)).*/, (req, res) => {
-        res.sendFile(path.join(mainPath, 'index.html'));
+    app.use('/api', (req, res) => {
+        res.status(404).json({ error: 'API route not found' });
     });
-}
-
-// Explicit API 404 fallback to prevent falling into SPA catch-alls
-app.use('/api', (req, res) => {
-    res.status(404).json({ error: 'API route not found' });
-});
-
 } else {
     console.warn('CRITICAL: Public directory not found at', publicPath);
 }
@@ -271,9 +230,6 @@ const startServer = async () => {
         await bootstrap();
         app.listen(PORT, () => {
             console.log(`🚀 Monolith Server running on port ${PORT}`);
-            console.log(`- API: http://localhost:${PORT}/api/v1`);
-            console.log(`- Admin: http://localhost:${PORT}/admin`);
-            console.log(`- Site: http://localhost:${PORT}/`);
         });
     } catch (error) {
         console.error('FATAL: Failed to start server:', error);
@@ -283,14 +239,12 @@ const startServer = async () => {
 
 startServer();
 
-
 // Graceful Shutdown
 process.on('SIGINT', async () => {
     await prisma.$disconnect();
     process.exit(0);
 });
 
-// Handle uncaught errors
 process.on('unhandledRejection', (reason, promise) => {
     console.error('Unhandled Rejection at:', promise, 'reason:', reason);
 });
