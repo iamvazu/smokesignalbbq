@@ -105,7 +105,8 @@ app.use(helmet({
                 "https://images.unsplash.com",
                 "https://*.googletagmanager.com",
                 "https://*.google-analytics.com",
-                "https://*.google.com"
+                "https://*.google.com",
+                "https://*.ytimg.com"
             ],
             connectSrc: [
                 "'self'",
@@ -113,6 +114,7 @@ app.use(helmet({
                 "https://*.analytics.google.com",
                 "https://*.googletagmanager.com",
                 "https://*.google.com",
+                "https://*.youtube.com",
                 "https://stats.g.doubleclick.net",
                 "https://nominatim.openstreetmap.org",
                 "https://api.wa.me"
@@ -124,9 +126,8 @@ app.use(helmet({
             ],
             frameSrc: [
                 "'self'",
-                "https://www.youtube.com",
-                "https://youtube.com",
-                "https://www.youtube-nocookie.com",
+                "https://*.youtube.com",
+                "https://*.youtube-nocookie.com",
                 "https://*.google.com"
             ],
             objectSrc: ["'none'"],
