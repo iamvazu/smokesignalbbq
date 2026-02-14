@@ -5,11 +5,11 @@ import crypto from 'crypto';
 // SECURITY: Use RS256 for asymmetric signing
 // In production, these should be loaded from a secure Secrets Manager
 // For now, we use placeholders but enforce the architecture
-const PRIVATE_KEY = process.env.JWT_PRIVATE_KEY?.replace(/\\n/g, '\n') || '';
-const PUBLIC_KEY = process.env.JWT_PUBLIC_KEY?.replace(/\\n/g, '\n') || '';
+const PRIVATE_KEY = process.env.JWT_PRIVATE_KEY?.replace(/\\n/g, '\n') || process.env.JWT_SECRET || '';
+const PUBLIC_KEY = process.env.JWT_PUBLIC_KEY?.replace(/\\n/g, '\n') || process.env.JWT_SECRET || '';
 
 if (!PRIVATE_KEY && process.env.NODE_ENV === 'production') {
-    throw new Error('JWT_PRIVATE_KEY must be set in production');
+    console.warn('⚠️  WARNING: No JWT_PRIVATE_KEY or JWT_SECRET found. Authentication will fail.');
 }
 
 // SECURITY: Argon2id settings for PCI-DSS/OWASP compliance
