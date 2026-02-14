@@ -30,17 +30,27 @@ export const login = async (req: Request, res: Response) => {
         const validatedData = LoginSchema.parse(req.body);
         const { email, password } = validatedData;
 
+        console.log(`🔐 Login attempt for: ${email}`);
+
         const user = await prisma.user.findUnique({ where: { email } });
 
         // SECURITY: Generic error message to prevent account enumeration
         const authError = 'Invalid email or password';
 
-        if (!user) return res.status(401).json({ error: authError });
+        if (!user) {
+            console.log(`❌ User not found: ${email}`);
+            return res.status(401).json({ error: authError });
+        }
 
+        console.log(`👤 User found, verifying password...`);
         // SECURITY: Argon2id verification
         const isPasswordValid = await verifyPassword(user.passwordHash, password);
-        if (!isPasswordValid) return res.status(401).json({ error: authError });
+        if (!isPasswordValid) {
+            console.log(`❌ Invalid password for user: ${email}`);
+            return res.status(401).json({ error: authError });
+        }
 
+        console.log(`✅ Password verified, generating tokens...`);
         // SECURITY: Generate short-lived Access Token (15m)
         const accessToken = generateAccessToken({
             userId: user.id,
@@ -57,6 +67,8 @@ export const login = async (req: Request, res: Response) => {
             where: { id: user.id },
             data: { refreshTokenHash }
         });
+
+        console.log(`🎟️ Tokens generated and stored for: ${email}`);
 
         // SECURITY: Use Secure, HttpOnly cookies for Refresh Token
         res.cookie('refreshToken', refreshToken, {
@@ -76,11 +88,13 @@ export const login = async (req: Request, res: Response) => {
                 role: user.role
             }
         });
-    } catch (error) {
+    } catch (error: any) {
+        console.error('💥 Login Controller Error:', error);
+
         if (error instanceof z.ZodError) {
             return res.status(400).json({ error: 'Invalid input', details: error.flatten() });
         }
-        res.status(500).json({ error: 'Authentication failed' });
+        res.status(500).json({ error: 'Authentication failed', message: error.message });
     }
 };
 
