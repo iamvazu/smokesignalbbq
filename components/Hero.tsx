@@ -22,7 +22,7 @@ export const Hero: React.FC = () => {
 
         <iframe
           className="absolute top-1/2 left-1/2 w-[177.77vh] h-full min-w-full min-h-[56.25vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60"
-          src={`https://www.youtube-nocookie.com/embed/S0pjch8mdTg?autoplay=1&mute=1&controls=0&loop=1&playlist=S0pjch8mdTg&rel=0&iv_load_policy=3&modestbranding=1&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : 'https://smokesignalbbq.in'}`}
+          src="https://www.youtube.com/embed/S0pjch8mdTg?autoplay=1&mute=1&controls=0&loop=1&playlist=S0pjch8mdTg&rel=0&playsinline=1&enablejsapi=1"
           title="Smoke Signal BBQ"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen

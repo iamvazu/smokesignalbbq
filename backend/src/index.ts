@@ -87,8 +87,9 @@ app.use(helmet({
                 "'self'",
                 "'unsafe-inline'",
                 "'unsafe-eval'",
-                "https://apis.google.com",
-                "https://www.googletagmanager.com",
+                "https://*.google.com",
+                "https://*.googletagmanager.com",
+                "https://*.google-analytics.com",
                 "https://cdn.tailwindcss.com"
             ],
             styleSrc: [
@@ -102,15 +103,19 @@ app.use(helmet({
                 "data:",
                 "https://res.cloudinary.com",
                 "https://images.unsplash.com",
-                "https://www.googletagmanager.com",
-                "https://www.google-analytics.com"
+                "https://*.googletagmanager.com",
+                "https://*.google-analytics.com",
+                "https://*.google.com"
             ],
             connectSrc: [
                 "'self'",
+                "https://*.google-analytics.com",
+                "https://*.analytics.google.com",
+                "https://*.googletagmanager.com",
+                "https://*.google.com",
+                "https://stats.g.doubleclick.net",
                 "https://nominatim.openstreetmap.org",
-                "https://api.wa.me",
-                "https://www.google-analytics.com",
-                "https://www.googletagmanager.com"
+                "https://api.wa.me"
             ],
             fontSrc: [
                 "'self'",
@@ -121,7 +126,8 @@ app.use(helmet({
                 "'self'",
                 "https://www.youtube.com",
                 "https://youtube.com",
-                "https://www.youtube-nocookie.com"
+                "https://www.youtube-nocookie.com",
+                "https://*.google.com"
             ],
             objectSrc: ["'none'"],
             upgradeInsecureRequests: [],
