@@ -218,7 +218,7 @@ if (fs.existsSync(publicPath)) {
         });
 
         // SPA fallback for /admin routes
-        app.get('/admin/:path*', (req, res) => {
+        app.get('/admin/(.*)', (req, res) => {
             // Prevent serving index.html for missing static assets (MIME type drift causes refresh loops)
             const requestPath = req.path;
             if (requestPath.includes('.') || requestPath.includes('_next')) {
@@ -239,8 +239,12 @@ if (fs.existsSync(publicPath)) {
         }));
 
         // Final fallback for Main Site SPA
-        // Exclude API and Admin from being swallowed by the root SPA
-        app.get(/^(?!\/api|\/admin).*/, (req, res) => {
+        // Catch-all everything else that isn't an API, Admin, or static file
+        app.get('(.*)', (req, res) => {
+            // Double check it's not a leaked API or Admin call
+            if (req.path.startsWith('/api') || req.path.startsWith('/admin')) {
+                return res.status(404).send('Not found');
+            }
             res.sendFile(path.join(mainPath, 'index.html'));
         });
     }
