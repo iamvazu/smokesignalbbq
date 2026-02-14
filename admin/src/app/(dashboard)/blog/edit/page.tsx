@@ -16,7 +16,10 @@ function EditPostContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
+    const token = useAuthStore((state) => state.token);
+    const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+
 
 
     const [form, setForm] = useState({
@@ -54,7 +57,8 @@ function EditPostContent() {
         };
 
         fetchPost();
-    }, [id, router]);
+    }, [id, token, router]);
+
 
 
     const handleSubmit = async (e: React.FormEvent) => {
