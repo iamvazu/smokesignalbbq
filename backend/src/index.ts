@@ -128,7 +128,8 @@ app.use(helmet({
                 "'self'",
                 "https://*.youtube.com",
                 "https://*.youtube-nocookie.com",
-                "https://*.google.com"
+                "https://*.google.com",
+                "https://*.doubleclick.net"
             ],
             objectSrc: ["'none'"],
             upgradeInsecureRequests: [],
@@ -191,6 +192,12 @@ const publicPath = path.join(__dirname, '../public');
 console.log('Serving static files from:', publicPath);
 
 if (fs.existsSync(publicPath)) {
+    // Serve shared assets from public root (images, manifests, favicons, etc)
+    app.use(express.static(publicPath, {
+        index: false,
+        extensions: ['json', 'ico', 'png', 'jpg', 'xml', 'txt']
+    }));
+
     // 1. Admin Dashboard (SPA)
     const adminPath = path.join(publicPath, 'admin');
     if (fs.existsSync(adminPath)) {

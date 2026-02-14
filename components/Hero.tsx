@@ -16,17 +16,17 @@ export const Hero: React.FC = () => {
     <section id="home" className="relative h-screen w-full overflow-hidden flex items-start bg-charcoal">
       {/* Background Image */}
       {/* Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute inset-0 bg-black/40 z-10" /> {/* Dark Overlay */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+        <div className="absolute inset-0 bg-black/50 z-10" /> {/* Dark Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent z-10" />
 
         <iframe
           className="absolute top-1/2 left-1/2 w-[177.77vh] h-full min-w-full min-h-[56.25vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60"
-          src="https://www.youtube.com/embed/S0pjch8mdTg?autoplay=1&mute=1&loop=1&playlist=S0pjch8mdTg&controls=0&rel=0&playsinline=1&iv_load_policy=3"
-          title="Smoke Signal BBQ"
+          src="https://www.youtube.com/embed/r90zW2dK_bQ?autoplay=1&mute=1&loop=1&playlist=r90zW2dK_bQ&controls=0&rel=0&playsinline=1&iv_load_policy=3"
+          title="Smoke Signal BBQ Ambient"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        />
+        ></iframe>
       </div>
 
       {/* Floating Smoke/Embers Effects (CSS based for performance + overlays) */}
