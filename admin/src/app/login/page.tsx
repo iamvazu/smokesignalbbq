@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,7 +16,23 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const router = useRouter();
-    const setAuth = useAuthStore((state) => state.setAuth);
+    const { setAuth, token } = useAuthStore((state) => ({
+        setAuth: state.setAuth,
+        token: state.token
+    }));
+    const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+        const unsub = useAuthStore.persist.onFinishHydration(() => setHydrated(true));
+        if (useAuthStore.persist.hasHydrated()) setHydrated(true);
+        return () => unsub();
+    }, []);
+
+    useEffect(() => {
+        if (hydrated && token) {
+            router.replace('/');
+        }
+    }, [hydrated, token, router]);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();

@@ -59,7 +59,7 @@ import hpp from 'hpp';
 // SECURITY: Balanced rate limiting (Higher for static assets and general site usage)
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5000, 
+    max: 5000,
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: 'Too many requests, please try again later.' }
@@ -178,7 +178,7 @@ app.use(express.json({ limit: '10kb' })); // SECURITY: Limit payload size to pre
 
 
 // API Routes - apply rate limiting here
-app.use('/api/v1', generalLimiter); 
+app.use('/api/v1', generalLimiter);
 app.use('/api/v1/auth', authLimiter, authRoutes); // Apply strict limit to auth
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
@@ -207,25 +207,28 @@ if (fs.existsSync(publicPath)) {
     if (fs.existsSync(adminPath)) {
         console.log('Serving Admin from:', adminPath);
 
-        // Serve static assets
+        // Serve static assets (Next.js out)
         app.use('/admin', express.static(adminPath, {
-            index: 'index.html', // Allow index.html for subdirectories
+            index: 'index.html',
             extensions: ['html', 'htm', 'js', 'css', 'png', 'jpg', 'svg', 'ico']
         }));
 
-        // Handle the /admin root explicitly
-        app.get('/admin', (req, res) => {
+        // Robust root handlers for /admin and /admin/
+        app.get(['/admin', '/admin/'], (req, res) => {
             res.sendFile(path.join(adminPath, 'index.html'));
         });
 
-        // SPA fallback for /admin routes
-        // Use RegExp object to bypass Express 5 string parsing issues
+        // SPA Catch-all for /admin sub-routes
         app.get(/^\/admin\/.*/, (req, res) => {
-            // Prevent serving index.html for missing static assets (MIME type drift causes refresh loops)
             const requestPath = req.path;
+
+            // SECURITY: Never serve index.html for requested files that are missing
             if (requestPath.includes('.') || requestPath.includes('_next')) {
+                console.log(`- Admin 404: ${requestPath}`);
                 return res.status(404).send('Asset not found');
             }
+
+            console.log(`- Admin SPA Fallback: ${requestPath}`);
             res.sendFile(path.join(adminPath, 'index.html'));
         });
     }

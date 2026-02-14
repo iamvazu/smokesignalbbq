@@ -17,7 +17,17 @@ export default function DashboardLayout({
 
     useEffect(() => {
         setMounted(true);
-        setHydrated(true);
+        // Wait for store to hydrate
+        const unsub = useAuthStore.persist.onFinishHydration(() => {
+            setHydrated(true);
+        });
+
+        // If it already hydrated before we added listener
+        if (useAuthStore.persist.hasHydrated()) {
+            setHydrated(true);
+        }
+
+        return () => unsub();
     }, []);
 
     useEffect(() => {
