@@ -42,7 +42,7 @@ export default function LoginPage() {
 
         try {
             const response = await api.post('/auth/login', { email, password });
-            setAuth(response.data.user, response.data.token);
+            setAuth(response.data.user, response.data.accessToken);
             router.push('/');
         } catch (err: any) {
             setError(err.response?.data?.error || 'Login failed. Please try again.');
