@@ -54,17 +54,29 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import hpp from 'hpp';
 
-// SECURITY: Rate limiting to prevent DoS/Brute-force
+// SECURITY: General rate limiting for the entire app (increased for static assets)
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per window
+    max: 1000,
     standardHeaders: true,
     legacyHeaders: false,
     message: { error: 'Too many requests, please try again later.' }
 });
 
+// SECURITY: Strict rate limiting for sensitive endpoints (Auth)
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 20, // Strict limit for logins/registrations
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: { error: 'Too many authentication attempts. Please try again in 15 minutes.' }
+});
+
 const app = express();
 const PORT = process.env.PORT || 5000;
+
+// SECURITY: Trust Heroku proxy for accurate IP tracking
+app.set('trust proxy', 1);
 
 // SECURITY: Helmet for strict HTTP security headers
 app.use(helmet({
@@ -151,7 +163,7 @@ app.use(generalLimiter);
 
 
 // API Routes
-app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/auth', authLimiter, authRoutes); // Apply strict limit to auth
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
 app.use('/api/v1/analytics', analyticsRoutes);
