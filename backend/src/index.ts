@@ -179,52 +179,53 @@ console.log('Serving static files from:', publicPath);
 if (fs.existsSync(publicPath)) {
     app.use(express.static(publicPath));
 
-    // 1. Admin Dashboard
     const adminPath = path.join(publicPath, 'admin');
-    if (fs.existsSync(adminPath)) {
-        // Serve specific static files first
-        app.use('/admin', express.static(adminPath, {
-            index: false, // Don't serve index.html automatically here
-            extensions: ['html', 'htm', 'js', 'css', 'png', 'jpg', 'svg', 'ico']
-        }));
-
-        // Handle specific route matching for static files (e.g., /admin/customers -> customers.html)
-        app.get(['/admin', '/admin/'], (req, res) => {
-            res.sendFile(path.join(adminPath, 'index.html'));
-        });
-
-        // SPA Fallback for any other /admin/* route
-        app.get('/admin/*', (req, res) => {
-            const requestPath = req.path.replace('/admin', '');
-
-            // Check if there's a specific .html file for this route
-            const possibleHtmlPath = path.join(adminPath, requestPath + '.html');
-            const possibleIndexPath = path.join(adminPath, requestPath, 'index.html');
-
-            if (fs.existsSync(possibleHtmlPath)) {
-                return res.sendFile(possibleHtmlPath);
-            } else if (fs.existsSync(possibleIndexPath)) {
-                return res.sendFile(possibleIndexPath);
-            }
-
-            // Otherwise fallback to main dashboard index for client-side routing
-            res.sendFile(path.join(adminPath, 'index.html'));
-        });
-    }
-
-
-    // 2. Main Site
     const mainPath = path.join(publicPath, 'main');
-    if (fs.existsSync(mainPath)) {
-        app.use(express.static(mainPath, {
-            index: false,
+
+    // 1. Admin Dashboard Static Files
+    if (fs.existsSync(adminPath)) {
+        app.use('/admin', express.static(adminPath, {
             extensions: ['html', 'htm']
         }));
-
-        app.get(/^(?!\/(api|admin)).*/, (req, res) => {
-            res.sendFile(path.join(mainPath, 'index.html'));
-        });
     }
+
+    // 2. Main Site Static Files
+    if (fs.existsSync(mainPath)) {
+        app.use(express.static(mainPath, {
+            extensions: ['html', 'htm']
+        }));
+    }
+
+    // 3. SPA Fallbacks & Catch-all Routing
+    app.get('*', (req, res) => {
+        const url = req.path;
+
+        // Skip API routes (let them 404 naturally)
+        if (url.startsWith('/api')) {
+            return res.status(404).json({ error: 'API route not found' });
+        }
+
+        // Admin SPA Fallback
+        if (url.startsWith('/admin')) {
+            const indexPath = path.join(adminPath, 'index.html');
+            if (fs.existsSync(indexPath)) {
+                return res.sendFile(indexPath, (err) => {
+                    if (err && !res.headersSent) res.status(404).send('Admin dashboard not found');
+                });
+            }
+        }
+
+        // Main Site SPA Fallback
+        const mainIndexPath = path.join(mainPath, 'index.html');
+        if (fs.existsSync(mainIndexPath)) {
+            return res.sendFile(mainIndexPath, (err) => {
+                if (err && !res.headersSent) res.status(404).send('Page not found');
+            });
+        }
+
+        res.status(404).send('Not Found');
+    });
+
 
     app.use('/api', (req, res) => {
         res.status(404).json({ error: 'API route not found' });
