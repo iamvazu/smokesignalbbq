@@ -202,7 +202,7 @@ export const getOrderById = async (req: Request, res: Response) => {
 };
 
 export const requestInvoice = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { email } = req.body;
 
     try {
