@@ -182,23 +182,36 @@ if (fs.existsSync(publicPath)) {
     // 1. Admin Dashboard
     const adminPath = path.join(publicPath, 'admin');
     if (fs.existsSync(adminPath)) {
+        // Serve specific static files first
         app.use('/admin', express.static(adminPath, {
-            index: 'index.html',
+            index: false, // Don't serve index.html automatically here
             extensions: ['html', 'htm', 'js', 'css', 'png', 'jpg', 'svg', 'ico']
         }));
 
+        // Handle specific route matching for static files (e.g., /admin/customers -> customers.html)
         app.get(['/admin', '/admin/'], (req, res) => {
             res.sendFile(path.join(adminPath, 'index.html'));
         });
 
-        app.get(/^\/admin\/.*/, (req, res) => {
-            const requestPath = req.path;
-            if (requestPath.includes('.') && !requestPath.endsWith('.html')) {
-                return res.status(404).send('Asset not found');
+        // SPA Fallback for any other /admin/* route
+        app.get('/admin/*', (req, res) => {
+            const requestPath = req.path.replace('/admin', '');
+
+            // Check if there's a specific .html file for this route
+            const possibleHtmlPath = path.join(adminPath, requestPath + '.html');
+            const possibleIndexPath = path.join(adminPath, requestPath, 'index.html');
+
+            if (fs.existsSync(possibleHtmlPath)) {
+                return res.sendFile(possibleHtmlPath);
+            } else if (fs.existsSync(possibleIndexPath)) {
+                return res.sendFile(possibleIndexPath);
             }
+
+            // Otherwise fallback to main dashboard index for client-side routing
             res.sendFile(path.join(adminPath, 'index.html'));
         });
     }
+
 
     // 2. Main Site
     const mainPath = path.join(publicPath, 'main');
