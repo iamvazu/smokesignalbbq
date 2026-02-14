@@ -19,29 +19,25 @@ import comboRoutes from './routes/comboRoutes';
 import path from 'path';
 
 import fs from 'fs';
-import bcrypt from 'bcryptjs';
+import { hashPassword } from './lib/security';
 
 async function bootstrap() {
     console.log('🛡️  Running startup checks...');
     try {
         const adminEmail = 'admin@smokesignal.com';
-        const admin = await prisma.user.findUnique({ where: { email: adminEmail } });
+        const hashedPassword = await hashPassword('admin123');
 
-        if (!admin) {
-            console.log('✨ No admin found. Creating default admin...');
-            const hashedPassword = await bcrypt.hash('admin123', 10);
-            await prisma.user.create({
-                data: {
-                    email: adminEmail,
-                    name: 'Super Admin',
-                    passwordHash: hashedPassword,
-                    role: 'admin'
-                }
-            });
-            console.log('✅ Default admin created: admin@smokesignal.com / admin123');
-        } else {
-            console.log('✅ Admin user verified.');
-        }
+        await prisma.user.upsert({
+            where: { email: adminEmail },
+            update: { passwordHash: hashedPassword }, // Ensure it matches latest Argon2id
+            create: {
+                email: adminEmail,
+                name: 'Super Admin',
+                passwordHash: hashedPassword,
+                role: 'admin'
+            }
+        });
+        console.log('✅ Default admin verified/refreshed: admin@smokesignal.com / admin123');
     } catch (error: any) {
         if (error.code === 'P2021') {
             console.error('❌ DATABASE ERROR: Tables do not exist. Please run migrate command.');

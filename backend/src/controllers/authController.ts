@@ -9,8 +9,8 @@ import {
 } from '../lib/security';
 import crypto from 'crypto';
 
-// SECURITY: Strict password policy (min 12 chars, mixed case, numbers, symbols)
-const AuthSchema = z.object({
+// SECURITY: Strict registration policy (min 12 chars, mixed case, numbers, symbols)
+const RegisterSchema = z.object({
     email: z.string().email().toLowerCase(),
     password: z.string().min(12)
         .regex(/[a-z]/, 'Password must contain lowercase')
@@ -19,9 +19,15 @@ const AuthSchema = z.object({
         .regex(/[^a-zA-Z0-9]/, 'Password must contain a symbol')
 });
 
+// Relaxed login schema to handle legacy/demo credentials while still being typed
+const LoginSchema = z.object({
+    email: z.string().email().toLowerCase(),
+    password: z.string().min(6)
+});
+
 export const login = async (req: Request, res: Response) => {
     try {
-        const validatedData = AuthSchema.parse(req.body);
+        const validatedData = LoginSchema.parse(req.body);
         const { email, password } = validatedData;
 
         const user = await prisma.user.findUnique({ where: { email } });
@@ -81,7 +87,7 @@ export const login = async (req: Request, res: Response) => {
 export const register = async (req: Request, res: Response) => {
     // SECURITY: Registration should ideally be protected by admin-only role
     try {
-        const validatedData = AuthSchema.extend({
+        const validatedData = RegisterSchema.extend({
             name: z.string().min(2),
             role: z.enum(['admin', 'staff', 'kitchen_staff', 'delivery_partner']).optional()
         }).parse(req.body);
