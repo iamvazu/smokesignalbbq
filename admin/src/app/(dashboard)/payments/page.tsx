@@ -65,7 +65,7 @@ export default function PaymentsPage() {
                 </Card>
                 <Card className="border-white/5 bg-card/50 backdrop-blur-sm shadow-xl">
                     <CardHeader className="pb-2">
-                        <CardDescription className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Success Rate</CardTitle>
+                        <CardDescription className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">Success Rate</CardDescription>
                         <CardTitle className="text-4xl font-black italic tracking-tighter text-foreground">98.2%</CardTitle>
                     </CardHeader>
                     <CardContent>
