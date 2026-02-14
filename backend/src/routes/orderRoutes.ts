@@ -11,7 +11,7 @@ router.post('/', createOrder);
 router.use(authMiddleware);
 router.get('/', getOrders);
 router.get('/:id', getOrderById);
-router.put('/:id/status', updateOrderStatus);
+router.put('/:id', updateOrderStatus);
 
 export default router;
 
