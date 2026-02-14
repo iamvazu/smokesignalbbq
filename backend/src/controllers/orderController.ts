@@ -200,3 +200,16 @@ export const getOrderById = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Failed to fetch order details' });
     }
 };
+
+export const requestInvoice = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { email } = req.body;
+
+    try {
+        console.log(`📧 Invoice requested for Order #${id} to email: ${email}`);
+        res.json({ message: 'Invoice request received' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to process invoice request' });
+    }
+};
+

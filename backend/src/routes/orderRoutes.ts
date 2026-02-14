@@ -1,11 +1,13 @@
 import { Router } from 'express';
-import { getOrders, updateOrderStatus, getOrderById, createOrder } from '../controllers/orderController';
+import { getOrders, updateOrderStatus, getOrderById, createOrder, requestInvoice } from '../controllers/orderController';
 import { authMiddleware } from '../middleware/auth';
 
 const router = Router();
 
-// Public route for creating orders
+// Public routes
 router.post('/', createOrder);
+router.post('/:id/invoice', requestInvoice);
+
 
 // Protected routes for admin
 router.use(authMiddleware);

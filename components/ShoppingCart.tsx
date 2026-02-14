@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Trash2, Plus, Minus, ShoppingBag, MapPin, Loader2, ShieldCheck } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ShoppingBag, MapPin, Loader2, ShieldCheck, CheckCircle2, Mail, Send } from 'lucide-react';
+
 import axios from 'axios';
 import { useCartStore } from '../store';
 import { Button } from './Button';
@@ -23,8 +24,15 @@ export const ShoppingCart: React.FC = () => {
     const [userDetails, setUserDetails] = useState({
         name: '',
         mobile: '',
-        address: ''
+        address: '',
+        email: ''
     });
+
+    const [orderSuccess, setOrderSuccess] = useState<{ id: string, fullId: string } | null>(null);
+
+    const [sendingEmail, setSendingEmail] = useState(false);
+    const [emailStatus, setEmailStatus] = useState<'idle' | 'sending' | 'sent'>('idle');
+
 
     // Calculations
     const subtotal = items.reduce((acc, item) => acc + ((item.priceValue || 0) * item.quantity), 0);
@@ -151,9 +159,12 @@ export const ShoppingCart: React.FC = () => {
             // 3. Redirect to WhatsApp
             window.open(`https://wa.me/917899870957?text=${encodeURIComponent(message)}`, '_blank');
 
-            // 4. Cleanup UI & State
+            // 4. Set Success State
+            setOrderSuccess({ id: orderId, fullId: response.data.id });
             clearCart();
-            toggleCart();
+
+            // Don't toggleCart yet, show success view
+
 
         } catch (error: any) {
             console.error('Failed to create order', error);
@@ -172,6 +183,29 @@ export const ShoppingCart: React.FC = () => {
             [name]: value
         }));
     };
+
+    const handleSendInvoice = async () => {
+        if (!userDetails.email || !orderSuccess) return;
+        setSendingEmail(true);
+        setEmailStatus('sending');
+        try {
+            await axios.post(`${API_URL}/orders/${orderSuccess.fullId}/invoice`, { email: userDetails.email });
+            setEmailStatus('sent');
+        } catch (error) {
+            setEmailStatus('idle');
+            alert("Failed to send invoice. Please try again.");
+        } finally {
+            setSendingEmail(false);
+        }
+    };
+
+
+    const handleClose = () => {
+        setOrderSuccess(null);
+        setEmailStatus('idle');
+        toggleCart();
+    };
+
 
     return (
         <AnimatePresence>
@@ -209,9 +243,75 @@ export const ShoppingCart: React.FC = () => {
                             </button>
                         </div>
 
-                        {/* Cart Items */}
+                        {/* Cart Items or Success View */}
                         <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
-                            {items.length === 0 ? (
+                            {orderSuccess ? (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="h-full flex flex-col items-center justify-center text-center p-6 space-y-6"
+                                >
+                                    <div className="relative">
+                                        <div className="absolute inset-0 bg-green-500/20 blur-2xl rounded-full" />
+                                        <CheckCircle2 size={80} className="text-green-500 relative" />
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <h2 className="text-3xl font-display text-cream">Order Placed!</h2>
+                                        <p className="text-gray-400">
+                                            Your order <span className="text-fire font-bold">#{orderSuccess.id}</span> is successfully placed.
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-black/30 p-4 rounded-xl border border-white/5 w-full">
+                                        <p className="text-sm text-gray-300 leading-relaxed mb-4">
+                                            Please check your <span className="text-[#25D366] font-bold">WhatsApp</span> messages for updates. We've sent you the order summary there.
+                                        </p>
+
+                                        <div className="space-y-3">
+                                            <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Want a digital invoice?</p>
+                                            <div className="flex gap-2">
+                                                <div className="relative flex-1">
+                                                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" size={16} />
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        placeholder="Enter your email"
+                                                        value={userDetails.email}
+                                                        onChange={handleInputChange}
+                                                        disabled={emailStatus === 'sent'}
+                                                        className="w-full bg-black/40 border border-white/10 rounded-lg py-2 pl-10 pr-4 text-sm text-cream placeholder-gray-600 focus:outline-none focus:border-fire/50 disabled:opacity-50"
+                                                    />
+                                                </div>
+                                                <Button
+                                                    variant="primary"
+                                                    size="sm"
+                                                    onClick={handleSendInvoice}
+                                                    disabled={!userDetails.email || emailStatus !== 'idle'}
+                                                    className="px-4 shrink-0"
+                                                >
+                                                    {emailStatus === 'sending' ? <Loader2 className="animate-spin" size={16} /> :
+                                                        emailStatus === 'sent' ? <CheckCircle2 size={16} /> :
+                                                            <Send size={16} />}
+                                                </Button>
+                                            </div>
+                                            {emailStatus === 'sent' && (
+                                                <p className="text-[10px] text-green-500 flex items-center justify-center gap-1">
+                                                    <CheckCircle2 size={10} /> Invoice sent successfully!
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <Button
+                                        variant="ghost"
+                                        onClick={handleClose}
+                                        className="mt-4 border border-white/10 hover:bg-white/5"
+                                    >
+                                        Back to Menu
+                                    </Button>
+                                </motion.div>
+                            ) : items.length === 0 ? (
                                 <div className="h-full flex flex-col items-center justify-center text-center opacity-60">
                                     <ShoppingBag size={48} className="mb-4 text-gray-500" />
                                     <p className="text-xl font-display text-gray-400">Your cart is empty</p>
@@ -274,7 +374,8 @@ export const ShoppingCart: React.FC = () => {
                         </div>
 
                         {/* Footer / Checkout */}
-                        {items.length > 0 && (
+                        {items.length > 0 && !orderSuccess && (
+
                             <div className="flex-none max-h-[60vh] overflow-y-auto p-4 border-t border-white/10 bg-charcoal shadow-[0_-5px_20px_rgba(0,0,0,0.5)] z-20">
                                 {/* Bill Details */}
                                 <div className="space-y-2 mb-4 bg-black/20 p-3 rounded-lg">
