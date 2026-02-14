@@ -17,13 +17,7 @@ export default function DashboardLayout({
 
     useEffect(() => {
         setMounted(true);
-        // Wait for zustand to hydrate from localStorage
-        const checkHydration = async () => {
-            // Re-check token after a small delay to allow store to hydrate
-            await new Promise(resolve => setTimeout(resolve, 100));
-            setHydrated(true);
-        };
-        checkHydration();
+        setHydrated(true);
     }, []);
 
     useEffect(() => {

@@ -57,7 +57,10 @@ export function Sidebar() {
     );
 
     const NavLink = ({ item }: { item: any }) => {
-        const isActive = pathname === item.href;
+        // Handle basePath: /admin. If pathname is /admin/orders and item.href is /orders, it should match.
+        const isActive = pathname === item.href ||
+            pathname === `/admin${item.href}` ||
+            (item.href !== '/' && pathname.startsWith(`/admin${item.href}`));
         return (
             <Link
                 key={item.name}
