@@ -90,6 +90,8 @@ app.use(helmet({
                 "https://*.google.com",
                 "https://*.googletagmanager.com",
                 "https://*.google-analytics.com",
+                "https://*.youtube.com",
+                "https://*.ytimg.com",
                 "https://cdn.tailwindcss.com"
             ],
             styleSrc: [
