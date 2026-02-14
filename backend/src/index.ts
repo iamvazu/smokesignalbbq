@@ -79,69 +79,10 @@ const PORT = process.env.PORT || 5000;
 app.set('trust proxy', 1);
 
 // SECURITY: Helmet for strict HTTP security headers
+// Temporarily relaxed for YouTube/GTag troubleshooting
 app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: [
-                "'self'",
-                "'unsafe-inline'",
-                "'unsafe-eval'",
-                "https://*.google.com",
-                "https://*.googletagmanager.com",
-                "https://*.google-analytics.com",
-                "https://*.youtube.com",
-                "https://*.ytimg.com",
-                "https://cdn.tailwindcss.com"
-            ],
-            styleSrc: [
-                "'self'",
-                "'unsafe-inline'",
-                "https://fonts.googleapis.com",
-                "https://cdn.tailwindcss.com"
-            ],
-            imgSrc: [
-                "'self'",
-                "data:",
-                "https://res.cloudinary.com",
-                "https://images.unsplash.com",
-                "https://*.googletagmanager.com",
-                "https://*.google-analytics.com",
-                "https://*.google.com",
-                "https://*.ytimg.com"
-            ],
-            connectSrc: [
-                "'self'",
-                "https://*.google-analytics.com",
-                "https://*.analytics.google.com",
-                "https://*.googletagmanager.com",
-                "https://*.google.com",
-                "https://*.youtube.com",
-                "https://stats.g.doubleclick.net",
-                "https://nominatim.openstreetmap.org",
-                "https://api.wa.me"
-            ],
-            fontSrc: [
-                "'self'",
-                "https://fonts.gstatic.com",
-                "https://fonts.googleapis.com"
-            ],
-            frameSrc: [
-                "'self'",
-                "https://*.youtube.com",
-                "https://*.youtube-nocookie.com",
-                "https://*.google.com",
-                "https://*.doubleclick.net"
-            ],
-            objectSrc: ["'none'"],
-            upgradeInsecureRequests: [],
-        }
-    },
-    hsts: {
-        maxAge: 31536000,
-        includeSubDomains: true,
-        preload: true
-    }
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false
 }));
 
 // SECURITY: Prevent HTTP Parameter Pollution
