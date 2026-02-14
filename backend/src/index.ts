@@ -199,7 +199,6 @@ console.log('Serving static files from:', publicPath);
 
 if (fs.existsSync(publicPath)) {
     // Serve shared assets from public root (images, manifests, favicons, etc)
-    // Serve shared assets from public root (images, manifests, favicons, etc)
     app.use(express.static(publicPath));
 
     // 1. Admin Dashboard (SPA with basePath: /admin)
@@ -219,9 +218,10 @@ if (fs.existsSync(publicPath)) {
         });
 
         // SPA fallback for /admin routes
-        app.get('/admin/*', (req, res) => {
+        app.get('/admin/:path*', (req, res) => {
             // Prevent serving index.html for missing static assets (MIME type drift causes refresh loops)
-            if (req.path.includes('.') || req.path.includes('_next')) {
+            const requestPath = req.path;
+            if (requestPath.includes('.') || requestPath.includes('_next')) {
                 return res.status(404).send('Asset not found');
             }
             res.sendFile(path.join(adminPath, 'index.html'));
