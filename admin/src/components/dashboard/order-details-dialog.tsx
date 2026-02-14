@@ -72,7 +72,7 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-[700px] bg-card border-white/10 p-0 overflow-hidden max-h-[90vh] flex flex-col">
+            <DialogContent className="sm:max-w-[700px] bg-zinc-950/95 backdrop-blur-2xl border-white/10 p-0 overflow-hidden max-h-[90vh] flex flex-col shadow-2xl">
                 <div className="bg-primary/5 p-6 border-b border-white/5">
                     <DialogHeader>
                         <div className="flex justify-between items-start">
@@ -98,7 +98,7 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
                             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                 <User size={14} className="text-primary" /> Customer Details
                             </h3>
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5 space-y-3">
+                            <div className="bg-white/10 rounded-2xl p-4 border border-white/5 space-y-3">
                                 <div className="flex justify-between items-center">
                                     <span className="text-sm text-muted-foreground font-medium">Name</span>
                                     <span className="text-sm font-bold text-foreground">{order.customer?.name || 'Guest'}</span>
@@ -116,7 +116,7 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
                             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                 <MapPin size={14} className="text-primary" /> Delivery Address
                             </h3>
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5 min-h-[84px] flex items-center">
+                            <div className="bg-white/10 rounded-2xl p-4 border border-white/5 min-h-[84px] flex items-center">
                                 <p className="text-sm leading-relaxed text-foreground/80 italic font-medium">
                                     {order.address?.addressLine1}, {order.address?.city}
                                 </p>
@@ -129,7 +129,7 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
                         <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                             <Package size={14} className="text-primary" /> Order Items ({order.items?.length || 0})
                         </h3>
-                        <div className="border border-white/5 rounded-2xl overflow-hidden bg-white/5">
+                        <div className="border border-white/10 rounded-2xl overflow-hidden bg-white/5">
                             <table className="w-full text-left text-sm">
                                 <thead className="bg-white/5">
                                     <tr>
@@ -162,7 +162,7 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
                             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                 <CreditCard size={14} className="text-primary" /> Payment Info
                             </h3>
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5 space-y-4">
+                            <div className="bg-white/10 rounded-2xl p-4 border border-white/5 space-y-4">
                                 <div className="flex justify-between items-center text-sm">
                                     <span className="text-muted-foreground">Method</span>
                                     <Badge variant="secondary" className="bg-white/10 uppercase tracking-widest text-[10px]">
@@ -190,7 +190,7 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
                             <h3 className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
                                 <Receipt size={14} className="text-primary" /> Order Summary
                             </h3>
-                            <div className="bg-white/5 rounded-2xl p-4 border border-white/5 space-y-2">
+                            <div className="bg-white/10 rounded-2xl p-4 border border-white/5 space-y-2">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-muted-foreground">Delivery Fee</span>
                                     <span className="text-foreground">₹{order.deliveryFee}</span>
@@ -239,7 +239,7 @@ export function OrderDetailsDialog({ order, isOpen, onClose, onUpdate }: OrderDe
                     </div>
                 </div>
 
-                <DialogFooter className="p-6 border-t border-white/5 bg-card/80 backdrop-blur-md">
+                <DialogFooter className="p-6 border-t border-white/5 bg-zinc-950/90 backdrop-blur-xl w-full">
                     <Button variant="ghost" onClick={onClose} disabled={loading} className="rounded-xl px-6">
                         Cancel
                     </Button>
