@@ -71,11 +71,45 @@ app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "https://apis.google.com"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-            imgSrc: ["'self'", "data:", "https://res.cloudinary.com", "https://images.unsplash.com"],
-            connectSrc: ["'self'", "https://nominatim.openstreetmap.org", "https://api.wa.me"],
-            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            scriptSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "'unsafe-eval'",
+                "https://apis.google.com",
+                "https://www.googletagmanager.com",
+                "https://cdn.tailwindcss.com"
+            ],
+            styleSrc: [
+                "'self'",
+                "'unsafe-inline'",
+                "https://fonts.googleapis.com",
+                "https://cdn.tailwindcss.com"
+            ],
+            imgSrc: [
+                "'self'",
+                "data:",
+                "https://res.cloudinary.com",
+                "https://images.unsplash.com",
+                "https://www.googletagmanager.com",
+                "https://www.google-analytics.com"
+            ],
+            connectSrc: [
+                "'self'",
+                "https://nominatim.openstreetmap.org",
+                "https://api.wa.me",
+                "https://www.google-analytics.com",
+                "https://www.googletagmanager.com"
+            ],
+            fontSrc: [
+                "'self'",
+                "https://fonts.gstatic.com",
+                "https://fonts.googleapis.com"
+            ],
+            frameSrc: [
+                "'self'",
+                "https://www.youtube.com",
+                "https://youtube.com"
+            ],
             objectSrc: ["'none'"],
             upgradeInsecureRequests: [],
         }
@@ -151,8 +185,13 @@ if (fs.existsSync(publicPath)) {
     const mainPath = path.join(publicPath, 'main');
     if (fs.existsSync(mainPath)) {
         console.log('Main path found:', mainPath);
-        app.use(express.static(mainPath));
-        app.get(/^(?!\/api).*/, (req, res) => {
+        // Serve static files with a specific limit to avoid catching SPA routes
+        app.use(express.static(mainPath, {
+            index: false
+        }));
+
+        // Final fallback for SPA routing
+        app.get(/^(?!\/api|\/admin).*/, (req, res) => {
             res.sendFile(path.join(mainPath, 'index.html'));
         });
     }
