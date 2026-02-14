@@ -120,7 +120,8 @@ app.use(helmet({
             frameSrc: [
                 "'self'",
                 "https://www.youtube.com",
-                "https://youtube.com"
+                "https://youtube.com",
+                "https://www.youtube-nocookie.com"
             ],
             objectSrc: ["'none'"],
             upgradeInsecureRequests: [],
