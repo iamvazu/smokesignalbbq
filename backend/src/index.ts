@@ -250,6 +250,11 @@ if (fs.existsSync(publicPath)) {
         });
     }
 
+    // Explicit API 404 fallback to prevent falling into SPA catch-alls
+    app.use('/api', (req, res) => {
+        res.status(404).json({ error: 'API route not found' });
+    });
+
 } else {
     console.warn('CRITICAL: Public directory not found at', publicPath);
 }

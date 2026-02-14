@@ -4,12 +4,15 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api/v1';
 
 
 
+import { useAuthStore } from '../store/useAuthStore';
+
 const api = axios.create({
     baseURL: API_URL,
 });
 
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token');
+    // Get token from store for better reactivity
+    const token = useAuthStore.getState().token;
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -20,10 +23,8 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            localStorage.removeItem('token');
-            if (typeof window !== 'undefined') {
-                window.location.href = '/admin/login';
-            }
+            // Clear the store and redirect
+            useAuthStore.getState().logout();
         }
 
         return Promise.reject(error);
