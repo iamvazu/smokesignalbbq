@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
+console.log('🚀 App starting...');
+console.log('NODE_ENV:', process.env.NODE_ENV);
 
 import express from 'express';
 import cors from 'cors';
@@ -134,12 +136,11 @@ app.use(helmet({
                 "https://*.doubleclick.net"
             ],
             objectSrc: ["'none'"],
-            upgradeInsecureRequests: [],
         }
     },
     crossOriginEmbedderPolicy: false,
     crossOriginResourcePolicy: { policy: "cross-origin" },
-    referrerPolicy: { policy: "no-referrer-when-downgrade" }, // More permissive for YouTube handshake
+    referrerPolicy: { policy: "no-referrer-when-downgrade" },
     hsts: {
         maxAge: 31536000,
         includeSubDomains: true,
