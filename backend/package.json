@@ -39,6 +39,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.6"
+    "@types/bcryptjs": "^2.4.6",
+    "@types/hpp": "^0.2.7"
   }
 }
