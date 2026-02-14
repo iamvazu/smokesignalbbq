@@ -155,9 +155,10 @@ export const ShoppingCart: React.FC = () => {
             clearCart();
             toggleCart();
 
-        } catch (error) {
+        } catch (error: any) {
             console.error('Failed to create order', error);
-            alert("Something went wrong while placing your order. Please try again.");
+            const errorMsg = error.response?.data?.error || "Something went wrong while placing your order. Please try again.";
+            alert(`Error: ${errorMsg}`);
         } finally {
             setIsCalculating(false);
         }

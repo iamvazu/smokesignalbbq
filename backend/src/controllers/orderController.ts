@@ -43,7 +43,7 @@ export const createOrder = async (req: Request, res: Response) => {
                 const product = await prisma.product.findFirst({
                     where: {
                         OR: [
-                            { id: item.productId },
+                            ...(isUUID(item.productId) ? [{ id: item.productId }] : []),
                             { sku: item.productId }
                         ]
                     }
@@ -53,7 +53,14 @@ export const createOrder = async (req: Request, res: Response) => {
                     finalProductId = product.id;
                 }
             } else if (item.comboId) {
-                const combo = await prisma.comboPack.findUnique({ where: { id: item.comboId } });
+                const combo = await prisma.comboPack.findFirst({
+                    where: {
+                        OR: [
+                            ...(isUUID(item.comboId) ? [{ id: item.comboId }] : []),
+                            { name: item.comboId }
+                        ]
+                    }
+                });
                 if (combo) {
                     dbPrice = Number(combo.price);
                     finalComboId = combo.id;
