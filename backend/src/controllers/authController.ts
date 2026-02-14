@@ -1,34 +1,68 @@
 import { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
-
-import jwt from 'jsonwebtoken';
+import { z } from 'zod';
 import prisma from '../lib/prisma';
+import {
+    hashPassword,
+    verifyPassword,
+    generateAccessToken,
+    generateRefreshToken
+} from '../lib/security';
+import crypto from 'crypto';
+
+// SECURITY: Strict password policy (min 12 chars, mixed case, numbers, symbols)
+const AuthSchema = z.object({
+    email: z.string().email().toLowerCase(),
+    password: z.string().min(12)
+        .regex(/[a-z]/, 'Password must contain lowercase')
+        .regex(/[A-Z]/, 'Password must contain uppercase')
+        .regex(/[0-9]/, 'Password must contain a number')
+        .regex(/[^a-zA-Z0-9]/, 'Password must contain a symbol')
+});
 
 export const login = async (req: Request, res: Response) => {
-    const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-    const { email, password } = req.body;
-
     try {
+        const validatedData = AuthSchema.parse(req.body);
+        const { email, password } = validatedData;
+
         const user = await prisma.user.findUnique({ where: { email } });
 
-        if (!user) {
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
+        // SECURITY: Generic error message to prevent account enumeration
+        const authError = 'Invalid email or password';
 
-        const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+        if (!user) return res.status(401).json({ error: authError });
 
-        if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Invalid email or password' });
-        }
+        // SECURITY: Argon2id verification
+        const isPasswordValid = await verifyPassword(user.passwordHash, password);
+        if (!isPasswordValid) return res.status(401).json({ error: authError });
 
-        const token = jwt.sign(
-            { userId: user.id, role: user.role },
-            JWT_SECRET,
-            { expiresIn: '24h' }
-        );
+        // SECURITY: Generate short-lived Access Token (15m)
+        const accessToken = generateAccessToken({
+            userId: user.id,
+            role: user.role
+        });
+
+        // SECURITY: Generate Refresh Token (Single-use rotation)
+        const refreshToken = generateRefreshToken({ userId: user.id });
+
+        // SECURITY: Store hashed refresh token in DB (SHA-256)
+        const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
+
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { refreshTokenHash }
+        });
+
+        // SECURITY: Use Secure, HttpOnly cookies for Refresh Token
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            path: '/api/v1/auth/refresh',
+            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+        });
 
         res.json({
-            token,
+            accessToken,
             user: {
                 id: user.id,
                 name: user.name,
@@ -37,18 +71,25 @@ export const login = async (req: Request, res: Response) => {
             }
         });
     } catch (error) {
-        res.status(500).json({ error: 'Login failed' });
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({ error: 'Invalid input', details: error.flatten() });
+        }
+        res.status(500).json({ error: 'Authentication failed' });
     }
 };
 
 export const register = async (req: Request, res: Response) => {
-    const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-    // Usually this would be restricted to Admin or first user setup
-    const { name, email, password, role } = req.body;
-
-
+    // SECURITY: Registration should ideally be protected by admin-only role
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const validatedData = AuthSchema.extend({
+            name: z.string().min(2),
+            role: z.enum(['admin', 'staff', 'kitchen_staff', 'delivery_partner']).optional()
+        }).parse(req.body);
+
+        const { name, email, password, role } = validatedData;
+
+        // SECURITY: Argon2id hashing
+        const hashedPassword = await hashPassword(password);
 
         const user = await prisma.user.create({
             data: {
@@ -60,15 +101,26 @@ export const register = async (req: Request, res: Response) => {
         });
 
         res.status(201).json({
-            message: 'User created successfully',
-            user: {
-                id: user.id,
-                name: user.name,
-                email: user.email,
-                role: user.role
-            }
+            message: 'Account provisioned successfully',
+            user: { id: user.id, email: user.email }
         });
     } catch (error) {
-        res.status(500).json({ error: 'Registration failed' });
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({ error: 'Invalid input', details: error.flatten() });
+        }
+        res.status(500).json({ error: 'Provisioning failed' });
     }
+};
+
+export const logout = async (req: Request, res: Response) => {
+    // SECURITY: Invalidate refresh token in DB on logout
+    const { userId } = (req as any).user;
+    if (userId) {
+        await prisma.user.update({
+            where: { id: userId },
+            data: { refreshTokenHash: null }
+        });
+    }
+    res.clearCookie('refreshToken');
+    res.json({ message: 'Logged out successfully' });
 };

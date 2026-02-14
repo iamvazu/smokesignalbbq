@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { verifyToken } from '../lib/security';
 
 export interface AuthRequest extends Request {
     user?: {
@@ -9,26 +9,29 @@ export interface AuthRequest extends Request {
 }
 
 export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
-    const JWT_SECRET = process.env.JWT_SECRET || 'secret';
-    const token = req.headers.authorization?.split(' ')[1];
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
         return res.status(401).json({ error: 'Authentication required' });
     }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET) as { userId: string; role: string };
+        // SECURITY: Verify token using asymmetric RS256 via security library
+        const decoded = verifyToken(token) as { userId: string; role: string };
         req.user = decoded;
         next();
     } catch (error) {
-        return res.status(401).json({ error: 'Invalid or expired token' });
+        // SECURITY: Don't differentiate between expired and invalid to prevent timing/probing attacks
+        return res.status(401).json({ error: 'Access token invalid or expired' });
     }
 };
 
 export const authorize = (roles: string[]) => {
     return (req: AuthRequest, res: Response, next: NextFunction) => {
+        // SECURITY: Role-based access control (RBAC) check
         if (!req.user || !roles.includes(req.user.role)) {
-            return res.status(403).json({ error: 'Access denied' });
+            return res.status(403).json({ error: 'Insufficient permissions' });
         }
         next();
     };
