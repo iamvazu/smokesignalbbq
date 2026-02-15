@@ -173,6 +173,78 @@ async function main() {
         }
     ];
 
+    const combos = [
+        {
+            name: 'Lone Star Solo',
+            description: 'Beef Brisket (200g) + 1 Signature Sauce (250ml)',
+            price: 549,
+            originalPrice: 580,
+            image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80',
+            isMostPopular: true
+        },
+        {
+            name: 'Peri Peri Punch',
+            description: 'Peri Peri Wings (8pcs) + 1 Signature Sauce (250ml)',
+            price: 379,
+            originalPrice: 400,
+            image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80',
+            isMostPopular: false
+        },
+        {
+            name: 'Garlic Glaze Chicken',
+            description: 'Pepper Garlic Chicken Steak (200g) + 1 Signature Sauce (250ml)',
+            price: 449,
+            originalPrice: 470,
+            image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80',
+            isMostPopular: false
+        },
+        {
+            name: 'Pitmaster Vanguard',
+            description: 'Beef Brisket (200g) + Pork Ribs (200g) + 2 Signature Sauces',
+            price: 1099,
+            originalPrice: 1150,
+            image: 'https://images.unsplash.com/photo-1529692236671-f1f6e9460272?auto=format&fit=crop&w=800&q=80',
+            isBestValue: true
+        },
+        {
+            name: 'Texas Smoked Duo',
+            description: 'Pork Belly (200g) + Texas Chicken Steak (200g) + 2 Signature Sauces',
+            price: 999,
+            originalPrice: 1040,
+            image: 'https://images.unsplash.com/photo-1544077960-604201fe74bc?auto=format&fit=crop&w=800&q=80',
+            isBestValue: true
+        },
+        {
+            name: 'Double Heatseeker',
+            description: 'Spicy Wings (8pcs) + Spicy Pork (200g) + 2 Signature Sauces',
+            price: 929,
+            originalPrice: 970,
+            image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=800&q=80',
+            isBestValue: false
+        }
+    ];
+
+    console.log('Clearing existing combos...');
+    await prisma.comboItem.deleteMany({});
+    await prisma.comboPack.deleteMany({});
+
+    console.log('Seeding combos...');
+    for (const c of combos) {
+        await prisma.comboPack.create({
+            data: {
+                id: crypto.randomUUID(),
+                name: c.name,
+                description: c.description,
+                price: c.price,
+                originalPrice: c.originalPrice,
+                image: c.image,
+                isMostPopular: c.isMostPopular || false,
+                isBestValue: c.isBestValue || false,
+                status: 'active'
+            }
+        });
+    }
+
     console.log('Seeding products...');
     for (const p of products) {
         await prisma.product.upsert({

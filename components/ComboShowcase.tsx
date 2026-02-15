@@ -40,8 +40,8 @@ export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {sortedProducts.map((product, index) => {
-                        const isMostPopular = product.id === 'combo-pitmaster';
-                        const isBestValue = product.id === 'combo-weekend';
+                        const isMostPopular = product.isMostPopular;
+                        const isBestValue = product.isBestValue;
 
                         return (
                             <motion.div
