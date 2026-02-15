@@ -1,26 +1,8 @@
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcryptjs';
-import crypto from 'crypto';
-
 
 const prisma = new PrismaClient();
 
 async function main() {
-    const adminPassword = await bcrypt.hash('admin123', 10);
-
-    const admin = await prisma.user.upsert({
-        where: { email: 'admin@smokesignal.com' },
-        update: {},
-        create: {
-            email: 'admin@smokesignal.com',
-            name: 'Super Admin',
-            passwordHash: adminPassword,
-            role: 'admin'
-        }
-    });
-
-    console.log('Seeding admin user...');
-
     const sauces = [
         {
             name: 'BBQ Texas Sauce',
@@ -69,37 +51,51 @@ async function main() {
         }
     ];
 
-    console.log('Seeding sauces...');
+    console.log('--- Adding Sauces ---');
 
     for (const sauce of sauces) {
-        await prisma.product.upsert({
-            where: { sku: sauce.name.toLowerCase().replace(/ /g, '-') },
-            update: {
-                description: sauce.description,
-                price: sauce.price,
-                weight: sauce.weight,
-                category: sauce.category,
-                subCategory: sauce.subCategory,
-            },
-            create: {
-                id: crypto.randomUUID(),
-                name: sauce.name,
-                sku: sauce.name.toLowerCase().replace(/ /g, '-'),
-                description: sauce.description,
-                category: sauce.category,
-                subCategory: sauce.subCategory,
-                price: sauce.price,
-                weight: sauce.weight,
-                stock: 100,
-                status: 'active',
-                images: {
-                    create: [{ imageUrl: sauce.image }]
-                }
-            }
+        // Find if already exists
+        const existing = await prisma.product.findFirst({
+            where: { name: sauce.name }
         });
+
+        if (existing) {
+            console.log(`Updating ${sauce.name}...`);
+            await prisma.product.update({
+                where: { id: existing.id },
+                data: {
+                    description: sauce.description,
+                    price: sauce.price,
+                    weight: sauce.weight,
+                    category: sauce.category,
+                    subCategory: sauce.subCategory,
+                    images: {
+                        deleteMany: {},
+                        create: [{ imageUrl: sauce.image }]
+                    }
+                }
+            });
+        } else {
+            console.log(`Creating ${sauce.name}...`);
+            await prisma.product.create({
+                data: {
+                    name: sauce.name,
+                    description: sauce.description,
+                    category: sauce.category,
+                    subCategory: sauce.subCategory,
+                    price: sauce.price,
+                    weight: sauce.weight,
+                    stock: 100,
+                    status: 'active',
+                    images: {
+                        create: [{ imageUrl: sauce.image }]
+                    }
+                }
+            });
+        }
     }
 
-    console.log('Seeding finished.');
+    console.log('--- Sauces Added ---');
 }
 
 main()

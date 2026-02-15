@@ -9,7 +9,7 @@
     "dev": "vite",
     "build": "node build.cjs",
     "postinstall": "npm install --prefix backend && npm install --prefix admin",
-    "start": "echo '🏃 Starting Migration...' && npm run migrate && echo '✅ Migration Done. Starting Server...' && npm start --prefix backend",
+    "start": "echo '🏃 Starting Migration...' && npm run migrate && npm run seed && echo '✅ Migration Done. Starting Server...' && npm start --prefix backend",
     "seed": "npm run prisma:seed --prefix backend",
     "migrate": "cd backend && npx prisma generate && npx prisma db push --accept-data-loss"
   },
