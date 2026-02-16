@@ -114,7 +114,7 @@ async function main() {
             subCategory: 'beef',
             price: 360,
             weight: 200,
-            image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=800&q=80'
+            image: '/beefbrisket.png'
         },
         {
             name: 'Beef Pepper Garlic Steak',
@@ -142,7 +142,7 @@ async function main() {
             subCategory: 'pork',
             price: 350,
             weight: 200,
-            image: '/Pork_Ribs.jpg'
+            image: '/texassmokedporkedribs.png'
         },
         {
             name: 'Texas Smoked Pork Belly',
