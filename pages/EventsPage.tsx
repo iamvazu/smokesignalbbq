@@ -464,7 +464,7 @@ export const EventsPage: React.FC = () => {
             <section id="quote" className="py-24 relative overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/footer_bg.jpg"
+                        src="/getaquote.png"
                         alt="Background"
                         className="w-full h-full object-cover opacity-25"
                     />
