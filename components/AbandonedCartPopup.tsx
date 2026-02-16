@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, MessageSquare, Sparkles } from 'lucide-react';
+import { X, MessageSquare } from 'lucide-react';
 import { useCartStore } from '../store';
 
 export const AbandonedCartPopup: React.FC = () => {
@@ -96,30 +96,16 @@ export const AbandonedCartPopup: React.FC = () => {
 
                         {/* Right Content (Visual) */}
                         <div className="flex-1 relative min-h-[300px] bg-charcoal flex items-center justify-center overflow-hidden">
-                            {/* Decorative Sparkles */}
-                            <div className="absolute top-10 left-10 p-4 bg-white/20 rounded-2xl backdrop-blur-md z-30">
-                                <Sparkles className="text-white w-8 h-8" />
-                            </div>
-
                             {/* The "AI Assistant" Visual */}
                             <div className="relative z-10 w-full h-full flex items-center justify-center">
                                 <img src="/Smoke Signal.png" alt="Smoke Signal BBQ" className="absolute inset-0 w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent z-10" />
-                                <div className="relative z-20 p-10 text-center">
-                                    <div className="w-48 h-48 mx-auto rounded-full border-4 border-white/30 p-2 backdrop-blur-sm mb-6">
-                                        <div className="w-full h-full rounded-full bg-white/10 flex items-center justify-center">
-                                            <Flame className="text-white w-20 h-20 animate-pulse" />
-                                        </div>
-                                    </div>
-                                    <p className="text-white/90 font-display text-sm uppercase tracking-widest font-bold">BBQ AI Expert Active</p>
+                                <div className="relative z-20 p-10 text-center flex flex-col items-center justify-end h-full pb-14">
+                                    <p className="text-white/90 font-display text-sm uppercase tracking-widest font-bold bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                                        BBQ AI Expert Active
+                                    </p>
                                 </div>
                             </div>
-
-                            {/* Dynamic Pattern Overlay */}
-                            <svg className="absolute inset-0 w-full h-full opacity-20 z-10" viewBox="0 0 100 100" preserveAspectRatio="none">
-                                <path d="M0 100 C 20 0 50 0 100 100" fill="none" stroke="white" strokeWidth="0.5" />
-                                <path d="M0 80 C 30 20 60 20 100 80" fill="none" stroke="white" strokeWidth="0.5" />
-                            </svg>
                         </div>
                     </motion.div>
                 </div>
@@ -129,19 +115,4 @@ export const AbandonedCartPopup: React.FC = () => {
 };
 
 // Helper icon
-const Flame = ({ className, size = 24 }: { className?: string, size?: number }) => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width={size}
-        height={size}
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={className}
-    >
-        <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" />
-    </svg>
-);
+// Removed unused icons
