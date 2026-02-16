@@ -186,7 +186,7 @@ async function main() {
             storageInstructions: 'Refrigerate. Best consumed within 5 days.',
             price: 379,
             originalPrice: 400,
-            image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80',
+            image: '/combo4.jpg',
             isMostPopular: false
         },
         {
@@ -198,7 +198,7 @@ async function main() {
             storageInstructions: 'Refrigerate. Use within 48 hours for best quality.',
             price: 449,
             originalPrice: 470,
-            image: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80',
+            image: '/combo5.png',
             isMostPopular: false
         },
         {
@@ -234,7 +234,7 @@ async function main() {
             storageInstructions: 'Store chilled. Capsaicin is a natural preservative but best within 5 days.',
             price: 929,
             originalPrice: 970,
-            image: 'https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=800&q=80',
+            image: '/combo6.png',
             isBestValue: false
         }
     ];
