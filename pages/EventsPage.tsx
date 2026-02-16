@@ -466,9 +466,9 @@ export const EventsPage: React.FC = () => {
                     <img
                         src="/getaquote.png"
                         alt="Background"
-                        className="w-full h-full object-cover opacity-25"
+                        className="w-full h-full object-cover opacity-60"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/90 to-charcoal/80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-charcoal/20" />
                 </div>
                 <div className="container mx-auto px-4 max-w-5xl relative z-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
