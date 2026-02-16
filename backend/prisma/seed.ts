@@ -30,7 +30,7 @@ async function main() {
             subCategory: 'sauces',
             price: 220,
             weight: 250,
-            image: '/Texas_Sauce.jpg'
+            image: '/smokeytexas_saucebottle.png'
         },
         {
             name: 'BBQ Spicy Mango Sauce',
@@ -39,7 +39,7 @@ async function main() {
             subCategory: 'sauces',
             price: 220,
             weight: 250,
-            image: 'https://images.unsplash.com/photo-1478144592103-258219070793?auto=format&fit=crop&w=800&q=80'
+            image: '/saucywings_saucebottle.png'
         },
         {
             name: 'Smokey Pepper Garlic Sauce',
@@ -48,7 +48,7 @@ async function main() {
             subCategory: 'sauces',
             price: 220,
             weight: 250,
-            image: 'https://images.unsplash.com/photo-1631402242084-3c66289f81da?auto=format&fit=crop&w=800&q=80'
+            image: '/porkribs_saucebottle.png'
         },
         {
             name: 'Peri Peri Sauce',
@@ -66,7 +66,7 @@ async function main() {
             subCategory: 'sauces',
             price: 220,
             weight: 250,
-            image: '/brisket_sauce.jpg'
+            image: '/brisket_saucebottle.png'
         },
         // WINGS
         {
