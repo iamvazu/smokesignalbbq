@@ -67,7 +67,7 @@ async function main() {
             subCategory: 'wings',
             price: 180,
             weight: 0,
-            image: '/Saucy_Wings.jpg'
+            image: '/texasstylesaucywings.png'
         },
         {
             name: 'BBQ Spicy Wings',
@@ -76,7 +76,7 @@ async function main() {
             subCategory: 'wings',
             price: 180,
             weight: 0,
-            image: 'https://images.unsplash.com/photo-1527477396000-e27163b481c2?auto=format&fit=crop&w=800&q=80'
+            image: '/bbqspicywings.png'
         },
         {
             name: 'Peri Peri Wings',
@@ -85,7 +85,7 @@ async function main() {
             subCategory: 'wings',
             price: 180,
             weight: 0,
-            image: 'https://images.unsplash.com/photo-1608039755401-742074f0548d?auto=format&fit=crop&w=800&q=80'
+            image: '/periperiwings.png'
         },
         // CHICKEN
         {
