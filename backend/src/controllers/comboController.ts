@@ -39,7 +39,21 @@ export const getComboById = async (req: Request, res: Response) => {
 };
 
 export const createCombo = async (req: Request, res: Response) => {
-    const { name, description, price, originalPrice, image, isMostPopular, isBestValue, status, items } = req.body;
+    const {
+        name,
+        description,
+        longDescription,
+        heatingInstructions,
+        ingredients,
+        storageInstructions,
+        price,
+        originalPrice,
+        image,
+        isMostPopular,
+        isBestValue,
+        status,
+        items
+    } = req.body;
     // items should be array of { productId, quantity }
 
     try {
@@ -47,6 +61,10 @@ export const createCombo = async (req: Request, res: Response) => {
             data: {
                 name,
                 description,
+                longDescription,
+                heatingInstructions,
+                ingredients,
+                storageInstructions,
                 price: Number(price),
                 originalPrice: Number(originalPrice),
                 image,
@@ -77,7 +95,21 @@ export const createCombo = async (req: Request, res: Response) => {
 
 export const updateCombo = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { name, description, price, originalPrice, image, isMostPopular, isBestValue, status, items } = req.body;
+    const {
+        name,
+        description,
+        longDescription,
+        heatingInstructions,
+        ingredients,
+        storageInstructions,
+        price,
+        originalPrice,
+        image,
+        isMostPopular,
+        isBestValue,
+        status,
+        items
+    } = req.body;
 
     try {
         // First delete existing items to replace them (simplest strategy for update)
@@ -92,6 +124,10 @@ export const updateCombo = async (req: Request, res: Response) => {
             data: {
                 name,
                 description,
+                longDescription,
+                heatingInstructions,
+                ingredients,
+                storageInstructions,
                 price: Number(price),
                 originalPrice: Number(originalPrice),
                 image,

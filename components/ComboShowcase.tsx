@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Product } from '../types';
 import { useCartStore } from '../store';
-import { Flame, Star, TrendingUp } from 'lucide-react';
-import { Button } from './Button';
+import { Flame, TrendingUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface ComboShowcaseProps {
     products: Product[];
@@ -11,6 +11,7 @@ interface ComboShowcaseProps {
 
 export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
     const { addItem } = useCartStore();
+    const navigate = useNavigate();
 
     // Sorting: Most Popular first, then Best Value, then by price
     const sortedProducts = [...products].sort((a, b) => {
@@ -50,7 +51,8 @@ export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                className={`relative group rounded-[2rem] overflow-hidden border ${isMostPopular ? 'border-fire ring-1 ring-fire scale-105 z-10' : 'border-white/5'
+                                onClick={() => navigate(`/product/${product.id}`)}
+                                className={`relative group rounded-[2rem] overflow-hidden border cursor-pointer ${isMostPopular ? 'border-fire ring-1 ring-fire scale-105 z-10' : 'border-white/5'
                                     } bg-[#121212] transition-all duration-500`}
                             >
                                 {isMostPopular && (
@@ -94,7 +96,10 @@ export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
                                     </div>
 
                                     <button
-                                        onClick={() => addItem(product)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            addItem(product);
+                                        }}
                                         aria-label={`Add ${product.name} to cart`}
                                         className={`w-full py-4 rounded-xl font-bold uppercase tracking-widest text-xs transition-all duration-300 flex items-center justify-center gap-2 ${isMostPopular
                                             ? 'bg-fire text-white shadow-[0_0_30px_rgba(255,107,0,0.3)] hover:bg-fire/80'

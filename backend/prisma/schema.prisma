@@ -88,18 +88,22 @@ model ProductImage {
 }
 
 model ComboPack {
-  id            String      @id @default(uuid())
-  name          String?
-  description   String?
-  price         Int?
-  originalPrice Int?
-  image         String?
-  isMostPopular Boolean     @default(false)
-  isBestValue   Boolean     @default(false)
-  status        String      @default("active")
-  createdAt     DateTime    @default(now())
-  items         ComboItem[]
-  orderItems    OrderItem[]
+  id                  String      @id @default(uuid())
+  name                String?
+  description         String?
+  longDescription     String?     @db.Text
+  heatingInstructions String?
+  ingredients         String?
+  storageInstructions String?
+  price               Int?
+  originalPrice       Int?
+  image               String?
+  isMostPopular       Boolean     @default(false)
+  isBestValue         Boolean     @default(false)
+  status              String      @default("active")
+  createdAt           DateTime    @default(now())
+  items               ComboItem[]
+  orderItems          OrderItem[]
 
   @@map("combo_packs")
 }

@@ -19,10 +19,13 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
     const [loading, setLoading] = useState(false);
     const [products, setProducts] = useState<any[]>([]);
 
-    // Form State
     const [formData, setFormData] = useState({
         name: '',
         description: '',
+        longDescription: '',
+        heatingInstructions: '',
+        ingredients: '',
+        storageInstructions: '',
         price: '',
         originalPrice: '',
         image: '',
@@ -38,6 +41,10 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
             setFormData({
                 name: combo.name || '',
                 description: combo.description || '',
+                longDescription: combo.longDescription || '',
+                heatingInstructions: combo.heatingInstructions || '',
+                ingredients: combo.ingredients || '',
+                storageInstructions: combo.storageInstructions || '',
                 price: combo.price?.toString() || '',
                 originalPrice: combo.originalPrice?.toString() || '',
                 image: combo.image || '',
@@ -162,11 +169,53 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
             </div>
 
             <div className="space-y-2">
-                <Label>Description</Label>
+                <Label>Short Description</Label>
                 <Textarea
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    className="bg-background/50 border-white/10 h-24"
+                    className="bg-background/50 border-white/10 h-20"
+                    placeholder="Brief summary for catalog cards"
+                />
+            </div>
+
+            <div className="space-y-2">
+                <Label>Long Description (Product Page)</Label>
+                <Textarea
+                    value={formData.longDescription}
+                    onChange={(e) => setFormData({ ...formData, longDescription: e.target.value })}
+                    className="bg-background/50 border-white/10 h-32"
+                    placeholder="Detailed description for the individual product page"
+                />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                    <Label>Heating Instructions</Label>
+                    <Input
+                        value={formData.heatingInstructions}
+                        onChange={(e) => setFormData({ ...formData, heatingInstructions: e.target.value })}
+                        className="bg-background/50 border-white/10"
+                        placeholder="e.g. Microwave for 2 mins"
+                    />
+                </div>
+                <div className="space-y-2">
+                    <Label>Storage Instructions</Label>
+                    <Input
+                        value={formData.storageInstructions}
+                        onChange={(e) => setFormData({ ...formData, storageInstructions: e.target.value })}
+                        className="bg-background/50 border-white/10"
+                        placeholder="e.g. Keep refrigerated"
+                    />
+                </div>
+            </div>
+
+            <div className="space-y-2">
+                <Label>Ingredients</Label>
+                <Input
+                    value={formData.ingredients}
+                    onChange={(e) => setFormData({ ...formData, ingredients: e.target.value })}
+                    className="bg-background/50 border-white/10"
+                    placeholder="List main ingredients for transparency"
                 />
             </div>
 
