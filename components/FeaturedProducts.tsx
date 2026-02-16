@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Product } from '../types';
 import { useCartStore } from '../store';
 import { Flame, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface FeaturedProductsProps {
     products: Product[];
@@ -10,6 +11,7 @@ interface FeaturedProductsProps {
 
 export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) => {
     const { addItem } = useCartStore();
+    const navigate = useNavigate();
 
     return (
         <section className="py-24 bg-burnt/5 relative overflow-hidden">
@@ -35,7 +37,8 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) 
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="relative group h-[500px] overflow-hidden rounded-3xl"
+                            className="relative group h-[500px] overflow-hidden rounded-3xl cursor-pointer"
+                            onClick={() => navigate(`/product/${product.id}`)}
                         >
                             <img
                                 src={product.image}
@@ -60,7 +63,10 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) 
                                 <div className="flex items-center justify-between">
                                     <span className="text-fire font-bold text-2xl">{product.price}</span>
                                     <button
-                                        onClick={() => addItem(product)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            addItem(product);
+                                        }}
                                         aria-label={`Add ${product.name} to cart`}
                                         className="p-4 bg-fire text-white rounded-2xl hover:bg-fire/80 transition-colors shadow-xl"
                                     >

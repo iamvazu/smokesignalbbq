@@ -24,7 +24,7 @@ async function main() {
     const products = [
         // SAUCES
         {
-            name: 'BBQ Texas Sauce',
+            name: 'Smokey Texas Sauce',
             description: 'The heart of the Lone Star State in a bottle. Deep, savory, and perfectly smoky.',
             category: 'sauce',
             subCategory: 'sauces',
@@ -33,8 +33,8 @@ async function main() {
             image: '/smokeytexas_saucebottle.png'
         },
         {
-            name: 'BBQ Spicy Mango Sauce',
-            description: 'Tropical sweetness meets high-country heat. Real sun-ripened mangoes with habanero.',
+            name: 'Texas Style Saucy Wings',
+            description: 'The ultimate wing glaze. Bold, tangy, and perfect for wings.',
             category: 'sauce',
             subCategory: 'sauces',
             price: 220,
@@ -42,8 +42,8 @@ async function main() {
             image: '/saucywings_saucebottle.png'
         },
         {
-            name: 'Smokey Pepper Garlic Sauce',
-            description: 'A robust powerhouse infused with double-roasted garlic and freshly cracked black pepper.',
+            name: 'Pork Ribs Sauce',
+            description: 'Engineered specifically for low & slow pork. The perfect companion for ribs.',
             category: 'sauce',
             subCategory: 'sauces',
             price: 220,
@@ -51,17 +51,8 @@ async function main() {
             image: '/porkribs_saucebottle.png'
         },
         {
-            name: 'Peri Peri Sauce',
-            description: 'Zesty, citrusy, and undeniably hot. Our take on the classic African bird\'s eye chili.',
-            category: 'sauce',
-            subCategory: 'sauces',
-            price: 220,
-            weight: 250,
-            image: 'https://images.unsplash.com/photo-1598511796318-7b82ea7bc88c?auto=format&fit=crop&w=800&q=80'
-        },
-        {
-            name: 'BBQ Hot Sauce',
-            description: 'The Pitmaster\'s choice for heat seekers. A concentrated explosion of fire and flavor.',
+            name: 'The Brisket Sauce',
+            description: 'Designed for the King of BBQ. Savory, peppery, and bold.',
             category: 'sauce',
             subCategory: 'sauces',
             price: 220,

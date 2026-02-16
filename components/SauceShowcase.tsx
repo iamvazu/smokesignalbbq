@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { SAUCES } from '../constants';
 import { Button } from './Button';
 import { useCartStore } from '../store';
+import { useNavigate } from 'react-router-dom';
 
 export const SauceShowcase: React.FC = () => {
   const { addItem } = useCartStore();
+  const navigate = useNavigate();
 
   return (
     <section id="sauces" className="py-24 bg-burnt relative overflow-hidden">
@@ -35,14 +37,13 @@ export const SauceShowcase: React.FC = () => {
             </div>
 
             <div className="relative z-10 p-8 md:p-12">
-              <span className="text-fire uppercase tracking-widest text-sm font-bold">Bottled Greatness</span>
-              <h2 className="section-title font-display text-4xl md:text-5xl text-cream mt-2 mb-6 leading-tight">
-                Bring the Texas Taste Home with Our Sauces
+              <span className="text-fire uppercase tracking-widest text-sm font-bold">Pitmaster Select</span>
+              <h2 className="section-title font-display text-4xl md:text-5xl text-cream mt-2 mb-6 leading-tight italic">
+                Signature BBQ Sauces
               </h2>
               <p className="font-body text-gray-200 text-lg mb-8 leading-relaxed drop-shadow-md">
-                Our award-winning sauces and rubs are handcrafted in small batches.
-                Whether you need a sweet glaze for your ribs or a spicy kick for your wings,
-                we've bottled the essence of Smoke Signal BBQ.
+                Crafted by pitmasters. Smoky, bold, and authentic.
+                Whether you're glazing ribs or dipping wings, our 250ml bottles bring the Texas smokehouse directly to your table.
               </p>
               <Button onClick={() => window.open('https://wa.me/917899870957?text=I want to buy sauces', '_blank')}>
                 Shop Sauces
@@ -60,16 +61,22 @@ export const SauceShowcase: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 whileHover={{ y: -10 }}
-                className="bg-charcoal/50 p-6 rounded-xl border border-white/5 text-center group"
+                className="bg-charcoal/50 p-6 rounded-xl border border-white/5 text-center group cursor-pointer"
+                onClick={() => navigate(`/product/${sauce.id}`)}
               >
                 <div className="w-full h-64 mb-4 rounded-lg overflow-hidden relative bg-black/20">
-                  <img src={sauce.image} alt={sauce.alt || sauce.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
+                  <img src={sauce.image} alt={sauce.name} className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" />
                 </div>
-                <h4 className="font-display text-xl text-cream mb-2">{sauce.name}</h4>
+                <h4 className="font-display text-xl text-cream mb-2 group-hover:text-fire transition-colors">{sauce.name}</h4>
                 <p className="font-body text-xs text-gray-400 mb-3">{sauce.description}</p>
                 <span className="block text-fire font-bold mb-4">{sauce.price}</span>
-                <button className="text-xs uppercase font-bold tracking-widest border-b border-fire text-cream pb-1 hover:text-fire transition-colors"
-                  onClick={() => addItem(sauce)}>
+                <button
+                  className="text-xs uppercase font-bold tracking-widest border-b border-fire text-cream pb-1 hover:text-fire transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addItem(sauce);
+                  }}
+                >
                   Add to Cart
                 </button>
               </motion.div>

@@ -2,10 +2,10 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PRODUCTS } from '../constants';
 import { Product, SubCategory } from '../types';
-import { Flame, ShoppingBag, Info } from 'lucide-react';
-import { Button } from './Button';
+import { Flame, Info } from 'lucide-react';
 import { useCartStore } from '../store';
 import { ProductModal } from './ProductModal';
+import { useNavigate } from 'react-router-dom';
 
 const categories: { label: string; value: SubCategory | 'all' | 'bbq' | 'sauce' }[] = [
   { label: 'All', value: 'all' },
@@ -26,6 +26,7 @@ interface CardProps {
 
 const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
   const { addItem } = useCartStore();
+  const navigate = useNavigate();
 
   return (
     <motion.div
@@ -34,7 +35,8 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.3 }}
-      className="group relative bg-[#1A1A1A] border border-white/5 rounded-2xl overflow-hidden hover:border-fire/30 transition-all duration-300 flex flex-col h-full shadow-2xl"
+      className="group relative bg-[#1A1A1A] border border-white/5 rounded-2xl overflow-hidden hover:border-fire/30 transition-all duration-300 flex flex-col h-full shadow-2xl cursor-pointer"
+      onClick={() => navigate(`/product/${product.id}`)}
     >
       {/* Badges */}
       <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">
@@ -56,7 +58,10 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
           loading="lazy"
         />
         <button
-          onClick={() => onViewDetails(product)}
+          onClick={(e) => {
+            e.stopPropagation();
+            onViewDetails(product);
+          }}
           aria-label={`View details for ${product.name}`}
           className="absolute top-3 right-3 z-20 p-2 bg-black/50 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-fire"
         >
@@ -82,7 +87,10 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
 
         <div className="mt-auto">
           <button
-            onClick={() => addItem(product)}
+            onClick={(e) => {
+              e.stopPropagation();
+              addItem(product);
+            }}
             aria-label={`Add ${product.name} to cart`}
             className="w-full py-3 bg-charcoal border border-fire/30 text-fire hover:bg-fire hover:text-white uppercase text-xs font-bold tracking-widest transition-all duration-300 rounded-xl flex items-center justify-center gap-2 group/btn shadow-lg"
           >
@@ -140,7 +148,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({ products: initialProducts, s
           <div className="flex flex-wrap justify-center gap-2 p-1 bg-black/40 backdrop-blur-xl rounded-2xl border border-white/5 shadow-2xl max-w-full">
             {categories.map((cat) => (
               <button
-                key={cat.value}
+                key={cat.label}
                 onClick={() => setActiveFilter(cat.value)}
                 aria-label={`Filter by ${cat.label}`}
                 aria-pressed={activeFilter === cat.value}

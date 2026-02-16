@@ -10,6 +10,7 @@ import { OffersPopup } from './components/OffersPopup';
 import { useCartStore } from './store';
 import { Home } from './pages/Home';
 import { ShopPage } from './pages/ShopPage';
+import { ProductPage } from './pages/ProductPage';
 import { EventsPage } from './pages/EventsPage';
 import { BlogPage } from './pages/BlogPage';
 import { BlogPostPage } from './pages/BlogPostPage';
@@ -36,6 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blog/:slug" element={<BlogPostPage />} />

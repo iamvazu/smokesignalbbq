@@ -11,7 +11,6 @@ export const NAV_LINKS = [
 
 
 export const PRODUCTS: Product[] = [
-  // COMBOS (Top of the list for visibility)
   // 1 MEAT + 1 SAUCE COMBOS
   {
     id: 'combo-lone-star',
@@ -298,8 +297,8 @@ export const PRODUCTS: Product[] = [
   // SAUCES
   {
     id: 'sauce-texas',
-    name: 'BBQ Texas Sauce',
-    description: 'Classic pitmaster style. Smoky, rich, authentic.',
+    name: 'Smokey Texas Sauce',
+    description: 'Classic pitmaster style. Smokey, rich, authentic.',
     longDescription: 'The heart of the Lone Star State in a bottle. Deep, savory, and perfectly smoky with a rich tomato base and a secret blend of spices that have been a Texas legend for generations.',
     price: '₹220',
     priceValue: 220,
@@ -313,70 +312,53 @@ export const PRODUCTS: Product[] = [
     relatedProductIds: ['beef-brisket', 'pork-ribs']
   },
   {
-    id: 'sauce-spicy-mango',
-    name: 'BBQ Spicy Mango Sauce',
-    description: 'Sweet, tangy, and spicy fusion sauce.',
-    longDescription: 'Tropical sweetness meets high-country heat. Real sun-ripened mangoes blended with a sharp kick of habanero, creating a vibrant glaze that makes pork and poultry sing.',
+    id: 'sauce-saucy-wings',
+    name: 'Texas Style Saucy Wings',
+    description: 'Bold, tangy, and perfect for wings.',
+    longDescription: 'The ultimate wing glaze. Designed specifically for our signature wings, this sauce balances heat, tang, and sweetness for that authentic Texas-style kick.',
     price: '₹220',
     priceValue: 220,
     image: '/saucywings_saucebottle.png',
     category: 'sauce',
     subCategory: 'sauces',
     volume: '250ml',
-    badges: ['Pitmaster Crafted', 'Tropical Heat'],
-    ingredients: 'Mango pulp, habanero peppers, honey, vinegar, lime juice, ginger.',
+    badges: ['Pitmaster Crafted', 'Wing King'],
+    ingredients: 'Hot sauce base, honey, vinegar, secret spices, butter flavor.',
     storageInstructions: 'Refrigerate after opening.',
-    relatedProductIds: ['wings-bbq-spicy', 'pork-spicy']
+    relatedProductIds: ['wings-texas-saucy']
   },
   {
-    id: 'sauce-pepper-garlic',
-    name: 'Smokey Pepper Garlic Sauce',
-    description: 'Savory, smoky garlic pepper flavor.',
-    longDescription: 'A robust, umami-packed powerhouse. Infused with double-roasted garlic and freshly cracked black pepper, this sauce brings a sophisticated depth to every grilled cut.',
+    id: 'sauce-pork-ribs',
+    name: 'Pork Ribs Sauce',
+    description: 'The perfect companion for ribs.',
+    longDescription: 'Engineered specifically for low & slow pork. This sauce penetrates deep into the meat, adding a layer of sweet-smokey complexity that makes ribs truly unforgettable.',
     price: '₹220',
     priceValue: 220,
     image: '/porkribs_saucebottle.png',
     category: 'sauce',
     subCategory: 'sauces',
     volume: '250ml',
-    badges: ['Pitmaster Crafted', 'Garlic Lovers'],
-    ingredients: 'Roasted garlic, black pepper, onion powder, vinegar, sunflower oil, smoke flavoring.',
+    badges: ['Pitmaster Crafted', 'Rib Master'],
+    ingredients: 'Tomato concentrate, brown sugar, apple juice, cider vinegar, pork-friendly spice blend.',
     storageInstructions: 'Refrigerate after opening.',
-    relatedProductIds: ['chicken-pepper-garlic', 'beef-pepper-garlic']
+    relatedProductIds: ['pork-ribs']
   },
   {
-    id: 'sauce-peri-peri',
-    name: 'Peri Peri Sauce',
-    description: 'Flame-grilled flavor. Zesty and spicy.',
-    longDescription: 'Zesty, citrusy, and undeniably hot. Our take on the classic African bird\'s eye chili sauce is fermented for depth and brightness, perfect for those who like their BBQ with a serious bite.',
-    price: '₹220',
-    priceValue: 220,
-    image: 'https://images.unsplash.com/photo-1598511796318-7b82ea7bc88c?auto=format&fit=crop&w=800&q=80',
-    category: 'sauce',
-    subCategory: 'sauces',
-    volume: '250ml',
-    badges: ['Pitmaster Crafted', 'Zesty Fire'],
-    ingredients: 'Bird\'s eye chili, lemon, garlic, paprika, oregano, oil.',
-    storageInstructions: 'Refrigerate after opening.',
-    relatedProductIds: ['wings-peri-peri']
-  },
-  {
-    id: 'sauce-hot',
-    name: 'BBQ Hot Sauce',
-    description: 'Pitmaster choice for heat seekers.',
-    longDescription: 'The Pitmaster\'s choice for heat seekers. A concentrated explosion of fire and flavor, balancing the intensity of fermented chilies with a subtle smokiness that burns in all the right ways.',
+    id: 'sauce-brisket',
+    name: 'The Brisket Sauce',
+    description: 'Designed for the King of BBQ.',
+    longDescription: 'A sophisticated, less-sweet sauce designed to complement the rich, fatty goodness of slow-smoked beef brisket. Peppery, savory, and bold.',
     price: '₹220',
     priceValue: 220,
     image: '/brisket_saucebottle.png',
     category: 'sauce',
     subCategory: 'sauces',
     volume: '250ml',
-    badges: ['Pitmaster Crafted', 'Maximum Heat'],
-    ingredients: 'Fermented chilies, vinegar, capsicum extract, spice extract, smoke.',
+    badges: ['Pitmaster Crafted', 'Beef Specialist'],
+    ingredients: 'Beef stock, black pepper, garlic, onion, Worcestershire, minimal sugar.',
     storageInstructions: 'Refrigerate after opening.',
-    relatedProductIds: ['wings-bbq-spicy', 'pork-spicy']
+    relatedProductIds: ['beef-brisket']
   }
-
 ];
 
 export const SAUCES = PRODUCTS.filter(p => p.category === 'sauce');
