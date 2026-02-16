@@ -5,7 +5,7 @@ import {
     ArrowRight, CheckCircle2, XCircle, Download, Phone,
     Calendar, Mail, Globe, Clock, ChevronDown, Rocket,
     Zap, Gem, Award, PieChart, Briefcase, Info,
-    MessageSquare, HelpCircle, Star
+    MessageSquare, HelpCircle, Star, User
 } from 'lucide-react';
 
 export const FranchisePage: React.FC = () => {
