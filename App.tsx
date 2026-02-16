@@ -21,8 +21,16 @@ function App() {
   const { items, toggleCart } = useCartStore();
   const location = useLocation();
 
-  // Smooth scroll behavior for anchor links
+  // GA Tracking and Smooth scroll behavior for anchor links
   useEffect(() => {
+    // Page view tracking
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('config', 'G-YM8DDTWV6Q', {
+        page_path: location.pathname,
+        page_title: document.title
+      });
+    }
+
     document.documentElement.style.scrollBehavior = 'smooth';
     window.scrollTo(0, 0);
     return () => {

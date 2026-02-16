@@ -106,6 +106,22 @@ export const ShoppingCart: React.FC = () => {
         }
 
         setIsCalculating(true);
+
+        // GA Event: Begin Checkout
+        if (typeof (window as any).gtag === 'function') {
+            (window as any).gtag('event', 'begin_checkout', {
+                currency: 'INR',
+                value: finalTotal,
+                items: items.map(item => ({
+                    item_id: item.id,
+                    item_name: item.name,
+                    item_category: item.category,
+                    price: item.priceValue,
+                    quantity: item.quantity
+                }))
+            });
+        }
+
         try {
             // 1. Create Order in Backend
             const orderData = {
@@ -128,6 +144,24 @@ export const ShoppingCart: React.FC = () => {
 
             const response = await axios.post(`${API_URL}/orders`, orderData);
             const orderId = response.data.id.split('-')[0].toUpperCase();
+
+            // GA Event: Purchase
+            if (typeof (window as any).gtag === 'function') {
+                (window as any).gtag('event', 'purchase', {
+                    transaction_id: orderId,
+                    value: finalTotal,
+                    currency: 'INR',
+                    tax: gst,
+                    shipping: deliveryFee || 0,
+                    items: items.map(item => ({
+                        item_id: item.id,
+                        item_name: item.name,
+                        item_category: item.category,
+                        price: item.priceValue,
+                        quantity: item.quantity
+                    }))
+                });
+            }
 
             // 2. Generate WhatsApp message
             let message = `*🔥 NEW ORDER REQUEST 🔥*\n`;
@@ -285,7 +319,6 @@ export const ShoppingCart: React.FC = () => {
                                                 </div>
                                                 <Button
                                                     variant="primary"
-                                                    size="sm"
                                                     onClick={handleSendInvoice}
                                                     disabled={!userDetails.email || emailStatus !== 'idle'}
                                                     className="px-4 shrink-0"
@@ -304,7 +337,7 @@ export const ShoppingCart: React.FC = () => {
                                     </div>
 
                                     <Button
-                                        variant="ghost"
+                                        variant="outline"
                                         onClick={handleClose}
                                         className="mt-4 border border-white/10 hover:bg-white/5"
                                     >

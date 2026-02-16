@@ -67,6 +67,20 @@ export const ShopPage: React.FC = () => {
 
                 if (allItems.length > 0) {
                     setProducts(allItems);
+
+                    // GA Event Tracking
+                    if (typeof (window as any).gtag === 'function') {
+                        (window as any).gtag('event', 'view_item_list', {
+                            item_list_name: 'Shop Page',
+                            items: allItems.map((p, index) => ({
+                                item_id: p.id,
+                                item_name: p.name,
+                                index: index + 1,
+                                item_category: p.category,
+                                price: p.priceValue
+                            }))
+                        });
+                    }
                 }
 
             } catch (error) {

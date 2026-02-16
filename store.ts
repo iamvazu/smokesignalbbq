@@ -37,6 +37,21 @@ export const useCartStore = create<CartStore>()(
             addItem: (product) => set((state) => {
                 const existingItem = state.items.find((item) => item.id === product.id);
 
+                // GA Tracking
+                if (typeof (window as any).gtag === 'function') {
+                    (window as any).gtag('event', 'add_to_cart', {
+                        currency: 'INR',
+                        value: product.priceValue,
+                        items: [{
+                            item_id: product.id,
+                            item_name: product.name,
+                            item_category: product.category,
+                            price: product.priceValue,
+                            quantity: 1
+                        }]
+                    });
+                }
+
                 if (existingItem) {
                     return {
                         items: state.items.map((item) =>

@@ -118,6 +118,15 @@ export const EventsPage: React.FC = () => {
             setSubmittedInquiryId(inquiryId);
             setSubmissionSuccess(true);
 
+            // GA Event Tracking
+            if (typeof (window as any).gtag === 'function') {
+                (window as any).gtag('event', 'generate_lead', {
+                    event_category: 'Events',
+                    event_label: formData.eventType,
+                    value: 1
+                });
+            }
+
             // Auto-open WhatsApp
             setTimeout(() => {
                 const waLink = generateWhatsAppLink(inquiryId, formData);
