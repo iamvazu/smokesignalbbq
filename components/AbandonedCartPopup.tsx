@@ -101,17 +101,16 @@ export const AbandonedCartPopup: React.FC = () => {
                             </div>
 
                             {/* The "AI Assistant" Visual */}
-                            {/* Since generate_image is failing, I'll use a stylized CSS representation or an img tag that the user can replace */}
                             <div className="relative z-10 w-full h-full flex items-center justify-center">
-                                {/* Placeholder logic - usually an <img> would go here */}
-                                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center mix-blend-overlay opacity-60" />
-                                <div className="p-10 text-center">
+                                <img src="/Smoke Signal.png" alt="Smoke Signal BBQ" className="absolute inset-0 w-full h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#5E33FF]/80 to-transparent z-10" />
+                                <div className="relative z-20 p-10 text-center">
                                     <div className="w-48 h-48 mx-auto rounded-full border-4 border-white/30 p-2 backdrop-blur-sm mb-6">
                                         <div className="w-full h-full rounded-full bg-white/10 flex items-center justify-center">
                                             <Flame className="text-white w-20 h-20 animate-pulse" />
                                         </div>
                                     </div>
-                                    <p className="text-white/80 font-display text-sm uppercase tracking-widest">BBQ AI Expert Active</p>
+                                    <p className="text-white/90 font-display text-sm uppercase tracking-widest font-bold">BBQ AI Expert Active</p>
                                 </div>
                             </div>
 
