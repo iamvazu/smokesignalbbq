@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 import { PRODUCTS } from '../constants';
 import { Product } from '../types';
 import { useCartStore } from '../store';
@@ -12,19 +13,77 @@ export const ProductPage: React.FC = () => {
     const navigate = useNavigate();
     const { addItem } = useCartStore();
     const [product, setProduct] = useState<Product | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const foundProduct = PRODUCTS.find(p => p.id === id);
-        if (foundProduct) {
-            setProduct(foundProduct);
-            window.scrollTo(0, 0);
-        }
+        const fetchProductData = async () => {
+            // First check local constants
+            const foundProduct = PRODUCTS.find(p => p.id === id);
+
+            if (foundProduct) {
+                setProduct(foundProduct);
+                window.scrollTo(0, 0);
+                setLoading(false);
+                return;
+            }
+
+            // If not found in constants, fetch from backend
+            try {
+                const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
+                // Try fetching as product first, then combo
+                const responses = await Promise.allSettled([
+                    axios.get(`${API_URL}/products/${id}`),
+                    axios.get(`${API_URL}/combos/${id}`)
+                ]);
+
+                const successRes = responses.find(r => r.status === 'fulfilled' && (r as any).value.data);
+
+                if (successRes) {
+                    const data = (successRes as any).value.data;
+                    const isCombo = (successRes as any).value.config.url.includes('/combos/');
+
+                    setProduct({
+                        id: data.id,
+                        name: data.name,
+                        description: data.description || '',
+                        longDescription: data.longDescription || data.description || '',
+                        price: `₹${data.price}`,
+                        priceValue: data.price,
+                        image: isCombo ? data.image : (data.images?.[0]?.imageUrl || data.image),
+                        category: isCombo ? 'combo' : (data.category || 'bbq'),
+                        subCategory: isCombo ? 'combos' : (data.subCategory || 'all'),
+                        badges: data.badges || [],
+                        heatingInstructions: data.heatingInstructions || '',
+                        ingredients: data.ingredients || '',
+                        storageInstructions: data.storageInstructions || '',
+                        weight: data.weight ? `${data.weight}g` : undefined,
+                    });
+                }
+            } catch (error) {
+                console.error('Failed to fetch product:', error);
+            } finally {
+                setLoading(false);
+                window.scrollTo(0, 0);
+            }
+        };
+
+        fetchProductData();
     }, [id]);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-charcoal flex items-center justify-center">
+                <div className="animate-spin text-fire">
+                    <ShoppingBag size={48} />
+                </div>
+            </div>
+        );
+    }
 
     if (!product) {
         return (
-            <div className="min-h-screen bg-charcoal flex items-center justify-center pt-24">
-                <div className="text-center">
+            <div className="min-h-screen bg-charcoal flex items-center justify-center pt-24 text-center">
+                <div>
                     <h2 className="text-3xl font-display text-cream mb-4">Product Not Found</h2>
                     <Button onClick={() => navigate('/shop')}>Back to Shop</Button>
                 </div>

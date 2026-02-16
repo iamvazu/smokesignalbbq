@@ -70,7 +70,7 @@ export const PRODUCTS: Product[] = [
     longDescription: 'The heavy-hitters. A massive combination of our king brisket and fall-off-the-bone ribs, rounded out with two full bottles of sauce for the ultimate variety. Built for sharing, or one very serious pitmaster.',
     price: '₹1099',
     priceValue: 1099,
-    image: 'https://images.unsplash.com/photo-1529692236671-f1f6e9460272?auto=format&fit=crop&w=800&q=80',
+    image: '/combo3.png',
     category: 'combo',
     subCategory: 'combos',
     badges: ['Maximum Value', 'Family Favorite'],

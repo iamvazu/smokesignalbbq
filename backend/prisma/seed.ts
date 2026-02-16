@@ -210,7 +210,7 @@ async function main() {
             storageInstructions: 'Refrigerate meats in airtight containers. Sauces good for 3 months refrigerated.',
             price: 1099,
             originalPrice: 1150,
-            image: 'https://images.unsplash.com/photo-1529692236671-f1f6e9460272?auto=format&fit=crop&w=800&q=80',
+            image: '/combo3.png',
             isBestValue: true
         },
         {
