@@ -33,7 +33,7 @@ async function main() {
             image: '/smokeytexas_saucebottle.png'
         },
         {
-            name: 'Texas Style Saucy Wings',
+            name: 'Texas Style Wing Sauce',
             description: 'The ultimate wing glaze. Bold, tangy, and perfect for wings.',
             category: 'sauce',
             subCategory: 'sauces',
@@ -250,6 +250,10 @@ async function main() {
                 id: crypto.randomUUID(),
                 name: c.name,
                 description: c.description,
+                longDescription: c.longDescription,
+                heatingInstructions: c.heatingInstructions,
+                ingredients: c.ingredients,
+                storageInstructions: c.storageInstructions,
                 price: c.price,
                 originalPrice: c.originalPrice,
                 image: c.image,
@@ -262,19 +266,24 @@ async function main() {
 
     console.log('Seeding products...');
     for (const p of products) {
+        const productSku = `${p.category}-${p.name.toLowerCase().replace(/ /g, '-')}`;
         await prisma.product.upsert({
-            where: { sku: p.name.toLowerCase().replace(/ /g, '-') },
+            where: { sku: productSku },
             update: {
                 description: p.description,
                 price: p.price,
                 weight: p.weight,
                 category: p.category,
                 subCategory: p.subCategory,
+                images: {
+                    deleteMany: {},
+                    create: [{ imageUrl: p.image }]
+                }
             },
             create: {
                 id: crypto.randomUUID(),
                 name: p.name,
-                sku: p.name.toLowerCase().replace(/ /g, '-'),
+                sku: productSku,
                 description: p.description,
                 category: p.category || 'bbq',
                 subCategory: p.subCategory || 'all',

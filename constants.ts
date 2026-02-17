@@ -327,7 +327,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'sauce-saucy-wings',
-    name: 'Texas Style Saucy Wings',
+    name: 'Texas Style Wing Sauce',
     description: 'Bold, tangy, and perfect for wings.',
     longDescription: 'The ultimate wing glaze. Designed specifically for our signature wings, this sauce balances heat, tang, and sweetness for that authentic Texas-style kick.',
     price: '₹220',

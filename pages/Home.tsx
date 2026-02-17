@@ -16,45 +16,75 @@ const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 export const Home: React.FC = () => {
     const navigate = useNavigate();
     const [combos, setCombos] = useState<Product[]>([]);
-    const [loadingCombos, setLoadingCombos] = useState(true);
+    const [bbqProducts, setBbqProducts] = useState<Product[]>(PRODUCTS.filter(p => p.category === 'bbq' && p.subCategory !== 'combos'));
+    const [sauceProducts, setSauceProducts] = useState<Product[]>(PRODUCTS.filter(p => p.category === 'sauce'));
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchCombos = async () => {
+        const fetchData = async () => {
             try {
-                const res = await axios.get(`${API_URL}/combos`);
-                if (res.data && Array.isArray(res.data)) {
-                    const mappedCombos: Product[] = res.data.map((c: any) => ({
+                const [combosRes, productsRes] = await Promise.all([
+                    axios.get(`${API_URL}/combos`),
+                    axios.get(`${API_URL}/products`)
+                ]);
+
+                // Map Combos
+                if (combosRes.data && Array.isArray(combosRes.data)) {
+                    const mappedCombos: Product[] = combosRes.data.map((c: any) => ({
                         id: c.id,
                         name: c.name || 'Unnamed Combo',
                         description: c.description || '',
+                        longDescription: c.longDescription || '',
                         price: `₹${c.price}`,
                         priceValue: c.price,
                         category: 'combo',
-                        image: c.image || '/combo_pack.jpg', // Fallback image
+                        image: c.image || '/combo_pack.jpg',
                         badges: c.isBestValue ? ['Best Value savings'] : [],
                         isMostPopular: c.isMostPopular,
                         isBestValue: c.isBestValue,
                         weight: 'Various',
-                        subCategory: 'combos'
+                        subCategory: 'combos',
+                        heatingInstructions: c.heatingInstructions || '',
+                        ingredients: c.ingredients || '',
+                        storageInstructions: c.storageInstructions || ''
                     }));
                     setCombos(mappedCombos);
-                } else {
-                    // Fallback to local if API empty or fails
-                    setCombos(PRODUCTS.filter(p => p.category === 'combo'));
                 }
+
+                // Map BBQ and Sauces
+                if (productsRes.data && Array.isArray(productsRes.data)) {
+                    const mappedProducts: Product[] = productsRes.data.map((p: any) => ({
+                        id: p.id,
+                        name: p.name,
+                        description: p.description || '',
+                        price: `₹${p.price}`,
+                        priceValue: p.price,
+                        image: p.images?.[0]?.imageUrl || p.image || '/product_fallback.jpg',
+                        category: p.category || 'bbq',
+                        subCategory: p.subCategory || 'all',
+                        badges: p.badges || [],
+                        weight: p.weight ? `${p.weight}g` : undefined,
+                    }));
+
+                    setBbqProducts(mappedProducts.filter(p => p.category === 'bbq' && p.subCategory !== 'combos'));
+                    setSauceProducts(mappedProducts.filter(p => p.category === 'sauce'));
+                }
+
             } catch (error) {
-                console.error('Failed to fetch combos', error);
-                setCombos(PRODUCTS.filter(p => p.category === 'combo'));
+                console.error('Failed to fetch data from API, using local fallback', error);
+                // Fallbacks are already set in initial state or useEffect elsewhere if needed
             } finally {
-                setLoadingCombos(false);
+                setLoading(false);
             }
         };
-        fetchCombos();
+        fetchData();
     }, []);
 
-    const bbqProducts = PRODUCTS.filter(p => p.category === 'bbq' && p.subCategory !== 'combos');
-    const sauceProducts = PRODUCTS.filter(p => p.category === 'sauce');
-    const featuredProducts = PRODUCTS.filter(p => p.badges.includes('Best Seller') || p.badges.includes('Most Popular')).slice(0, 3);
+    const featuredProducts = [...bbqProducts, ...sauceProducts].filter(p => p.badges?.includes('Best Seller') || p.badges?.includes('Most Popular')).slice(0, 3);
+    if (featuredProducts.length === 0) {
+        // Fallback to first few products if no best sellers marked in DB
+        featuredProducts.push(...bbqProducts.slice(0, 2), ...sauceProducts.slice(0, 1));
+    }
 
     const navigateToShop = (category?: string) => {
         if (category) {
