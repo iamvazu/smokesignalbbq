@@ -131,7 +131,7 @@ export const FranchisePage: React.FC = () => {
             </section>
 
             {/* QUICK STATS */}
-            <div className="relative z-30 mt-4 sm:mt-8 mb-20">
+            <div className="relative z-30 mt-32 md:mt-48 mb-20">
                 <div className="container mx-auto px-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto bg-charcoal/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 md:p-10 shadow-3xl">
                         <div className="text-center">
