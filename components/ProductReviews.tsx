@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, MessageSquare, Send, CheckCircle2, User, Clock, AlertCircle } from 'lucide-react';
 import axios from 'axios';
-import { cn } from '../lib/utils';
+const cn = (...classes: any[]) => classes.filter(Boolean).join(' ');
 
 const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:5000/api/v1';
 
