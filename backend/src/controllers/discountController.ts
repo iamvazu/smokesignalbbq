@@ -3,7 +3,7 @@ import prisma from '../lib/prisma';
 
 export const validateDiscountCode = async (req: Request, res: Response) => {
     try {
-        const { code } = req.params;
+        const code = req.params.code as string;
         const discount = await prisma.discountCode.findUnique({
             where: { code: code.toUpperCase() }
         });
@@ -72,7 +72,7 @@ export const createDiscountCode = async (req: Request, res: Response) => {
 
 export const updateDiscountCode = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const id = req.params.id as string;
         const data = req.body;
         if (data.expiryDate) data.expiryDate = new Date(data.expiryDate);
         if (data.discountValue) data.discountValue = parseInt(data.discountValue);
@@ -90,7 +90,7 @@ export const updateDiscountCode = async (req: Request, res: Response) => {
 
 export const deleteDiscountCode = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const id = req.params.id as string;
         await prisma.discountCode.delete({ where: { id } });
         res.json({ message: 'Discount code deleted' });
     } catch (error: any) {

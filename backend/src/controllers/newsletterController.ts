@@ -44,7 +44,7 @@ export const getSubscribers = async (req: Request, res: Response) => {
 
 export const deleteSubscriber = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
+        const id = req.params.id as string;
         await prisma.newsletterSubscriber.delete({ where: { id } });
         res.json({ message: 'Subscriber removed' });
     } catch (error: any) {
