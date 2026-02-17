@@ -81,7 +81,7 @@ export const FranchisePage: React.FC = () => {
             {/* SEO Metadata (Mental Note: Should be handled by Helmet or similar in real app) */}
 
             {/* HERO SECTION */}
-            <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden py-16 md:py-24">
+            <section className="relative h-screen flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal/90 via-charcoal/60 to-charcoal z-10" />
                     <img
@@ -98,15 +98,15 @@ export const FranchisePage: React.FC = () => {
                         transition={{ duration: 0.8 }}
                     >
                         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fire/20 border border-fire/30 text-fire text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-4 md:mb-6">
-                            <Flame size={14} className="animate-pulse" />
+                            <span>🇮🇳</span>
                             BHARAT National Expansion
                         </div>
-                        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display italic text-cream mb-4 md:mb-6 drop-shadow-2xl leading-[1.1]">
+                        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display italic text-cream mb-4 md:mb-6 drop-shadow-2xl leading-[1.1]">
                             Own a Piece of <br />
                             <span className="text-fire">Bangalore's Original</span> <br />
                             American BBQ
                         </h1>
-                        <p className="text-base md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 md:mb-12 font-medium leading-relaxed">
+                        <p className="text-sm md:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto mb-8 md:mb-10 font-medium leading-relaxed">
                             Since 2011 • 15 Years of Heritage <br />
                             Now Franchising Across South India
                         </p>
