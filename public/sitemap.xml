@@ -1,41 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Main Pages -->
+  <!-- Core Navigation -->
   <url>
     <loc>https://smokesignalbbq.in/</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://smokesignalbbq.in/shop</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://smokesignalbbq.in/events</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://smokesignalbbq.in/franchise</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://smokesignalbbq.in/blog</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
-  <!-- Sections (Anchors) -->
+  <!-- Legal & Info -->
   <url>
-    <loc>https://smokesignalbbq.in/#combos</loc>
-    <lastmod>2026-02-14</lastmod>
+    <loc>https://smokesignalbbq.in/privacy</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://smokesignalbbq.in/terms</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Featured Combos -->
+  <url>
+    <loc>https://smokesignalbbq.in/product/combo-lone-star</loc>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://smokesignalbbq.in/product/combo-vanguard-feast</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://smokesignalbbq.in/product/beef-brisket</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://smokesignalbbq.in/product/pork-ribs</loc>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Anchors (Home Page) -->
+  <url>
     <loc>https://smokesignalbbq.in/#about</loc>
-    <lastmod>2026-02-14</lastmod>
+    <lastmod>2026-02-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://smokesignalbbq.in/#contact</loc>
+    <lastmod>2026-02-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
