@@ -24,7 +24,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuthStore } from '@/store/useAuthStore';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api/v1';
 
 export default function DiscountsPage() {
     const [discounts, setDiscounts] = useState<any[]>([]);
