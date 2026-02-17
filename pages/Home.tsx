@@ -73,59 +73,57 @@ export const Home: React.FC = () => {
 
                 setBbqProducts(mappedProducts.filter(p => p.category === 'bbq' && p.subCategory !== 'combos'));
                 setSauceProducts(mappedProducts.filter(p => p.category === 'sauce'));
-            }
-
             } catch (error) {
-            console.error('Failed to fetch data from API, using local fallback', error);
-            // Fallbacks are already set in initial state or useEffect elsewhere if needed
-        } finally {
-            setLoading(false);
+                console.error('Failed to fetch data from API, using local fallback', error);
+                // Fallbacks are already set in initial state or useEffect elsewhere if needed
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
+
+    const featuredProducts = [...bbqProducts, ...sauceProducts].filter(p => p.badges?.includes('Best Seller') || p.badges?.includes('Most Popular')).slice(0, 3);
+    if (featuredProducts.length === 0) {
+        // Fallback to first few products if no best sellers marked in DB
+        featuredProducts.push(...bbqProducts.slice(0, 2), ...sauceProducts.slice(0, 1));
+    }
+
+    const navigateToShop = (category?: string) => {
+        if (category) {
+            navigate(`/shop?category=${category}`);
+        } else {
+            navigate('/shop');
         }
     };
-    fetchData();
-}, []);
 
-const featuredProducts = [...bbqProducts, ...sauceProducts].filter(p => p.badges?.includes('Best Seller') || p.badges?.includes('Most Popular')).slice(0, 3);
-if (featuredProducts.length === 0) {
-    // Fallback to first few products if no best sellers marked in DB
-    featuredProducts.push(...bbqProducts.slice(0, 2), ...sauceProducts.slice(0, 1));
-}
+    return (
+        <main>
+            <Hero />
 
-const navigateToShop = (category?: string) => {
-    if (category) {
-        navigate(`/shop?category=${category}`);
-    } else {
-        navigate('/shop');
-    }
-};
+            <ComboShowcase products={combos} />
 
-return (
-    <main>
-        <Hero />
+            <FeaturedProducts products={featuredProducts} />
 
-        <ComboShowcase products={combos} />
+            <CategoryPreview
+                title="Ready to Heat & Serve BBQ"
+                subtitle="Authentic Texas BBQ. Slow smoked over charcoal. Ready in minutes."
+                products={bbqProducts}
+                categoryValue="bbq"
+                onViewAll={() => navigateToShop('bbq')}
+            />
 
-        <FeaturedProducts products={featuredProducts} />
+            <CategoryPreview
+                title="Signature BBQ Sauces"
+                subtitle="Crafted by pitmasters. Smoky, bold, and authentic."
+                products={sauceProducts}
+                categoryValue="sauce"
+                onViewAll={() => navigateToShop('sauce')}
+            />
 
-        <CategoryPreview
-            title="Ready to Heat & Serve BBQ"
-            subtitle="Authentic Texas BBQ. Slow smoked over charcoal. Ready in minutes."
-            products={bbqProducts}
-            categoryValue="bbq"
-            onViewAll={() => navigateToShop('bbq')}
-        />
+            <HowItWorks />
 
-        <CategoryPreview
-            title="Signature BBQ Sauces"
-            subtitle="Crafted by pitmasters. Smoky, bold, and authentic."
-            products={sauceProducts}
-            categoryValue="sauce"
-            onViewAll={() => navigateToShop('sauce')}
-        />
-
-        <HowItWorks />
-
-        <AboutSection />
-    </main>
-);
+            <AboutSection />
+        </main>
+    );
 };
