@@ -17,6 +17,58 @@ export const Footer: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/90 to-charcoal/60" />
       </div>
 
+      <div className="container mx-auto px-4 relative z-10 mb-16">
+        <div className="max-w-4xl mx-auto bg-white/5 backdrop-blur-md rounded-[2.5rem] p-8 md:p-12 border border-white/10 flex flex-col lg:flex-row items-center gap-8 shadow-2xl">
+          <div className="flex-1 text-center lg:text-left">
+            <div className="flex items-center justify-center lg:justify-start gap-2 text-fire mb-2">
+              <span className="w-2 h-2 rounded-full bg-fire animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-[0.3em]">Smoked Intel</span>
+            </div>
+            <h3 className="text-3xl font-display text-cream italic mb-2 tracking-wide">BBQ Tips & Secrets</h3>
+            <p className="text-gray-400 text-sm font-medium">Join 500+ pitmasters getting weekly smokehouse wisdom.</p>
+          </div>
+
+          <div className="w-full lg:w-auto min-w-[300px] sm:min-w-[400px]">
+            <form
+              className="flex flex-col sm:flex-row gap-3"
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.target as HTMLFormElement;
+                const email = (form.elements.namedItem('email') as HTMLInputElement).value;
+                const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:5000/api/v1';
+                try {
+                  const btn = form.querySelector('button');
+                  if (btn) btn.disabled = true;
+                  await (await import('axios')).default.post(`${API_URL}/newsletter/subscribe`, { email, source: 'footer' });
+                  alert('Success! BBQ intel is on the way.');
+                  form.reset();
+                } catch (err) {
+                  console.error(err);
+                  alert('Failed to subscribe. Please try again.');
+                } finally {
+                  const btn = form.querySelector('button');
+                  if (btn) btn.disabled = false;
+                }
+              }}
+            >
+              <input
+                name="email"
+                type="email"
+                required
+                placeholder="Entry tactical email..."
+                className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white text-sm focus:outline-none focus:border-fire transition-all placeholder:text-gray-600"
+              />
+              <button
+                type="submit"
+                className="bg-fire text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-fire-dark transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-xl shadow-fire/20"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 items-start">
 

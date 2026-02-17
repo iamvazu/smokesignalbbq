@@ -7,6 +7,7 @@ import { Footer } from './components/Footer';
 import { ShoppingCart } from './components/ShoppingCart';
 import { AbandonedCartPopup } from './components/AbandonedCartPopup';
 import { OffersPopup } from './components/OffersPopup';
+import { FirstOrderPopup } from './components/FirstOrderPopup';
 import { useCartStore } from './store';
 import { Home } from './pages/Home';
 import { ShopPage } from './pages/ShopPage';
@@ -82,6 +83,7 @@ function App() {
       <Footer />
       <AbandonedCartPopup />
       <OffersPopup />
+      <FirstOrderPopup />
     </div>
   );
 }

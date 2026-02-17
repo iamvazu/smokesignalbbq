@@ -415,6 +415,21 @@ async function main() {
         });
     }
 
+    console.log('--- Seeding Discounts ---');
+    await prisma.discountCode.upsert({
+        where: { code: 'WELCOME10' },
+        update: {},
+        create: {
+            code: 'WELCOME10',
+            discountType: 'percentage',
+            discountValue: 10,
+            expiryDate: new Date('2026-12-31'),
+            usageLimit: 1000,
+            isFirstOrderOnly: true,
+            isActive: true
+        }
+    });
+
     console.log('--- Seeding Finished ---');
 }
 

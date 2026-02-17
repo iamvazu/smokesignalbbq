@@ -16,6 +16,9 @@ import blogRoutes from './routes/blogRoutes';
 import comboRoutes from './routes/comboRoutes';
 import customerRoutes from './routes/customerRoutes';
 import franchiseRoutes from './routes/franchiseInquiryRoutes';
+import newsletterRoutes from './routes/newsletterRoutes';
+import reviewRoutes from './routes/reviewRoutes';
+import discountRoutes from './routes/discountRoutes';
 
 
 import path from 'path';
@@ -169,6 +172,9 @@ app.use('/api/v1/posts', blogRoutes);
 app.use('/api/v1/combos', comboRoutes);
 app.use('/api/v1/customers', customerRoutes);
 app.use('/api/v1/franchise', franchiseRoutes);
+app.use('/api/v1/newsletter', newsletterRoutes);
+app.use('/api/v1/reviews', reviewRoutes);
+app.use('/api/v1/discounts', discountRoutes);
 
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });

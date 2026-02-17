@@ -82,6 +82,7 @@ model Product {
   comboItems        ComboItem[]
   orderItems        OrderItem[]
   inventoryLogs     InventoryLog[]
+  reviews           Review[]
 
   @@map("products")
 }
@@ -114,6 +115,7 @@ model ComboPack {
   createdAt           DateTime    @default(now())
   items               ComboItem[]
   orderItems          OrderItem[]
+  reviews             Review[]
 
   @@map("combo_packs")
 }
@@ -179,15 +181,44 @@ model Payment {
 }
 
 model DiscountCode {
-  id            String   @id @default(uuid())
-  code          String   @unique
-  discountType  String
-  discountValue Int
-  expiryDate    DateTime
-  usageLimit    Int?
-  createdAt     DateTime @default(now())
+  id               String   @id @default(uuid())
+  code             String   @unique
+  discountType     String   // percentage, fixed
+  discountValue    Int
+  expiryDate       DateTime
+  usageLimit       Int?
+  usedCount       Int      @default(0)
+  isActive         Boolean  @default(true)
+  isFirstOrderOnly Boolean  @default(false)
+  createdAt        DateTime @default(now())
 
   @@map("discount_codes")
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  source    String?  @default("main_site")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("newsletter_subscribers")
+}
+
+model Review {
+  id           String     @id @default(uuid())
+  productId    String?
+  product      Product?   @relation(fields: [productId], references: [id])
+  comboId      String?
+  combo        ComboPack? @relation(fields: [comboId], references: [id])
+  customerName String
+  rating       Int        @default(5)
+  comment      String?    @db.Text
+  status       String     @default("pending") // pending, approved, rejected
+  createdAt    DateTime   @default(now())
+
+  @@index([status])
+  @@map("reviews")
 }
 
 model InventoryLog {

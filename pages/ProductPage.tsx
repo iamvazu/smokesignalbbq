@@ -9,6 +9,7 @@ import { Button } from '../components/Button';
 import { Flame, Thermometer, ShieldCheck, Box, ArrowLeft, ShoppingBag } from 'lucide-react';
 import { Seo } from '../seo/Seo';
 import { generateProductSchema, generateBreadcrumbSchema } from '../seo/SchemaGenerator';
+import { ProductReviews } from '../components/ProductReviews';
 
 export const ProductPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -241,6 +242,9 @@ export const ProductPage: React.FC = () => {
                         )}
                     </motion.div>
                 </div>
+
+                {/* Reviews Section */}
+                <ProductReviews productId={product.id} comboId={product.category === 'combo' ? product.id : undefined} />
             </div>
 
             {/* Background Texture */}

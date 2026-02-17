@@ -17,7 +17,9 @@ import {
     LogOut,
     Calendar,
     BookOpen,
-    TrendingUp
+    TrendingUp,
+    Star,
+    Mail
 } from 'lucide-react';
 
 
@@ -37,6 +39,8 @@ const managementNavigation = [
     { name: 'Payments', href: '/payments', icon: CreditCard },
     { name: 'Franchise', href: '/franchise', icon: TrendingUp },
     { name: 'Discounts', href: '/discounts', icon: Tag },
+    { name: 'Reviews', href: '/reviews', icon: Star },
+    { name: 'Newsletter', href: '/newsletter', icon: Mail },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
     { name: 'Inquiries', href: '/events', icon: Calendar },
     { name: 'Blog Content', href: '/blog', icon: BookOpen },
