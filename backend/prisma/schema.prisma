@@ -60,6 +60,7 @@ model Product {
   category          String?
   subCategory       String?
   sku               String?        @unique
+  slug              String?        @unique
 
   weight            String?
   price             Int
@@ -98,6 +99,7 @@ model ProductImage {
 model ComboPack {
   id                  String      @id @default(uuid())
   name                String?
+  slug                String?     @unique
   description         String?
   longDescription     String?     @db.Text
   heatingInstructions String?

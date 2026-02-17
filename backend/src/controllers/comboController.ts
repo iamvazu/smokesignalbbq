@@ -21,8 +21,13 @@ export const getAllCombos = async (req: Request, res: Response) => {
 export const getComboById = async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
-        const combo = await prisma.comboPack.findUnique({
-            where: { id: String(id) },
+        const combo = await prisma.comboPack.findFirst({
+            where: {
+                OR: [
+                    { id: id },
+                    { slug: id }
+                ]
+            },
             include: {
                 items: {
                     include: {
@@ -52,6 +57,7 @@ export const createCombo = async (req: Request, res: Response) => {
         isMostPopular,
         isBestValue,
         status,
+        slug,
         items
     } = req.body;
     // items should be array of { productId, quantity }
@@ -60,6 +66,7 @@ export const createCombo = async (req: Request, res: Response) => {
         const combo = await prisma.comboPack.create({
             data: {
                 name,
+                slug,
                 description,
                 longDescription,
                 heatingInstructions,
@@ -108,6 +115,7 @@ export const updateCombo = async (req: Request, res: Response) => {
         isMostPopular,
         isBestValue,
         status,
+        slug,
         items
     } = req.body;
 
@@ -123,6 +131,7 @@ export const updateCombo = async (req: Request, res: Response) => {
             where: { id: String(id) },
             data: {
                 name,
+                slug,
                 description,
                 longDescription,
                 heatingInstructions,

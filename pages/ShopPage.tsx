@@ -30,6 +30,7 @@ export const ShopPage: React.FC = () => {
                     // Map backend product to frontend Product type
                     const mappedProducts = productsRes.data.map((p: any) => ({
                         id: p.id,
+                        slug: p.slug,
                         name: p.name,
                         description: p.description || '',
                         price: `₹${p.price}`,
@@ -38,7 +39,7 @@ export const ShopPage: React.FC = () => {
                         category: p.category || 'bbq',
                         subCategory: p.subCategory || 'all',
                         badges: p.badges || [],
-                        weight: p.weight ? `${p.weight}g` : undefined,
+                        weight: p.weight,
                     }));
                     allItems = [...allItems, ...mappedProducts];
                 }
@@ -46,6 +47,7 @@ export const ShopPage: React.FC = () => {
                 if (combosRes.data && Array.isArray(combosRes.data)) {
                     const mappedCombos = combosRes.data.map((c: any) => ({
                         id: c.id,
+                        slug: c.slug,
                         name: c.name || 'Unnamed Combo',
                         description: c.description || '',
                         longDescription: c.longDescription || c.description || '',

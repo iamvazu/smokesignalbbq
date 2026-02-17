@@ -36,7 +36,7 @@ const ProductCard: React.FC<CardProps> = ({ product, onViewDetails }) => {
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.3 }}
       className="group relative bg-[#1A1A1A] border border-white/5 rounded-2xl overflow-hidden hover:border-fire/30 transition-all duration-300 flex flex-col h-full shadow-2xl cursor-pointer"
-      onClick={() => navigate(`/product/${product.id}`)}
+      onClick={() => navigate(`/product/${product.slug || product.id}`)}
     >
       {/* Badges */}
       <div className="absolute top-3 left-3 z-20 flex flex-col gap-2">

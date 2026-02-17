@@ -21,6 +21,7 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
 
     const [formData, setFormData] = useState({
         name: '',
+        slug: '',
         description: '',
         longDescription: '',
         heatingInstructions: '',
@@ -40,6 +41,7 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
         if (combo) {
             setFormData({
                 name: combo.name || '',
+                slug: combo.slug || '',
                 description: combo.description || '',
                 longDescription: combo.longDescription || '',
                 heatingInstructions: combo.heatingInstructions || '',
@@ -125,6 +127,15 @@ export function ComboForm({ combo, onSuccess }: ComboFormProps) {
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
                         className="bg-background/50 border-white/10"
+                    />
+                </div>
+                <div className="space-y-2">
+                    <Label>URL Slug</Label>
+                    <Input
+                        value={formData.slug}
+                        onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                        className="bg-background/50 border-white/10"
+                        placeholder="e.g. the-lone-star-solo-combo"
                     />
                 </div>
                 <div className="space-y-2">

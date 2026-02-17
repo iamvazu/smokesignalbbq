@@ -32,6 +32,7 @@ export const Home: React.FC = () => {
                 if (combosRes.data && Array.isArray(combosRes.data)) {
                     const mappedCombos: Product[] = combosRes.data.map((c: any) => ({
                         id: c.id,
+                        slug: c.slug,
                         name: c.name || 'Unnamed Combo',
                         description: c.description || '',
                         longDescription: c.longDescription || '',
@@ -54,6 +55,7 @@ export const Home: React.FC = () => {
                 // Map BBQ and Sauces
                 const mappedProducts: Product[] = productsRes.data.map((p: any) => ({
                     id: p.id,
+                    slug: p.slug,
                     name: p.name,
                     description: p.description || '',
                     price: `₹${p.price}`,

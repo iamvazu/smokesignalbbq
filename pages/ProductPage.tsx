@@ -44,6 +44,7 @@ export const ProductPage: React.FC = () => {
 
                     setProduct({
                         id: data.id,
+                        slug: data.slug,
                         name: data.name,
                         description: data.description || '',
                         longDescription: data.longDescription || data.description || '',
@@ -56,7 +57,7 @@ export const ProductPage: React.FC = () => {
                         heatingInstructions: data.heatingInstructions || '',
                         ingredients: data.ingredients || '',
                         storageInstructions: data.storageInstructions || '',
-                        weight: data.weight ? `${data.weight}g` : undefined,
+                        weight: data.weight,
                     });
                 }
             } catch (error) {

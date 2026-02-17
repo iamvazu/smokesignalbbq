@@ -4,6 +4,7 @@ export type SubCategory = 'wings' | 'chicken' | 'beef' | 'pork' | 'sauces' | 'co
 
 export interface Product {
   id: string;
+  slug?: string;
   name: string;
   description: string;
   longDescription?: string;

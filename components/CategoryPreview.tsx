@@ -39,7 +39,7 @@ export const CategoryPreview: React.FC<CategoryPreviewProps> = ({ title, subtitl
                         <div
                             key={product.id}
                             className="group relative bg-[#1A1A1A] border border-white/5 rounded-2xl overflow-hidden hover:border-fire/30 transition-all duration-300 flex flex-col h-full shadow-2xl cursor-pointer"
-                            onClick={() => navigate(`/product/${product.id}`)}
+                            onClick={() => navigate(`/product/${product.slug || product.id}`)}
                         >
                             <div className="relative aspect-[4/3] overflow-hidden">
                                 <img

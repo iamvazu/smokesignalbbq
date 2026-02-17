@@ -38,7 +38,7 @@ export const FeaturedProducts: React.FC<FeaturedProductsProps> = ({ products }) 
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
                             className="relative group h-[500px] overflow-hidden rounded-3xl cursor-pointer"
-                            onClick={() => navigate(`/product/${product.id}`)}
+                            onClick={() => navigate(`/product/${product.slug || product.id}`)}
                         >
                             <img
                                 src={product.image}

@@ -12,23 +12,35 @@ export const getProducts = async (req: Request, res: Response) => {
     }
 };
 
+export const getProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    try {
+        const product = await prisma.product.findFirst({
+            where: {
+                OR: [
+                    { id: id },
+                    { slug: id },
+                    { sku: id }
+                ]
+            },
+            include: { images: true }
+        });
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found' });
+        }
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch product' });
+    }
+};
+
 export const createProduct = async (req: Request, res: Response) => {
-    const { name, description, category, subCategory, sku, weight, price, discountPrice, costPrice, stock, images } = req.body;
+    const { images, ...data } = req.body;
 
     try {
         const product = await prisma.product.create({
             data: {
-                name,
-                description,
-                category,
-                subCategory,
-                sku,
-
-                weight,
-                price,
-                discountPrice,
-                costPrice,
-                stock,
+                ...data,
                 images: {
                     create: images?.map((url: string) => ({ imageUrl: url })) || []
                 }
@@ -37,29 +49,30 @@ export const createProduct = async (req: Request, res: Response) => {
         });
         res.status(201).json(product);
     } catch (error) {
+        console.error('Create error:', error);
         res.status(500).json({ error: 'Failed to create product' });
     }
 };
 
 export const updateProduct = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const data = req.body;
+    const { images, ...data } = req.body;
 
     try {
         const product = await prisma.product.update({
             where: { id: id as string },
-
             data: {
                 ...data,
-                images: data.images ? {
+                images: images ? {
                     deleteMany: {},
-                    create: data.images.map((url: string) => ({ imageUrl: url }))
+                    create: images.map((url: string) => ({ imageUrl: url }))
                 } : undefined
             },
             include: { images: true }
         });
         res.json(product);
     } catch (error) {
+        console.error('Update error:', error);
         res.status(500).json({ error: 'Failed to update product' });
     }
 };

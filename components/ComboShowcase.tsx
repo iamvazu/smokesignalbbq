@@ -51,7 +51,7 @@ export const ComboShowcase: React.FC<ComboShowcaseProps> = ({ products }) => {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.1 }}
-                                onClick={() => navigate(`/product/${product.id}`)}
+                                onClick={() => navigate(`/product/${product.slug || product.id}`)}
                                 className={`relative group rounded-[2rem] overflow-hidden border cursor-pointer ${isMostPopular ? 'border-fire ring-1 ring-fire scale-105 z-10' : 'border-white/5'
                                     } bg-[#121212] transition-all duration-500`}
                             >

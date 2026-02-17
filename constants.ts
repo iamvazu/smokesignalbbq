@@ -14,6 +14,7 @@ export const PRODUCTS: Product[] = [
   // 1 MEAT + 1 SAUCE COMBOS
   {
     id: 'combo-lone-star',
+    slug: 'the-lone-star-solo-combo',
     name: 'The Lone Star Solo Combo',
     description: 'Beef Brisket (200g) + 1 Signature Sauce (250ml)',
     longDescription: 'The ultimate Texas power meal. Our signature 12-hour smoked beef brisket paired with your choice of any handcrafted bottle of sauce. This solo feast brings the heart of the pitmaster direct to your table.',
@@ -31,6 +32,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'combo-peri-peri-punch',
+    slug: 'peri-peri-punch-combo',
     name: 'Peri Peri Punch Combo',
     description: 'Peri Peri Wings (8pcs) + 1 Signature Sauce (250ml)',
     longDescription: 'A citrusy, spicy explosion. Authentic slow-smoked Peri Peri wings served alongside a full 250ml bottle of your favorite sauce. Perfect for those who love a zesty kick.',
@@ -47,6 +49,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'combo-garlic-glaze',
+    slug: 'garlic-glaze-chicken-combo',
     name: 'Garlic Glaze Chicken Combo',
     description: 'Pepper Garlic Chicken Steak (200g) + 1 Signature Sauce (250ml)',
     longDescription: 'For the garlic lovers. A juicy, smoke-kissed chicken steak paired with a bottle of our umami-rich signature sauce. A sophisticated balance of bold aromatics and wood-fired flavor.',
@@ -65,6 +68,7 @@ export const PRODUCTS: Product[] = [
   // 2 MEATS + 2 SAUCES COMBOS
   {
     id: 'combo-vanguard-feast',
+    slug: 'pitmaster-vanguard-feast',
     name: 'Pitmaster Vanguard Feast',
     description: 'Beef Brisket (200g) + Pork Ribs (200g) + 2 Signature Sauces',
     longDescription: 'The heavy-hitters. A massive combination of our king brisket and fall-off-the-bone ribs, rounded out with two full bottles of sauce for the ultimate variety. Built for sharing, or one very serious pitmaster.',
@@ -81,6 +85,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'combo-texas-smoked-duo',
+    slug: 'texas-smoked-duo-combo',
     name: 'Texas Smoked Duo Combo',
     description: 'Pork Belly (200g) + Texas Chicken Steak (200g) + 2 Signature Sauces',
     longDescription: 'The perfect double-team. Rich, melting pork belly paired with our signature Texas chicken steak and two full 250ml bottles of sauce. A true journey through the smokehouses of the Hill Country.',
@@ -98,6 +103,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'combo-heatseeker-feast',
+    slug: 'double-heatseeker-feast',
     name: 'Double Heatseeker Feast',
     description: 'Spicy Wings (8pcs) + Spicy Pork (200g) + 2 Signature Sauces',
     longDescription: 'For the thrill-seekers. Our fiery wings and smokey spicy pork, locked and loaded with two bottles of our hottest sauces. Not for the faint of heart, but addictive for the true spice enthusiast.',
@@ -116,6 +122,7 @@ export const PRODUCTS: Product[] = [
   // WINGS
   {
     id: 'wings-texas-saucy',
+    slug: 'texas-style-saucy-wings',
     name: 'Texas Style Saucy Wings',
     description: 'Classic pitmaster style wings with a rich Texas glaze (8pcs).',
     longDescription: 'Our Texas Style Saucy Wings are slow-smoked over premium charcoal for hours, then tossed in a bold, savory BBQ glaze that captures the heart of Texas BBQ.',
@@ -133,6 +140,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'wings-bbq-spicy',
+    slug: 'bbq-spicy-wings',
     name: 'BBQ Spicy Wings',
     description: 'Slow smoked wings with a fiery kick (8pcs).',
     longDescription: 'For those who crave heat, these wings are marinated in a spicy BBQ blend and smoked to perfection. Every bite delivers a punch of flavor and fire.',
@@ -150,6 +158,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'wings-peri-peri',
+    slug: 'peri-peri-wings',
     name: 'Peri Peri Wings',
     description: 'Zesty and spicy wings with a citrus punch (8pcs).',
     longDescription: 'Flame-grilled flavor meets slow-smoked tenderness. Our Peri Peri wings are infused with bird\'s eye chili, citrus, and herbs for a refreshing yet spicy experience.',
@@ -169,6 +178,7 @@ export const PRODUCTS: Product[] = [
   // CHICKEN
   {
     id: 'chicken-pepper-garlic',
+    slug: 'pepper-garlic-chicken-steak',
     name: 'Pepper Garlic Chicken Steak',
     description: 'Tender chicken steak infused with bold pepper and garlic.',
     longDescription: 'A pitmaster favorite. This juicy chicken steak is marinated in crushed black pepper and roasted garlic, then smoked until it reaches peak tenderness.',
@@ -186,6 +196,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'chicken-texas-steak',
+    slug: 'texas-chicken-steak',
     name: 'Texas Chicken Steak',
     description: 'Classic Texas style smoked chicken steak.',
     longDescription: 'Smoked over premium charcoal, this chicken steak is seasoned with our signature Texas dry rub for an authentic smokehouse flavor.',
@@ -205,6 +216,7 @@ export const PRODUCTS: Product[] = [
   // BEEF
   {
     id: 'beef-brisket',
+    slug: 'beef-brisket',
     name: 'Beef Brisket',
     description: '12-hour slow smoked signature Texas brisket.',
     longDescription: 'The King of BBQ. Our beef brisket is slow-smoked for 12 hours over oak charcoal, resulting in a deep smoke ring and melt-in-your-mouth texture.',
@@ -222,6 +234,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'beef-pepper-garlic',
+    slug: 'beef-pepper-garlic-steak',
     name: 'Beef Pepper Garlic Steak',
     description: 'Savory beef steak with a robust pepper-garlic crust.',
     longDescription: 'A bold take on beef steak. Sliced from premium cuts, this steak is seasoned with a thick layer of crushed pepper and garlic, then smoked to medium-well perfection.',
@@ -239,6 +252,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'beef-steak-texas',
+    slug: 'texas-beef-steak',
     name: 'Texas Beef Steak',
     description: 'Hardcore Texas flavor. Smoked and bold.',
     longDescription: 'Deep, smoky, and intensely flavorful. This beef steak is treated with a traditional Texas rub and smoked over hardwood for a truly authentic ranch experience.',
@@ -258,6 +272,7 @@ export const PRODUCTS: Product[] = [
   // PORK
   {
     id: 'pork-ribs',
+    slug: 'texas-smoked-pork-ribs',
     name: 'Texas Smoked Pork Ribs',
     description: 'Fall-off-the-bone ribs with a sticky BBQ glaze.',
     longDescription: 'Our award-winning pork ribs are slow-smoked until they are incredibly tender. Finished with a glaze that balances sweet and savory perfectly.',
@@ -275,6 +290,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pork-belly',
+    slug: 'texas-smoked-pork-belly',
     name: 'Texas Smoked Pork Belly',
     description: 'Rich, juicy, and smoky pork belly slices.',
     longDescription: 'Decadent layers of fat and meat, smoked slowly to render the fat and infuse deep charcoal flavor. It\'s the ultimate comfort BBQ.',
@@ -292,6 +308,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'pork-spicy',
+    slug: 'smokey-spicy-pork',
     name: 'Smokey Spicy Pork',
     description: 'Infused with smoke and fire. A spicy pork delight.',
     longDescription: 'This isn\'t for the faint of heart. Our spicy pork is rubbed with a blend of dried chilies and smoked over hot coals for a lingering, deep heat.',
@@ -311,6 +328,7 @@ export const PRODUCTS: Product[] = [
   // SAUCES
   {
     id: 'sauce-texas',
+    slug: 'smokey-texas-sauce',
     name: 'Smokey Texas Sauce',
     description: 'Classic pitmaster style. Smokey, rich, authentic.',
     longDescription: 'The heart of the Lone Star State in a bottle. Deep, savory, and perfectly smoky with a rich tomato base and a secret blend of spices that have been a Texas legend for generations.',
@@ -327,6 +345,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'sauce-saucy-wings',
+    slug: 'texas-style-wing-sauce',
     name: 'Texas Style Wing Sauce',
     description: 'Bold, tangy, and perfect for wings.',
     longDescription: 'The ultimate wing glaze. Designed specifically for our signature wings, this sauce balances heat, tang, and sweetness for that authentic Texas-style kick.',
@@ -343,6 +362,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'sauce-pork-ribs',
+    slug: 'pork-ribs-sauce',
     name: 'Pork Ribs Sauce',
     description: 'The perfect companion for ribs.',
     longDescription: 'Engineered specifically for low & slow pork. This sauce penetrates deep into the meat, adding a layer of sweet-smokey complexity that makes ribs truly unforgettable.',
@@ -359,6 +379,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'sauce-brisket',
+    slug: 'the-brisket-sauce',
     name: 'The Brisket Sauce',
     description: 'Designed for the King of BBQ.',
     longDescription: 'A sophisticated, less-sweet sauce designed to complement the rich, fatty goodness of slow-smoked beef brisket. Peppery, savory, and bold.',
