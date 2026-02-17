@@ -18,9 +18,9 @@ export const getProduct = async (req: Request, res: Response) => {
         const product = await prisma.product.findFirst({
             where: {
                 OR: [
-                    { id: id },
-                    { slug: id },
-                    { sku: id }
+                    { id: String(id) },
+                    { slug: String(id) },
+                    { sku: String(id) }
                 ]
             },
             include: { images: true }

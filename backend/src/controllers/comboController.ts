@@ -24,8 +24,8 @@ export const getComboById = async (req: Request, res: Response) => {
         const combo = await prisma.comboPack.findFirst({
             where: {
                 OR: [
-                    { id: id },
-                    { slug: id }
+                    { id: String(id) },
+                    { slug: String(id) }
                 ]
             },
             include: {
