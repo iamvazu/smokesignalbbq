@@ -117,12 +117,23 @@ export const ProductPage: React.FC = () => {
             />
             <div className="container mx-auto px-4">
                 {/* Back Button */}
-                <button
-                    onClick={() => navigate(-1)}
-                    className="flex items-center gap-2 text-gray-400 hover:text-fire transition-colors mb-12 uppercase tracking-widest text-xs font-bold"
+                <motion.button
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    onClick={() => {
+                        if (window.history.length > 1) {
+                            navigate(-1);
+                        } else {
+                            navigate('/shop');
+                        }
+                    }}
+                    className="group flex items-center gap-3 text-gray-400 hover:text-fire transition-all mb-12 bg-white/5 hover:bg-fire/10 px-6 py-3 rounded-2xl border border-white/5 hover:border-fire/20 w-fit backdrop-blur-sm shadow-xl"
                 >
-                    <ArrowLeft size={16} /> Back
-                </button>
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-fire group-hover:text-white transition-all">
+                        <ArrowLeft size={16} />
+                    </div>
+                    <span className="uppercase tracking-[0.2em] text-[10px] font-black">Return to Briefing</span>
+                </motion.button>
 
                 <div className="flex flex-col lg:flex-row gap-16 lg:items-start">
                     {/* Image Section */}
