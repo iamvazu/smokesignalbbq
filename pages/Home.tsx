@@ -52,75 +52,80 @@ export const Home: React.FC = () => {
                 }
 
                 // Map BBQ and Sauces
-                if (productsRes.data && Array.isArray(productsRes.data)) {
-                    const mappedProducts: Product[] = productsRes.data.map((p: any) => ({
-                        id: p.id,
-                        name: p.name,
-                        description: p.description || '',
-                        price: `₹${p.price}`,
-                        priceValue: p.price,
-                        image: p.images?.[0]?.imageUrl || p.image || '/product_fallback.jpg',
-                        category: p.category || 'bbq',
-                        subCategory: p.subCategory || 'all',
-                        badges: p.badges || [],
-                        weight: p.weight ? `${p.weight}g` : undefined,
-                    }));
+                const mappedProducts: Product[] = productsRes.data.map((p: any) => ({
+                    id: p.id,
+                    name: p.name,
+                    description: p.description || '',
+                    price: `₹${p.price}`,
+                    priceValue: p.price,
+                    image: p.images?.[0]?.imageUrl || p.image || '/product_fallback.jpg',
+                    category: p.category || 'bbq',
+                    subCategory: p.subCategory || 'all',
+                    badges: p.badges || [],
+                    weight: p.weight,
+                    longDescription: p.longDescription || '',
+                    isMostPopular: p.isMostPopular || false,
+                    isBestValue: p.isBestValue || false,
+                    heatingInstructions: p.heatingInstructions || '',
+                    ingredients: p.ingredients || '',
+                    storageInstructions: p.storageInstructions || ''
+                }));
 
-                    setBbqProducts(mappedProducts.filter(p => p.category === 'bbq' && p.subCategory !== 'combos'));
-                    setSauceProducts(mappedProducts.filter(p => p.category === 'sauce'));
-                }
+                setBbqProducts(mappedProducts.filter(p => p.category === 'bbq' && p.subCategory !== 'combos'));
+                setSauceProducts(mappedProducts.filter(p => p.category === 'sauce'));
+            }
 
             } catch (error) {
-                console.error('Failed to fetch data from API, using local fallback', error);
-                // Fallbacks are already set in initial state or useEffect elsewhere if needed
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
-
-    const featuredProducts = [...bbqProducts, ...sauceProducts].filter(p => p.badges?.includes('Best Seller') || p.badges?.includes('Most Popular')).slice(0, 3);
-    if (featuredProducts.length === 0) {
-        // Fallback to first few products if no best sellers marked in DB
-        featuredProducts.push(...bbqProducts.slice(0, 2), ...sauceProducts.slice(0, 1));
-    }
-
-    const navigateToShop = (category?: string) => {
-        if (category) {
-            navigate(`/shop?category=${category}`);
-        } else {
-            navigate('/shop');
+            console.error('Failed to fetch data from API, using local fallback', error);
+            // Fallbacks are already set in initial state or useEffect elsewhere if needed
+        } finally {
+            setLoading(false);
         }
     };
+    fetchData();
+}, []);
 
-    return (
-        <main>
-            <Hero />
+const featuredProducts = [...bbqProducts, ...sauceProducts].filter(p => p.badges?.includes('Best Seller') || p.badges?.includes('Most Popular')).slice(0, 3);
+if (featuredProducts.length === 0) {
+    // Fallback to first few products if no best sellers marked in DB
+    featuredProducts.push(...bbqProducts.slice(0, 2), ...sauceProducts.slice(0, 1));
+}
 
-            <ComboShowcase products={combos} />
+const navigateToShop = (category?: string) => {
+    if (category) {
+        navigate(`/shop?category=${category}`);
+    } else {
+        navigate('/shop');
+    }
+};
 
-            <FeaturedProducts products={featuredProducts} />
+return (
+    <main>
+        <Hero />
 
-            <CategoryPreview
-                title="Ready to Heat & Serve BBQ"
-                subtitle="Authentic Texas BBQ. Slow smoked over charcoal. Ready in minutes."
-                products={bbqProducts}
-                categoryValue="bbq"
-                onViewAll={() => navigateToShop('bbq')}
-            />
+        <ComboShowcase products={combos} />
 
-            <CategoryPreview
-                title="Signature BBQ Sauces"
-                subtitle="Crafted by pitmasters. Smoky, bold, and authentic."
-                products={sauceProducts}
-                categoryValue="sauce"
-                onViewAll={() => navigateToShop('sauce')}
-            />
+        <FeaturedProducts products={featuredProducts} />
 
-            <HowItWorks />
+        <CategoryPreview
+            title="Ready to Heat & Serve BBQ"
+            subtitle="Authentic Texas BBQ. Slow smoked over charcoal. Ready in minutes."
+            products={bbqProducts}
+            categoryValue="bbq"
+            onViewAll={() => navigateToShop('bbq')}
+        />
 
-            <AboutSection />
-        </main>
-    );
+        <CategoryPreview
+            title="Signature BBQ Sauces"
+            subtitle="Crafted by pitmasters. Smoky, bold, and authentic."
+            products={sauceProducts}
+            categoryValue="sauce"
+            onViewAll={() => navigateToShop('sauce')}
+        />
+
+        <HowItWorks />
+
+        <AboutSection />
+    </main>
+);
 };

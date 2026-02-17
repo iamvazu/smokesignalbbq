@@ -61,12 +61,20 @@ model Product {
   subCategory       String?
   sku               String?        @unique
 
-  weight            Int?
+  weight            String?
   price             Int
   discountPrice     Int?
   costPrice         Int?
   stock             Int            @default(0)
   status            String         @default("active")
+  isMostPopular     Boolean        @default(false)
+  isBestValue       Boolean        @default(false)
+  badges            String[]       @default([])
+  longDescription   String?        @db.Text
+  heatingInstructions String?      @db.Text
+  ingredients       String?        @db.Text
+  storageInstructions String?      @db.Text
+  volume            String?
   createdAt         DateTime       @default(now())
   updatedAt         DateTime       @updatedAt
   images            ProductImage[]
