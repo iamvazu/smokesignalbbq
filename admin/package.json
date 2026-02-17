@@ -24,14 +24,14 @@
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4",
     "tailwindcss-animate": "^1.0.7",
-    "zustand": "^5.0.11"
-  },
-  "devDependencies": {
+    "zustand": "^5.0.11",
     "@types/node": "^20.19.33",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.6",
     "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "eslint": "^9",
+    "eslint-config-next": "16.1.6"
   }
 }
