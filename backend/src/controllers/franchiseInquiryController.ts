@@ -42,7 +42,7 @@ export const createFranchiseInquiry = async (req: Request, res: Response) => {
 };
 
 export const updateFranchiseInquiryStatus = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { status } = req.body;
 
     try {
@@ -57,7 +57,7 @@ export const updateFranchiseInquiryStatus = async (req: Request, res: Response) 
 };
 
 export const deleteFranchiseInquiry = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const id = req.params.id as string;
 
     try {
         await prisma.franchiseInquiry.delete({
