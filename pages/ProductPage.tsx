@@ -7,6 +7,8 @@ import { Product } from '../types';
 import { useCartStore } from '../store';
 import { Button } from '../components/Button';
 import { Flame, Thermometer, ShieldCheck, Box, ArrowLeft, ShoppingBag } from 'lucide-react';
+import { Seo } from '../seo/Seo';
+import { generateProductSchema, generateBreadcrumbSchema } from '../seo/SchemaGenerator';
 
 export const ProductPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -94,6 +96,24 @@ export const ProductPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-charcoal pt-32 pb-24">
+            <Seo
+                title={`${product.name} | American BBQ Delivery`}
+                description={`Order ${product.name} from Smoke Signal BBQ. ${product.description} Fresh smokehouse delivery anywhere in Bangalore.`}
+                canonical={`/product/${id}`}
+                ogType="product"
+                ogImage={product.image}
+                schema={{
+                    "@context": "https://schema.org",
+                    "@graph": [
+                        generateProductSchema(product),
+                        generateBreadcrumbSchema([
+                            { name: "Home", item: "/" },
+                            { name: "Shop", item: "/shop" },
+                            { name: product.name, item: `/product/${id}` }
+                        ])
+                    ]
+                }}
+            />
             <div className="container mx-auto px-4">
                 {/* Back Button */}
                 <button

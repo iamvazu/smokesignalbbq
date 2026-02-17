@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Search, Filter, ShoppingBag } from 'lucide-react';
 import axios from 'axios';
 import { PRODUCTS } from '../constants'; // Fallback
+import { Seo } from '../seo/Seo';
+import { generateBreadcrumbSchema } from '../seo/SchemaGenerator';
 
 // Use environment variable or default
 // @ts-ignore
@@ -98,6 +100,15 @@ export const ShopPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-charcoal">
+            <Seo
+                title="The Pitmaster Shop | Buy Authentic BBQ Online"
+                description="Shop authentic smoked meats and signature BBQ sauces. Slow-smoked beef brisket, pork ribs, and peri-peri wings ready to heat and serve."
+                canonical="/shop"
+                schema={generateBreadcrumbSchema([
+                    { name: "Home", item: "/" },
+                    { name: "Shop", item: "/shop" }
+                ])}
+            />
             {/* Hero Section */}
             <section className="relative h-[60vh] flex items-center justify-center overflow-hidden mb-12">
                 <div className="absolute inset-0 z-0">

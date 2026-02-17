@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 import { CONTACT_INFO } from '../constants';
+import { Seo } from '../seo/Seo';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../seo/SchemaGenerator';
 
 // @ts-ignore
 const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
@@ -78,7 +80,24 @@ export const FranchisePage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-charcoal text-cream font-body overflow-x-hidden">
-            {/* SEO Metadata (Mental Note: Should be handled by Helmet or similar in real app) */}
+            <Seo
+                title="BBQ Franchise Opportunities in India | Partner with Smoke Signal"
+                description="Join Bangalore's original American BBQ brand. Explore franchise models (Cloud Kitchen, Dine-in) with high ROI and 15 years of proven heritage. Apply now!"
+                canonical="/franchise"
+                schema={{
+                    "@context": "https://schema.org",
+                    "@graph": [
+                        generateBreadcrumbSchema([
+                            { name: "Home", item: "/" },
+                            { name: "Franchise", item: "/franchise" }
+                        ]),
+                        generateFAQSchema([
+                            { q: "What is the investment required for a Smoke Signal BBQ franchise?", a: "The investment ranges from ₹25L to ₹35L depending on the model (Cloud Kitchen vs Dine-in)." },
+                            { q: "How long does it take to break even?", a: "Our target ROI period is typically 18 to 24 months based on current store performance." }
+                        ])
+                    ]
+                }}
+            />
 
             {/* HERO SECTION */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">

@@ -9,6 +9,8 @@ import { PRODUCTS } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Product } from '../types';
+import { Seo } from '../seo/Seo';
+import { generateOrganizationSchema } from '../seo/SchemaGenerator';
 
 // @ts-ignore
 const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
@@ -101,6 +103,11 @@ export const Home: React.FC = () => {
 
     return (
         <main>
+            <Seo
+                title="Bangalore's Original Authentic Texas BBQ"
+                description="Experience authentic Texas-style smoked meats in Bangalore since 2011. Slow-smoked beef brisket, tender pork ribs, and handcrafted BBQ sauces delivered fresh."
+                schema={generateOrganizationSchema()}
+            />
             <Hero />
 
             <ComboShowcase products={combos} />

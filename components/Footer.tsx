@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 mb-16 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16 items-start">
 
           {/* Brand - Left */}
           <div className="flex flex-col items-center space-y-6">
@@ -129,7 +129,20 @@ export const Footer: React.FC = () => {
               </div>
 
             </div>
+          </div>
 
+          {/* Top Delivery Locations (pSEO Hub) */}
+          <div className="flex flex-col items-center md:items-start space-y-6 md:pt-8">
+            <h4 className="font-display text-2xl text-fire tracking-wide">Delivery Areas</h4>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+              <Link to="/services/catering-in-indiranagar" className="text-gray-400 hover:text-fire transition-colors text-xs font-bold uppercase tracking-widest">Catering Indiranagar</Link>
+              <Link to="/services/delivery-in-koramangala" className="text-gray-400 hover:text-fire transition-colors text-xs font-bold uppercase tracking-widest">Delivery Koramangala</Link>
+              <Link to="/services/brisket-in-hsr-layout" className="text-gray-400 hover:text-fire transition-colors text-xs font-bold uppercase tracking-widest">Brisket HSR Layout</Link>
+              <Link to="/services/ribs-in-whitefield" className="text-gray-400 hover:text-fire transition-colors text-xs font-bold uppercase tracking-widest">Ribs Whitefield</Link>
+              <Link to="/services/catering-in-kammanahalli" className="text-gray-400 hover:text-fire transition-colors text-xs font-bold uppercase tracking-widest">Catering Kammanahalli</Link>
+              <Link to="/services/delivery-in-mg-road" className="text-gray-400 hover:text-fire transition-colors text-xs font-bold uppercase tracking-widest">Delivery MG Road</Link>
+            </div>
+            <p className="text-[10px] text-gray-500 italic mt-4">Serving across 15+ major areas in Bangalore.</p>
           </div>
         </div>
 
