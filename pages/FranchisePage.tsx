@@ -28,9 +28,9 @@ export const FranchisePage: React.FC = () => {
             {/* SEO Metadata (Mental Note: Should be handled by Helmet or similar in real app) */}
 
             {/* HERO SECTION */}
-            <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+            <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-40 md:pt-48 lg:pt-56 pb-20">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/80 to-charcoal z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-charcoal/90 via-charcoal/60 to-charcoal z-10" />
                     <img
                         src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1920&q=80"
                         alt="BBQ Flames"
@@ -44,16 +44,16 @@ export const FranchisePage: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fire/20 border border-fire/30 text-fire text-xs font-bold uppercase tracking-[0.3em] mb-8">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fire/20 border border-fire/30 text-fire text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 md:mb-8">
                             <Flame size={14} className="animate-pulse" />
                             Global Expansion
                         </div>
-                        <h1 className="text-6xl md:text-8xl font-display italic text-cream mb-6 drop-shadow-2xl">
+                        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display italic text-cream mb-6 md:mb-8 drop-shadow-2xl leading-[1.1]">
                             Own a Piece of <br />
                             <span className="text-fire">Bangalore's Original</span> <br />
                             American BBQ
                         </h1>
-                        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 font-medium">
+                        <p className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 md:mb-14 font-medium leading-relaxed">
                             Since 2011 • 15 Years of Heritage <br />
                             Now Franchising Across South India
                         </p>
@@ -97,59 +97,59 @@ export const FranchisePage: React.FC = () => {
             </section>
 
             {/* SECTION 1: WHY SMOKE SIGNAL BBQ? */}
-            <section className="py-24 bg-black/20">
+            <section className="py-20 md:py-32 bg-black/20">
                 <div className="container mx-auto px-4">
-                    <div className="grid lg:grid-cols-2 gap-20 items-center">
-                        <div>
-                            <span className="text-fire font-bold uppercase tracking-widest text-sm mb-4 block">The Opportunity</span>
-                            <h2 className="text-4xl md:text-5xl font-display italic text-cream mb-8 font-extrabold leading-tight">
-                                There are zero organized <br />
-                                players in India's ₹500Cr <br />
+                    <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                        <div className="max-w-xl mx-auto lg:mx-0">
+                            <span className="text-fire font-bold uppercase tracking-[0.2em] text-[10px] md:text-sm mb-4 block">The Opportunity</span>
+                            <h2 className="text-3xl md:text-5xl font-display italic text-cream mb-8 leading-[1.2] font-extrabold">
+                                There are zero organized <br className="hidden md:block" />
+                                players in India's ₹500Cr <br className="hidden md:block" />
                                 <span className="text-fire">BBQ Market.</span>
                             </h2>
-                            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+                            <p className="text-gray-400 text-base md:text-lg mb-10 leading-relaxed font-medium">
                                 While biryani chains fight for market share, authentic American BBQ remains untouched. We've spent 15 years perfecting the craft so you don't have to.
                             </p>
 
-                            <div className="grid sm:grid-cols-2 gap-6">
+                            <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                                 {[
                                     { title: 'Market Demand', desc: 'Post-pandemic demand for premium, authentic experiences.' },
                                     { title: 'Cloud-First Model', desc: 'Reduced real estate risk with optimized delivery ops.' },
                                     { title: 'Tech Driven', desc: 'Mature delivery ecosystem & automated ordering.' },
                                     { title: 'Category Leader', desc: 'The first-mover advantage in the authentic BBQ niche.' }
                                 ].map((item, i) => (
-                                    <div key={i} className="p-6 bg-white/5 rounded-2xl border border-white/5 group hover:border-fire/20 transition-all">
+                                    <div key={i} className="p-5 md:p-6 bg-white/5 rounded-2xl border border-white/5 group hover:border-fire/20 transition-all">
                                         <div className="w-10 h-10 rounded-full bg-fire/10 flex items-center justify-center text-fire mb-4 group-hover:bg-fire group-hover:text-white transition-colors">
-                                            <Zap size={20} />
+                                            <Zap size={18} />
                                         </div>
-                                        <h4 className="font-bold text-cream mb-2">{item.title}</h4>
-                                        <p className="text-xs text-gray-500">{item.desc}</p>
+                                        <h4 className="font-bold text-cream mb-2 text-sm md:text-base">{item.title}</h4>
+                                        <p className="text-[11px] md:text-xs text-gray-500 leading-relaxed">{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="relative">
+                        <div className="relative mt-12 lg:mt-0">
                             <div className="absolute inset-0 bg-fire blur-[120px] opacity-10 rounded-full" />
-                            <div className="relative overflow-hidden rounded-[3rem] border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
-                                <h3 className="text-2xl font-display italic text-cream mb-4 p-4">The BBQ Advantage</h3>
-                                <div className="space-y-px overflow-hidden rounded-2xl border border-white/5">
-                                    <div className="grid grid-cols-2 bg-white/10 p-6 text-xs font-bold uppercase tracking-widest">
-                                        <span className="text-gray-400">Other Brands</span>
+                            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+                                <h3 className="text-xl md:text-2xl font-display italic text-cream mb-6 p-4 text-center">The BBQ Advantage</h3>
+                                <div className="space-y-px overflow-hidden rounded-2xl border border-white/5 shadow-2xl">
+                                    <div className="grid grid-cols-2 bg-white/10 p-4 md:p-6 text-[9px] md:text-xs font-bold uppercase tracking-widest text-center">
+                                        <span className="text-gray-400 border-r border-white/10">Other Brands</span>
                                         <span className="text-fire">Smoke Signal BBQ</span>
                                     </div>
                                     {[
                                         { other: 'Grilled meat with sauce', us: '14-hour hardwood smoked' },
-                                        { other: 'Commodity pricing', us: 'Premium positioning (₹800 AOV)' },
-                                        { other: 'No brand story', us: '15-year heritage, cult following' },
-                                        { other: 'High competition', us: 'Blue ocean, no direct competitor' },
+                                        { other: 'Commodity pricing', us: 'Premium (₹800 AOV)' },
+                                        { other: 'No brand story', us: '15-year heritage' },
+                                        { other: 'High competition', us: 'Blue ocean market' },
                                         { other: 'Complex operations', us: 'Simple, repeatable system' }
                                     ].map((row, i) => (
-                                        <div key={i} className="grid grid-cols-2 p-6 bg-black/40 border-t border-white/5 group hover:bg-white/[0.02] transition-colors">
-                                            <span className="text-sm text-gray-500">{row.other}</span>
-                                            <div className="flex items-center gap-2">
-                                                <CheckCircle2 size={16} className="text-green-500" />
-                                                <span className="text-sm text-cream font-medium">{row.us}</span>
+                                        <div key={i} className="grid grid-cols-2 p-4 md:p-6 bg-black/40 border-t border-white/5 group hover:bg-white/[0.02] transition-colors items-center text-center">
+                                            <span className="text-[11px] md:text-sm text-gray-500 border-r border-white/10 pr-2">{row.other}</span>
+                                            <div className="flex items-center justify-center gap-2 pl-2">
+                                                <CheckCircle2 size={14} className="text-green-500 shrink-0" />
+                                                <span className="text-[11px] md:text-sm text-cream font-medium">{row.us}</span>
                                             </div>
                                         </div>
                                     ))}
@@ -161,27 +161,27 @@ export const FranchisePage: React.FC = () => {
             </section>
 
             {/* SECTION 2: FRANCHISE MODELS */}
-            <section className="py-24 relative overflow-hidden">
+            <section className="py-20 md:py-32 relative overflow-hidden">
                 <div className="container mx-auto px-4">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-display italic text-cream mb-4">Choose Your Path</h2>
-                        <p className="text-gray-400 tracking-widest uppercase text-xs font-bold">Tailored models for every investor profile</p>
+                    <div className="text-center mb-16 md:mb-24">
+                        <h2 className="text-3xl md:text-5xl font-display italic text-cream mb-4">Choose Your Path</h2>
+                        <p className="text-gray-400 tracking-[0.2em] uppercase text-[10px] md:text-xs font-bold">Tailored models for every investor profile</p>
                     </div>
 
-                    <div className="grid lg:grid-cols-3 gap-8">
+                    <div className="grid lg:grid-cols-3 gap-8 lg:gap-10">
                         {/* Model A */}
                         <motion.div
                             whileHover={{ y: -10 }}
-                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 flex flex-col relative overflow-hidden"
+                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 md:p-10 flex flex-col relative overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 p-8 opacity-5">
                                 <Globe size={80} />
                             </div>
-                            <span className="text-fire font-bold text-xs uppercase tracking-widest mb-2 block">Model A</span>
-                            <h3 className="text-3xl font-display italic text-cream mb-4">Cloud Kitchen</h3>
-                            <p className="text-sm text-gray-400 mb-8 font-medium">For Operators Who Want to Start Fast</p>
-
-                            <div className="space-y-4 mb-10 text-sm">
+                            <span className="text-fire font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-3 md:mb-4 block">Model A</span>
+                            <h3 className="text-3xl md:text-4xl font-display italic text-cream mb-4 leading-none">Cloud Kitchen</h3>
+                            <p className="text-xs md:text-sm text-gray-400 mb-8 font-medium">For Operators Who Want to Start Fast</p>
+                            
+                            <div className="space-y-4 mb-10 text-xs md:text-sm">
                                 <div className="flex justify-between border-b border-white/5 pb-3">
                                     <span className="text-gray-400">Investment</span>
                                     <span className="text-cream font-bold">₹25-35 Lakhs</span>
@@ -196,16 +196,16 @@ export const FranchisePage: React.FC = () => {
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-gray-400">Ideal For</span>
-                                    <span className="text-cream font-bold">Fist-time Owners</span>
+                                    <span className="text-cream font-bold text-right">First-time Owners</span>
                                 </div>
                             </div>
 
-                            <div className="mt-auto space-y-3">
-                                <h4 className="text-[10px] uppercase font-bold text-gray-500 tracking-widest mb-2">What You Receive</h4>
-                                <ul className="space-y-2">
+                            <div className="mt-auto space-y-4">
+                                <h4 className="text-[10px] uppercase font-bold text-gray-500 tracking-[0.2em] mb-2">What You Receive</h4>
+                                <ul className="grid grid-cols-1 gap-3">
                                     {['2 Commercial Smokers', 'WhatsApp Ordering System', 'Kitchen Setup Design', 'Partner Integrations'].map((item, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-sm">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-fire" />
+                                        <li key={i} className="flex items-center gap-3 text-xs md:text-sm text-gray-300">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-fire outline outline-4 outline-fire/20 shrink-0" />
                                             {item}
                                         </li>
                                     ))}
@@ -216,17 +216,17 @@ export const FranchisePage: React.FC = () => {
                         {/* Model B */}
                         <motion.div
                             whileHover={{ y: -10 }}
-                            className="bg-fire/10 rounded-[2.5rem] border border-fire/20 p-10 flex flex-col relative overflow-hidden shadow-2xl shadow-fire/10 border-2"
+                            className="bg-fire/10 rounded-[2.5rem] border border-fire/20 p-8 md:p-10 flex flex-col relative overflow-hidden shadow-2xl shadow-fire/10 border-2 scale-100 lg:scale-105"
                         >
-                            <div className="absolute -top-4 -right-4 bg-fire text-white text-[8px] font-black px-8 py-4 rotate-45 transform uppercase tracking-widest">Most Popular</div>
+                            <div className="absolute top-0 right-0 py-6 px-12 bg-fire text-white text-[8px] md:text-[10px] font-black rotate-45 transform translate-x-12 -translate-y-8 uppercase tracking-widest shadow-xl">Most Popular</div>
                             <div className="absolute top-0 right-0 p-8 opacity-5">
                                 <Gem size={100} />
                             </div>
-                            <span className="text-fire font-bold text-xs uppercase tracking-widest mb-2 block">Model B</span>
-                            <h3 className="text-4xl font-display italic text-cream mb-4">Dine-In</h3>
-                            <p className="text-sm text-cream/70 mb-8 font-medium italic">For Investors Who Want the Full Experience</p>
-
-                            <div className="space-y-4 mb-10 text-sm">
+                            <span className="text-fire font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-4 block">Model B</span>
+                            <h3 className="text-3xl md:text-4xl font-display italic text-cream mb-4 leading-none">Dine-In</h3>
+                            <p className="text-xs md:text-sm text-cream/70 mb-8 font-medium italic">For Investors Who Want the Full Experience</p>
+                            
+                            <div className="space-y-4 mb-10 text-xs md:text-sm">
                                 <div className="flex justify-between border-b border-white/10 pb-3">
                                     <span className="text-cream/50">Investment</span>
                                     <span className="text-cream font-bold">₹50-70 Lakhs</span>
@@ -245,12 +245,12 @@ export const FranchisePage: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-auto space-y-3">
-                                <h4 className="text-[10px] uppercase font-bold text-cream/40 tracking-widest mb-2 px-1">Premium Inclusions</h4>
-                                <ul className="space-y-2">
-                                    {['Texas-themed Interiors', 'Live Visible Smokers', 'Full Bar Licensing Support', 'Events & Live Music Ops'].map((item, i) => (
-                                        <li key={i} className="flex items-center gap-3 text-sm text-cream/90">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-cream" />
+                            <div className="mt-auto space-y-4">
+                                <h4 className="text-[10px] uppercase font-bold text-cream/40 tracking-[0.2em] mb-2">Premium Inclusions</h4>
+                                <ul className="grid grid-cols-1 gap-3">
+                                    {['Texas-themed Interiors', 'Live Visible Smokers', 'Full Bar Licensing Support', 'Events & Music Ops'].map((item, i) => (
+                                        <li key={i} className="flex items-center gap-3 text-xs md:text-sm text-cream/90">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-cream outline outline-4 outline-cream/10 shrink-0" />
                                             {item}
                                         </li>
                                     ))}
@@ -261,23 +261,23 @@ export const FranchisePage: React.FC = () => {
                         {/* Model C */}
                         <motion.div
                             whileHover={{ y: -10 }}
-                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 flex flex-col relative overflow-hidden"
+                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 md:p-10 flex flex-col relative overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 p-8 opacity-5">
                                 <Award size={80} />
                             </div>
-                            <span className="text-fire font-bold text-xs uppercase tracking-widest mb-2 block">Model C</span>
-                            <h3 className="text-3xl font-display italic text-cream mb-4">Master Franchise</h3>
-                            <p className="text-sm text-gray-400 mb-8 font-medium">For Strategic Area Developers</p>
-
-                            <div className="space-y-4 mb-10 text-sm">
+                            <span className="text-fire font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-4 block">Model C</span>
+                            <h3 className="text-3xl md:text-4xl font-display italic text-cream mb-4 leading-none">Master Franchise</h3>
+                            <p className="text-xs md:text-sm text-gray-400 mb-8 font-medium">For Strategic Area Developers</p>
+                            
+                            <div className="space-y-4 mb-10 text-xs md:text-sm">
                                 <div className="flex justify-between border-b border-white/5 pb-3">
                                     <span className="text-gray-400">Territory</span>
                                     <span className="text-cream font-bold">Entire City</span>
                                 </div>
                                 <div className="flex justify-between border-b border-white/5 pb-3">
                                     <span className="text-gray-400">Scale</span>
-                                    <span className="text-cream font-bold">5 Units / 3 Yrs</span>
+                                    <span className="text-cream font-bold text-right">5 Units / 3 Yrs</span>
                                 </div>
                                 <div className="flex justify-between border-b border-white/5 pb-3">
                                     <span className="text-gray-400">Revenue</span>
@@ -289,8 +289,8 @@ export const FranchisePage: React.FC = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-auto p-4 bg-fire/5 rounded-2xl border border-fire/10">
-                                <p className="text-xs text-gray-300 italic">"Ideal for multi-unit operators or real estate developed looking for an exclusive portfolio anchor."</p>
+                            <div className="mt-auto p-6 bg-fire/5 rounded-2xl border border-fire/10">
+                                <p className="text-[10px] md:text-xs text-gray-300 italic leading-relaxed">"Ideal for multi-unit operators or real estate developers looking for an exclusive portfolio anchor."</p>
                             </div>
                         </motion.div>
                     </div>
@@ -389,47 +389,47 @@ export const FranchisePage: React.FC = () => {
             </section>
 
             {/* SECTION 4: FINANCIALS */}
-            <section className="py-24">
+            <section className="py-20 md:py-32">
                 <div className="container mx-auto px-4">
-                    <h2 className="text-4xl md:text-5xl font-display italic text-cream text-center mb-20 leading-tight">Setting Expectations: <br /> <span className="text-fire">The Financial Roadmap</span></h2>
+                    <h2 className="text-3xl md:text-5xl font-display italic text-cream text-center mb-16 md:mb-24 leading-tight">Setting Expectations: <br /> <span className="text-fire">The Financial Roadmap</span></h2>
 
-                    <div className="grid lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
-                        <div className="bg-white/5 p-10 rounded-[3rem] border border-white/5">
-                            <h3 className="text-2xl font-display italic text-fire mb-8">Cloud Kitchen Breakdown</h3>
-                            <div className="space-y-4 text-sm">
+                    <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-start max-w-6xl mx-auto">
+                        <div className="bg-white/5 p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-2xl">
+                            <h3 className="text-xl md:text-2xl font-display italic text-fire mb-8">Cloud Kitchen Breakdown</h3>
+                            <div className="space-y-5 md:space-y-6 text-xs md:text-sm">
                                 {[
                                     { label: 'Franchise Fee', val: '₹8,00,000', note: '5-year license, renewable' },
                                     { label: 'Kitchen Equipment', val: '₹10,00,000', note: 'Smokers, cold storage, prep' },
-                                    { label: 'Security Deposit', val: '₹1,20,000', note: '6 months rent' },
-                                    { label: 'Initial Inventory', val: '₹2,50,000', note: '2-week stock' },
-                                    { label: 'Working Capital', val: '₹3,00,000', note: '3-month buffer' },
-                                    { label: 'Marketing Launch', val: '₹1,50,000', note: 'Local + digital' }
+                                    { label: 'Security Deposit', val: '₹1,20,000', note: '6 months rent avg.' },
+                                    { label: 'Initial Inventory', val: '₹2,50,000', note: '2-week opening stock' },
+                                    { label: 'Working Capital', val: '₹3,00,000', note: '3-month operational buffer' },
+                                    { label: 'Marketing Launch', val: '₹1,50,000', note: 'Local + digital blitz' }
                                 ].map((item, i) => (
-                                    <div key={i} className="flex justify-between items-start border-b border-white/5 pb-4">
+                                    <div key={i} className="flex justify-between items-start border-b border-white/5 pb-4 md:pb-5">
                                         <div>
-                                            <p className="font-bold text-cream">{item.label}</p>
-                                            <p className="text-[10px] text-gray-500 uppercase tracking-widest">{item.note}</p>
+                                            <p className="font-bold text-cream mb-1">{item.label}</p>
+                                            <p className="text-[9px] md:text-[10px] text-gray-500 uppercase tracking-widest leading-none">{item.note}</p>
                                         </div>
                                         <span className="text-cream font-mono font-bold">{item.val}</span>
                                     </div>
                                 ))}
-                                <div className="flex justify-between pt-6">
-                                    <span className="text-xl font-display italic text-fire">Total Estimated</span>
-                                    <span className="text-2xl font-display italic text-cream">₹26,20,000</span>
+                                <div className="flex justify-between pt-6 md:pt-8">
+                                    <span className="text-lg md:text-xl font-display italic text-fire">Total Estimated</span>
+                                    <span className="text-xl md:text-2xl font-display italic text-cream">₹26,20,000</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="space-y-8">
-                            <div className="bg-fire/10 p-10 rounded-[3rem] border border-fire/20">
-                                <h3 className="text-2xl font-display italic text-cream mb-8">Revenue Projections</h3>
+                        <div className="space-y-8 md:space-y-12">
+                            <div className="bg-fire/10 p-8 md:p-12 rounded-[3rem] border border-fire/20 shadow-2xl">
+                                <h3 className="text-xl md:text-2xl font-display italic text-cream mb-8">Revenue Projections</h3>
                                 <div className="overflow-x-auto">
-                                    <table className="w-full text-xs">
+                                    <table className="w-full text-[10px] md:text-xs">
                                         <thead>
-                                            <tr className="border-b border-white/10 text-cream/50 uppercase tracking-widest text-[9px]">
+                                            <tr className="border-b border-white/10 text-cream/50 uppercase tracking-widest text-[8px] md:text-[9px]">
                                                 <th className="py-4 text-left">Year</th>
-                                                <th className="py-4 text-center">Annual Rev</th>
-                                                <th className="py-4 text-center">Net Profit</th>
+                                                <th className="py-4 text-center px-2">Annual Rev</th>
+                                                <th className="py-4 text-center px-2">Net Profit</th>
                                                 <th className="py-4 text-right">Cumulative ROI</th>
                                             </tr>
                                         </thead>
@@ -440,32 +440,32 @@ export const FranchisePage: React.FC = () => {
                                                 { y: 'Y3', r: '₹96L', p: '₹19L', roi: '119%' }
                                             ].map((row, i) => (
                                                 <tr key={i} className="border-b border-white/5 group bg-transparent hover:bg-white/[0.02] transition-colors">
-                                                    <td className="py-6 font-bold text-fire italic text-sm">{row.y}</td>
-                                                    <td className="py-6 text-center text-cream font-medium">{row.r}</td>
-                                                    <td className="py-6 text-center text-green-400 font-bold">{row.p}</td>
-                                                    <td className="py-6 text-right text-cream font-mono">{row.roi}</td>
+                                                    <td className="py-5 md:py-6 font-bold text-fire italic text-xs md:text-sm">{row.y}</td>
+                                                    <td className="py-5 md:py-6 text-center text-cream font-medium">{row.r}</td>
+                                                    <td className="py-5 md:py-6 text-center text-green-400 font-bold">{row.p}</td>
+                                                    <td className="py-5 md:py-6 text-right text-cream font-mono">{row.roi}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
                                 </div>
-                                <p className="mt-6 text-[10px] text-gray-500 italic">*Projections based on 60% gross margin and scaling optimization. Results vary.</p>
+                                <p className="mt-6 text-[9px] md:text-[10px] text-gray-500 italic leading-relaxed text-center opacity-60">*Projections based on 60% gross margin and scaling optimization. Results vary.</p>
                             </div>
 
-                            <div className="bg-black/30 p-10 rounded-[3rem] border border-white/5">
-                                <h3 className="text-xl font-bold text-cream mb-6 italic">Recurring Fees</h3>
-                                <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+                            <div className="bg-black/30 p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-xl">
+                                <h3 className="text-lg md:text-xl font-bold text-cream mb-8 italic text-center lg:text-left">Recurring Fees</h3>
+                                <div className="grid grid-cols-2 gap-x-8 md:gap-x-12 gap-y-8">
                                     <div>
-                                        <span className="text-fire font-bold text-lg">6%</span>
-                                        <p className="text-[10px] uppercase tracking-widest text-gray-400">Monthly Royalty</p>
+                                        <span className="text-2xl md:text-3xl font-display font-bold text-fire">6%</span>
+                                        <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Monthly Royalty</p>
                                     </div>
                                     <div>
-                                        <span className="text-fire font-bold text-lg">2%</span>
-                                        <p className="text-[10px] uppercase tracking-widest text-gray-400">Marketing Fund</p>
+                                        <span className="text-2xl md:text-3xl font-display font-bold text-fire">2%</span>
+                                        <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Marketing Fund</p>
                                     </div>
-                                    <div className="col-span-2 pt-4 border-t border-white/5">
-                                        <span className="text-cream font-bold">₹5,000</span>
-                                        <p className="text-[10px] uppercase tracking-widest text-gray-400">Monthly Technology Fee</p>
+                                    <div className="col-span-2 pt-6 border-t border-white/5">
+                                        <span className="text-lg md:text-xl font-bold text-cream italic">₹5,000</span>
+                                        <p className="text-[9px] md:text-[10px] uppercase tracking-widest text-gray-500 font-bold mt-1">Monthly Technology & Support Fee</p>
                                     </div>
                                 </div>
                             </div>
@@ -684,41 +684,41 @@ export const FranchisePage: React.FC = () => {
             </section>
 
             {/* SECTION 10: CALL TO ACTION + FORM */}
-            <section id="franchise-form" className="py-24 bg-charcoal relative">
+            <section id="franchise-form" className="py-20 md:py-32 bg-charcoal relative">
                 <div className="container mx-auto px-4">
-                    <div className="flex flex-col lg:flex-row gap-20 max-w-6xl mx-auto">
-                        <div className="lg:w-1/2">
-                            <h2 className="text-5xl md:text-6xl font-display italic text-fire mb-8 leading-tight">Ready to bring <br /> the smoke to <br /> your city?</h2>
-                            <p className="text-xl text-gray-400 mb-12">Join 15 years of heritage. Build something that lasts.</p>
+                    <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 max-w-6xl mx-auto items-start">
+                        <div className="lg:w-5/12">
+                            <h2 className="text-4xl md:text-6xl font-display italic text-fire mb-8 leading-[1.1]">Ready to bring <br className="hidden md:block" /> the smoke to <br className="hidden md:block" /> your city?</h2>
+                            <p className="text-lg md:text-xl text-gray-400 mb-12 leading-relaxed">Join 15 years of heritage. Build something that lasts.</p>
 
                             <div className="space-y-6 mb-12">
                                 <div className="flex items-center gap-6 group">
-                                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-fire group-hover:bg-fire group-hover:text-white transition-all shadow-xl">
+                                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-fire group-hover:bg-fire group-hover:text-white transition-all shadow-xl shrink-0">
                                         <Mail size={24} />
                                     </div>
                                     <div>
                                         <h5 className="text-[10px] uppercase tracking-widest font-bold text-gray-500 mb-1">Email Inquiry</h5>
-                                        <p className="text-cream font-bold group-hover:text-fire transition-colors">franchise@smokesignalbbq.in</p>
+                                        <p className="text-cream font-bold group-hover:text-fire transition-colors text-sm md:text-base">franchise@smokesignalbbq.in</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-6 group">
-                                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-fire group-hover:bg-fire group-hover:text-white transition-all shadow-xl">
+                                <div className="flex items-center gap-6 group border-t border-white/5 pt-6">
+                                    <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-fire group-hover:bg-fire group-hover:text-white transition-all shadow-xl shrink-0">
                                         <Phone size={24} />
                                     </div>
                                     <div>
                                         <h5 className="text-[10px] uppercase tracking-widest font-bold text-gray-500 mb-1">Business Line</h5>
-                                        <p className="text-cream font-bold">+91 [Phone Number]</p>
+                                        <p className="text-cream font-bold group-hover:text-fire transition-colors text-sm md:text-base">+91 97415 54063</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <button className="w-full flex items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/10 transition-all font-bold uppercase tracking-widest text-xs">
+                            <button className="w-full flex items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/10 transition-all font-bold uppercase tracking-widest text-[10px] md:text-xs">
                                 <span>Get Franchise Kit (PDF)</span>
                                 <Download size={20} className="text-fire" />
                             </button>
                         </div>
 
-                        <div className="lg:w-1/2 relative">
+                        <div className="lg:w-7/12 w-full relative">
                             <AnimatePresence mode="wait">
                                 {!formSubmitted ? (
                                     <motion.form
@@ -726,74 +726,86 @@ export const FranchisePage: React.FC = () => {
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 1.05 }}
-                                        className="bg-black/40 p-10 md:p-12 rounded-[3.5rem] border border-white/5 shadow-3xl text-sm"
+                                        className="bg-black/40 p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-3xl text-xs md:text-sm"
                                         onSubmit={(e) => { e.preventDefault(); setFormSubmitted(true); }}
                                     >
-                                        <h3 className="text-2xl font-display text-cream italic mb-8 border-b border-white/10 pb-4">Franchise Application</h3>
+                                        <h3 className="text-xl md:text-2xl font-display text-cream italic mb-8 border-b border-white/10 pb-6 text-center lg:text-left">Franchise Application</h3>
 
                                         <div className="space-y-8">
                                             {/* Section 1 */}
-                                            <div className="space-y-4">
+                                            <div className="space-y-5 md:space-y-6">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">1. Basic Information</p>
-                                                <input type="text" placeholder="Full Name" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all" />
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <input type="email" placeholder="Email" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all" />
-                                                    <input type="tel" placeholder="Phone / WhatsApp" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all" />
+                                                <input type="text" placeholder="Full Name" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600" />
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                                    <input type="email" placeholder="Email" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600" />
+                                                    <input type="tel" placeholder="Phone / WhatsApp" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600" />
                                                 </div>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer">
-                                                        <option disabled selected>City of Interest</option>
-                                                        <option>Hyderabad</option>
-                                                        <option>Chennai</option>
-                                                        <option>Coimbatore</option>
-                                                        <option>Kochi</option>
-                                                        <option>Other</option>
-                                                    </select>
-                                                    <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer">
-                                                        <option disabled selected>Preferred Model</option>
-                                                        <option>Cloud Kitchen</option>
-                                                        <option>Dine-In</option>
-                                                        <option>Master Franchise</option>
-                                                    </select>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                                    <div className="relative">
+                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled selected className="bg-charcoal">City of Interest</option>
+                                                            <option className="bg-charcoal">Hyderabad</option>
+                                                            <option className="bg-charcoal">Chennai</option>
+                                                            <option className="bg-charcoal">Coimbatore</option>
+                                                            <option className="bg-charcoal">Kochi</option>
+                                                            <option className="bg-charcoal">Other</option>
+                                                        </select>
+                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                    </div>
+                                                    <div className="relative">
+                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled selected className="bg-charcoal">Preferred Model</option>
+                                                            <option className="bg-charcoal">Cloud Kitchen</option>
+                                                            <option className="bg-charcoal">Dine-In</option>
+                                                            <option className="bg-charcoal">Master Franchise</option>
+                                                        </select>
+                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             {/* Section 2 */}
-                                            <div className="space-y-4">
+                                            <div className="space-y-5 md:space-y-6 pt-4 border-t border-white/5">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">2. Financial Capacity</p>
-                                                <div className="grid grid-cols-2 gap-4">
-                                                    <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer">
-                                                        <option disabled selected>Investment Cap</option>
-                                                        <option>₹15-25L</option>
-                                                        <option>₹25-35L</option>
-                                                        <option>₹35-50L</option>
-                                                        <option>₹50L+</option>
-                                                    </select>
-                                                    <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer">
-                                                        <option disabled selected>My Net Worth</option>
-                                                        <option>₹50L-1Cr</option>
-                                                        <option>₹1-2Cr</option>
-                                                        <option>₹2-5Cr</option>
-                                                        <option>₹5Cr+</option>
-                                                    </select>
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                                    <div className="relative">
+                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled selected className="bg-charcoal">Investment Cap</option>
+                                                            <option className="bg-charcoal">₹15-25L</option>
+                                                            <option className="bg-charcoal">₹25-35L</option>
+                                                            <option className="bg-charcoal">₹35-50L</option>
+                                                            <option className="bg-charcoal">₹50L+</option>
+                                                        </select>
+                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                    </div>
+                                                    <div className="relative">
+                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled selected className="bg-charcoal">My Net Worth</option>
+                                                            <option className="bg-charcoal">₹50L-1Cr</option>
+                                                            <option className="bg-charcoal">₹1-2Cr</option>
+                                                            <option className="bg-charcoal">₹2-5Cr</option>
+                                                            <option className="bg-charcoal">₹5Cr+</option>
+                                                        </select>
+                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             {/* Section 3 */}
-                                            <div className="space-y-4">
+                                            <div className="space-y-5 md:space-y-6 pt-4 border-t border-white/5">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">3. Experience & Intent</p>
-                                                <textarea placeholder="Business / F&B Experience" className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all h-32" />
-                                                <div className="flex items-center gap-4">
-                                                    <label className="flex items-center gap-2 cursor-pointer">
-                                                        <input type="checkbox" required className="accent-fire rounded" />
-                                                        <span className="text-[10px] text-gray-400">I acknowledge this is a formal inquiry and my info is confidential.</span>
+                                                <textarea placeholder="Tell us about your Business / F&B Experience" className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-3xl focus:border-fire outline-none transition-all h-32 placeholder:text-gray-600" />
+                                                <div className="flex items-start gap-4 p-2">
+                                                    <input type="checkbox" required id="form-ack" className="accent-fire rounded mt-1 cursor-pointer" />
+                                                    <label htmlFor="form-ack" className="text-[10px] md:text-[11px] text-gray-500 leading-relaxed cursor-pointer">
+                                                        I acknowledge this is a formal inquiry and my information will be kept confidential for review.
                                                     </label>
                                                 </div>
                                             </div>
 
                                             <button
                                                 type="submit"
-                                                className="w-full py-6 bg-fire text-white rounded-2xl font-black uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-[1.02] shadow-xl shadow-fire/20"
+                                                className="w-full py-6 md:py-8 bg-fire text-white rounded-3xl font-black uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-[1.01] shadow-2xl shadow-fire/30 text-xs md:text-sm"
                                             >
                                                 Submit Comprehensive Application
                                             </button>
