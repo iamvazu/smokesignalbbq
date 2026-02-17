@@ -1,12 +1,63 @@
-import React from 'react';
-import { MapPin, Phone, Instagram, Facebook } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Phone, Instagram, Facebook, CheckCircle2, Flame, X, Mail } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { CONTACT_INFO } from '../constants';
 
 
 export const Footer: React.FC = () => {
+  const [showSuccess, setShowSuccess] = useState(false);
+
   return (
     <footer id="contact" className="relative bg-charcoal text-white pt-16 pb-8 border-t border-white/5 overflow-hidden">
+      {/* Success Modal Overlay */}
+      <AnimatePresence>
+        {showSuccess && (
+          <div className="fixed inset-0 z-[150] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+              onClick={() => setShowSuccess(false)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative bg-charcoal border border-white/10 rounded-[3rem] p-10 md:p-16 max-w-md w-full shadow-[0_50px_100px_rgba(239,68,68,0.2)] overflow-hidden text-center"
+            >
+              {/* Tactical Background elements */}
+              <div className="absolute top-0 left-0 w-full h-2 bg-fire" />
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-fire/20 rounded-full blur-[80px]" />
+
+              <div className="w-24 h-24 bg-fire/10 rounded-3xl flex items-center justify-center mx-auto mb-8 border border-fire/20 relative group">
+                <div className="absolute inset-0 bg-fire/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all" />
+                <CheckCircle2 size={48} className="text-fire relative z-10" />
+              </div>
+
+              <div className="space-y-4 mb-10">
+                <div className="flex items-center justify-center gap-2 text-fire">
+                  <Flame size={14} className="fill-fire" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em]">Mission Accomplished</span>
+                </div>
+                <h3 className="text-4xl font-display text-cream italic tracking-wide leading-none">INTEL SECURED</h3>
+                <p className="text-gray-400 text-sm font-medium leading-relaxed">
+                  You've successfully infiltrated the BBQ Briefing. Exclusive pitmaster secrets are now en route to your inbox.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setShowSuccess(false)}
+                className="w-full bg-white/5 hover:bg-fire text-white py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] border border-white/10 hover:border-fire transition-all group overflow-hidden relative shadow-2xl"
+              >
+                <span className="relative z-10">BACK TO COMMAND</span>
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img
@@ -40,11 +91,11 @@ export const Footer: React.FC = () => {
                   const btn = form.querySelector('button');
                   if (btn) btn.disabled = true;
                   await (await import('axios')).default.post(`${API_URL}/newsletter/subscribe`, { email, source: 'footer' });
-                  alert('Success! BBQ intel is on the way.');
+                  setShowSuccess(true);
                   form.reset();
                 } catch (err) {
                   console.error(err);
-                  alert('Failed to subscribe. Please try again.');
+                  alert('Mission Failed: Please check your tactical connection.');
                 } finally {
                   const btn = form.querySelector('button');
                   if (btn) btn.disabled = false;
