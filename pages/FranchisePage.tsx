@@ -5,12 +5,29 @@ import {
     ArrowRight, CheckCircle2, XCircle, Download, Phone,
     Calendar, Mail, Globe, Clock, ChevronDown, Rocket,
     Zap, Gem, Award, PieChart, Briefcase, Info,
-    MessageSquare, HelpCircle, Star, User
+    MessageSquare, HelpCircle, Star, User, Loader2
 } from 'lucide-react';
+import axios from 'axios';
+import { CONTACT_INFO } from '../constants';
+
+// @ts-ignore
+const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 
 export const FranchisePage: React.FC = () => {
     const [activeFaq, setActiveFaq] = useState<number | null>(null);
     const [formSubmitted, setFormSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        city: 'City of Interest',
+        preferredModel: 'Preferred Model',
+        investmentRange: 'Investment Cap',
+        netWorth: 'My Net Worth',
+        experience: '',
+        message: ''
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -23,12 +40,48 @@ export const FranchisePage: React.FC = () => {
         }
     };
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Basic Validation
+        if (formData.city === 'City of Interest' || formData.investmentRange === 'Investment Cap') {
+            alert('Please select your city and investment range.');
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            await axios.post(`${API_URL}/franchise`, {
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                city: formData.city,
+                investmentRange: formData.investmentRange,
+                businessOrg: formData.preferredModel,
+                experience: formData.experience,
+                message: formData.message
+            });
+            setFormSubmitted(true);
+            window.scrollTo({ top: document.getElementById('franchise-form')?.offsetTop || 0, behavior: 'smooth' });
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('Failed to submit application. Please try again later.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     return (
         <div className="min-h-screen bg-charcoal text-cream font-body overflow-x-hidden">
             {/* SEO Metadata (Mental Note: Should be handled by Helmet or similar in real app) */}
 
             {/* HERO SECTION */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-40 md:pt-48 lg:pt-56 pb-20">
+            <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden py-16 md:py-24">
                 <div className="absolute inset-0 z-0">
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal/90 via-charcoal/60 to-charcoal z-10" />
                     <img
@@ -44,57 +97,62 @@ export const FranchisePage: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fire/20 border border-fire/30 text-fire text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-6 md:mb-8">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fire/20 border border-fire/30 text-fire text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-4 md:mb-6">
                             <Flame size={14} className="animate-pulse" />
-                            Global Expansion
+                            BHARAT National Expansion
                         </div>
-                        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display italic text-cream mb-6 md:mb-8 drop-shadow-2xl leading-[1.1]">
+                        <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-display italic text-cream mb-4 md:mb-6 drop-shadow-2xl leading-[1.1]">
                             Own a Piece of <br />
                             <span className="text-fire">Bangalore's Original</span> <br />
                             American BBQ
                         </h1>
-                        <p className="text-lg md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 md:mb-14 font-medium leading-relaxed">
+                        <p className="text-base md:text-xl lg:text-2xl text-gray-300 max-w-3xl mx-auto mb-8 md:mb-12 font-medium leading-relaxed">
                             Since 2011 • 15 Years of Heritage <br />
                             Now Franchising Across South India
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                             <button
                                 onClick={scrollToForm}
-                                className="px-10 py-5 bg-fire text-white rounded-full font-bold uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-105 flex items-center gap-3 shadow-xl shadow-fire/20"
+                                className="px-8 py-4 bg-fire text-white rounded-full font-bold uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-105 flex items-center gap-3 shadow-xl shadow-fire/20"
                             >
                                 Apply Now <ArrowRight size={20} />
                             </button>
-                            <button className="px-10 py-5 bg-white/5 border border-white/10 text-cream rounded-full font-bold uppercase tracking-widest hover:bg-white/10 transition-all backdrop-blur-md">
+                            <button className="px-8 py-4 bg-white/5 border border-white/10 text-cream rounded-full font-bold uppercase tracking-widest hover:bg-white/10 transition-all backdrop-blur-md">
                                 Get Franchise Kit
                             </button>
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto border-t border-white/10 pt-12">
-                            <div className="text-center">
-                                <span className="block text-3xl font-display text-fire italic">₹25-35L</span>
-                                <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Investment</span>
-                            </div>
-                            <div className="text-center">
-                                <span className="block text-3xl font-display text-fire italic">18-24 Mo</span>
-                                <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">ROI Target</span>
-                            </div>
-                            <div className="text-center">
-                                <span className="block text-3xl font-display text-fire italic">4 Cities</span>
-                                <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Phase 1 Areas</span>
-                            </div>
-                            <div className="text-center">
-                                <span className="block text-3xl font-display text-fire italic">15 Yrs</span>
-                                <span className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Brand Heritage</span>
-                            </div>
                         </div>
                     </motion.div>
                 </div>
 
-                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
-                    <ChevronDown size={32} />
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 z-20 cursor-pointer" onClick={scrollToForm}>
+                    <ChevronDown size={32} className="text-fire" />
                 </div>
             </section>
+
+            {/* QUICK STATS */}
+            <div className="relative z-30 -mt-16 sm:-mt-20 mb-20">
+                <div className="container mx-auto px-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto bg-charcoal/80 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-3xl">
+                        <div className="text-center">
+                            <span className="block text-2xl md:text-4xl font-display text-fire italic mb-1">₹25-35L</span>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Investment</span>
+                        </div>
+                        <div className="text-center border-l border-white/10">
+                            <span className="block text-2xl md:text-4xl font-display text-fire italic mb-1">18-24 Mo</span>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">ROI Target</span>
+                        </div>
+                        <div className="text-center border-l border-white/10">
+                            <span className="block text-2xl md:text-4xl font-display text-fire italic mb-1">4 Cities</span>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Phase 1 Areas</span>
+                        </div>
+                        <div className="text-center border-l border-white/10">
+                            <span className="block text-2xl md:text-4xl font-display text-fire italic mb-1">15 Yrs</span>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Brand Heritage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             {/* SECTION 1: WHY SMOKE SIGNAL BBQ? */}
             <section className="py-20 md:py-32 bg-black/20">
@@ -172,15 +230,14 @@ export const FranchisePage: React.FC = () => {
                         {/* Model A */}
                         <motion.div
                             whileHover={{ y: -10 }}
-                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 md:p-10 flex flex-col relative overflow-hidden"
-                        >
+                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 md:p-10 flex flex-col relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-8 opacity-5">
                                 <Globe size={80} />
                             </div>
                             <span className="text-fire font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-3 md:mb-4 block">Model A</span>
                             <h3 className="text-3xl md:text-4xl font-display italic text-cream mb-4 leading-none">Cloud Kitchen</h3>
                             <p className="text-xs md:text-sm text-gray-400 mb-8 font-medium">For Operators Who Want to Start Fast</p>
-                            
+
                             <div className="space-y-4 mb-10 text-xs md:text-sm">
                                 <div className="flex justify-between border-b border-white/5 pb-3">
                                     <span className="text-gray-400">Investment</span>
@@ -216,8 +273,7 @@ export const FranchisePage: React.FC = () => {
                         {/* Model B */}
                         <motion.div
                             whileHover={{ y: -10 }}
-                            className="bg-fire/10 rounded-[2.5rem] border border-fire/20 p-8 md:p-10 flex flex-col relative overflow-hidden shadow-2xl shadow-fire/10 border-2 scale-100 lg:scale-105"
-                        >
+                            className="bg-fire/10 rounded-[2.5rem] border border-fire/20 p-8 md:p-10 flex flex-col relative overflow-hidden shadow-2xl shadow-fire/10 border-2 scale-100 lg:scale-105">
                             <div className="absolute top-0 right-0 py-6 px-12 bg-fire text-white text-[8px] md:text-[10px] font-black rotate-45 transform translate-x-12 -translate-y-8 uppercase tracking-widest shadow-xl">Most Popular</div>
                             <div className="absolute top-0 right-0 p-8 opacity-5">
                                 <Gem size={100} />
@@ -225,7 +281,7 @@ export const FranchisePage: React.FC = () => {
                             <span className="text-fire font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-4 block">Model B</span>
                             <h3 className="text-3xl md:text-4xl font-display italic text-cream mb-4 leading-none">Dine-In</h3>
                             <p className="text-xs md:text-sm text-cream/70 mb-8 font-medium italic">For Investors Who Want the Full Experience</p>
-                            
+
                             <div className="space-y-4 mb-10 text-xs md:text-sm">
                                 <div className="flex justify-between border-b border-white/10 pb-3">
                                     <span className="text-cream/50">Investment</span>
@@ -261,15 +317,14 @@ export const FranchisePage: React.FC = () => {
                         {/* Model C */}
                         <motion.div
                             whileHover={{ y: -10 }}
-                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 md:p-10 flex flex-col relative overflow-hidden"
-                        >
+                            className="bg-white/5 rounded-[2.5rem] border border-white/5 p-8 md:p-10 flex flex-col relative overflow-hidden">
                             <div className="absolute top-0 right-0 p-8 opacity-5">
                                 <Award size={80} />
                             </div>
                             <span className="text-fire font-bold text-[10px] md:text-xs uppercase tracking-[0.2em] mb-4 block">Model C</span>
                             <h3 className="text-3xl md:text-4xl font-display italic text-cream mb-4 leading-none">Master Franchise</h3>
                             <p className="text-xs md:text-sm text-gray-400 mb-8 font-medium">For Strategic Area Developers</p>
-                            
+
                             <div className="space-y-4 mb-10 text-xs md:text-sm">
                                 <div className="flex justify-between border-b border-white/5 pb-3">
                                     <span className="text-gray-400">Territory</span>
@@ -631,8 +686,7 @@ export const FranchisePage: React.FC = () => {
                             <div key={i} className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
                                 <button
                                     onClick={() => setActiveFaq(activeFaq === i ? null : i)}
-                                    className="w-full p-6 flex items-center justify-between text-left hover:bg-white/5 transition-colors"
-                                >
+                                    className="w-full p-6 flex items-center justify-between text-left hover:bg-white/5 transition-colors">
                                     <span className="font-bold text-cream pr-4">{item.q}</span>
                                     <ChevronDown size={20} className={`text-fire transition-transform duration-300 ${activeFaq === i ? 'rotate-180' : ''}`} />
                                 </button>
@@ -642,41 +696,13 @@ export const FranchisePage: React.FC = () => {
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: 'auto', opacity: 1 }}
                                             exit={{ height: 0, opacity: 0 }}
-                                            className="overflow-hidden"
-                                        >
+                                            className="overflow-hidden">
                                             <div className="p-6 pt-0 text-sm text-gray-400 leading-relaxed">
                                                 {item.a}
                                             </div>
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* SECTION 9: TESTIMONIALS */}
-            <section className="py-24 bg-fire/5">
-                <div className="container mx-auto px-4">
-                    <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                        {[
-                            { quote: 'We were looking for a differentiated F&B concept. Smoke Signal\'s 15-year track record and simple operations made the decision easy. Hyderabad launch exceeded projections in Month 1.', author: 'Rahul K.', loc: 'Hyderabad Franchisee' },
-                            { quote: 'I left my IT job to do this. The training was intense—4 weeks in Bangalore learning fire management. But now I can train my own team. The brand sells itself.', author: 'Priya S.', loc: 'Chennai Franchisee' },
-                            { quote: 'As a passive investor, the FOCO model works perfectly. Corporate team runs operations, I check dashboards weekly. Returns beat my rental properties.', author: 'Arjun M.', loc: 'Coimbatore Franchisee' }
-                        ].map((item, i) => (
-                            <div key={i} className="p-10 bg-black/40 rounded-[3rem] border border-white/5 flex flex-col items-center text-center italic relative">
-                                <div className="absolute top-6 left-6 opacity-10">
-                                    <MessageSquare size={40} className="text-fire" />
-                                </div>
-                                <div className="text-fire mb-6 flex gap-1">
-                                    {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
-                                </div>
-                                <p className="text-cream/90 mb-8 text-sm leading-relaxed">"{item.quote}"</p>
-                                <div className="mt-auto">
-                                    <h5 className="font-bold text-fire not-italic text-sm">{item.author}</h5>
-                                    <span className="text-[10px] text-gray-500 uppercase tracking-widest not-italic">{item.loc}</span>
-                                </div>
                             </div>
                         ))}
                     </div>
@@ -727,23 +753,50 @@ export const FranchisePage: React.FC = () => {
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 1.05 }}
                                         className="bg-black/40 p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-3xl text-xs md:text-sm"
-                                        onSubmit={(e) => { e.preventDefault(); setFormSubmitted(true); }}
-                                    >
+                                        onSubmit={handleSubmit}>
                                         <h3 className="text-xl md:text-2xl font-display text-cream italic mb-8 border-b border-white/10 pb-6 text-center lg:text-left">Franchise Application</h3>
 
                                         <div className="space-y-8">
                                             {/* Section 1 */}
                                             <div className="space-y-5 md:space-y-6">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">1. Basic Information</p>
-                                                <input type="text" placeholder="Full Name" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600" />
+                                                <input
+                                                    type="text"
+                                                    name="name"
+                                                    value={formData.name}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Full Name"
+                                                    required
+                                                    className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
+                                                />
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                                                    <input type="email" placeholder="Email" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600" />
-                                                    <input type="tel" placeholder="Phone / WhatsApp" required className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600" />
+                                                    <input
+                                                        type="email"
+                                                        name="email"
+                                                        value={formData.email}
+                                                        onChange={handleInputChange}
+                                                        placeholder="Email"
+                                                        required
+                                                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
+                                                    />
+                                                    <input
+                                                        type="tel"
+                                                        name="phone"
+                                                        value={formData.phone}
+                                                        onChange={handleInputChange}
+                                                        placeholder="Phone / WhatsApp"
+                                                        required
+                                                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
+                                                    />
                                                 </div>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                                     <div className="relative">
-                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled selected className="bg-charcoal">City of Interest</option>
+                                                        <select
+                                                            name="city"
+                                                            value={formData.city}
+                                                            onChange={handleInputChange}
+                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled className="bg-charcoal text-gray-600">City of Interest</option>
                                                             <option className="bg-charcoal">Hyderabad</option>
                                                             <option className="bg-charcoal">Chennai</option>
                                                             <option className="bg-charcoal">Coimbatore</option>
@@ -753,8 +806,12 @@ export const FranchisePage: React.FC = () => {
                                                         <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
                                                     </div>
                                                     <div className="relative">
-                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled selected className="bg-charcoal">Preferred Model</option>
+                                                        <select
+                                                            name="preferredModel"
+                                                            value={formData.preferredModel}
+                                                            onChange={handleInputChange}
+                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled className="bg-charcoal text-gray-600">Preferred Model</option>
                                                             <option className="bg-charcoal">Cloud Kitchen</option>
                                                             <option className="bg-charcoal">Dine-In</option>
                                                             <option className="bg-charcoal">Master Franchise</option>
@@ -769,8 +826,12 @@ export const FranchisePage: React.FC = () => {
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">2. Financial Capacity</p>
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                                     <div className="relative">
-                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled selected className="bg-charcoal">Investment Cap</option>
+                                                        <select
+                                                            name="investmentRange"
+                                                            value={formData.investmentRange}
+                                                            onChange={handleInputChange}
+                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled className="bg-charcoal text-gray-600">Investment Cap</option>
                                                             <option className="bg-charcoal">₹15-25L</option>
                                                             <option className="bg-charcoal">₹25-35L</option>
                                                             <option className="bg-charcoal">₹35-50L</option>
@@ -779,8 +840,12 @@ export const FranchisePage: React.FC = () => {
                                                         <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
                                                     </div>
                                                     <div className="relative">
-                                                        <select className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled selected className="bg-charcoal">My Net Worth</option>
+                                                        <select
+                                                            name="netWorth"
+                                                            value={formData.netWorth}
+                                                            onChange={handleInputChange}
+                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
+                                                            <option disabled className="bg-charcoal text-gray-600">My Net Worth</option>
                                                             <option className="bg-charcoal">₹50L-1Cr</option>
                                                             <option className="bg-charcoal">₹1-2Cr</option>
                                                             <option className="bg-charcoal">₹2-5Cr</option>
@@ -794,7 +859,13 @@ export const FranchisePage: React.FC = () => {
                                             {/* Section 3 */}
                                             <div className="space-y-5 md:space-y-6 pt-4 border-t border-white/5">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">3. Experience & Intent</p>
-                                                <textarea placeholder="Tell us about your Business / F&B Experience" className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-3xl focus:border-fire outline-none transition-all h-32 placeholder:text-gray-600" />
+                                                <textarea
+                                                    name="experience"
+                                                    value={formData.experience}
+                                                    onChange={handleInputChange}
+                                                    placeholder="Tell us about your Business / F&B Experience"
+                                                    className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-3xl focus:border-fire outline-none transition-all h-32 placeholder:text-gray-600"
+                                                />
                                                 <div className="flex items-start gap-4 p-2">
                                                     <input type="checkbox" required id="form-ack" className="accent-fire rounded mt-1 cursor-pointer" />
                                                     <label htmlFor="form-ack" className="text-[10px] md:text-[11px] text-gray-500 leading-relaxed cursor-pointer">
@@ -805,9 +876,15 @@ export const FranchisePage: React.FC = () => {
 
                                             <button
                                                 type="submit"
-                                                className="w-full py-6 md:py-8 bg-fire text-white rounded-3xl font-black uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-[1.01] shadow-2xl shadow-fire/30 text-xs md:text-sm"
-                                            >
-                                                Submit Comprehensive Application
+                                                disabled={isSubmitting}
+                                                className="w-full py-6 md:py-8 bg-fire text-white rounded-3xl font-black uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-[1.01] shadow-2xl shadow-fire/30 text-xs md:text-sm flex items-center justify-center gap-4 disabled:opacity-70">
+                                                {isSubmitting ? (
+                                                    <>
+                                                        <Loader2 className="animate-spin" size={20} /> Submitting Application...
+                                                    </>
+                                                ) : (
+                                                    'Submit Comprehensive Application'
+                                                )}
                                             </button>
                                         </div>
                                     </motion.form>
@@ -816,8 +893,7 @@ export const FranchisePage: React.FC = () => {
                                         key="success"
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className="bg-black/40 p-12 py-32 rounded-[3.5rem] border border-green-500/20 shadow-3xl text-center"
-                                    >
+                                        className="bg-black/40 p-12 py-32 rounded-[3.5rem] border border-green-500/20 shadow-3xl text-center">
                                         <div className="w-24 h-24 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8">
                                             <CheckCircle2 size={48} />
                                         </div>
@@ -837,8 +913,7 @@ export const FranchisePage: React.FC = () => {
                                         </div>
                                         <button
                                             onClick={() => setFormSubmitted(false)}
-                                            className="mt-12 text-xs font-bold text-gray-500 underline hover:text-fire transition-colors"
-                                        >
+                                            className="mt-12 text-xs font-bold text-gray-500 underline hover:text-fire transition-colors">
                                             Edit Application
                                         </button>
                                     </motion.div>

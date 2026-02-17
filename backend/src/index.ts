@@ -15,6 +15,7 @@ import eventRoutes from './routes/eventRoutes';
 import blogRoutes from './routes/blogRoutes';
 import comboRoutes from './routes/comboRoutes';
 import customerRoutes from './routes/customerRoutes';
+import franchiseRoutes from './routes/franchiseInquiryRoutes';
 
 
 import path from 'path';
@@ -167,6 +168,7 @@ app.use('/api/v1/events', eventRoutes);
 app.use('/api/v1/posts', blogRoutes);
 app.use('/api/v1/combos', comboRoutes);
 app.use('/api/v1/customers', customerRoutes);
+app.use('/api/v1/franchise', franchiseRoutes);
 
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });

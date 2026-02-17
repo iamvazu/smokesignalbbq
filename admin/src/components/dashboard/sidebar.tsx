@@ -16,7 +16,8 @@ import {
     Flame,
     LogOut,
     Calendar,
-    BookOpen
+    BookOpen,
+    TrendingUp
 } from 'lucide-react';
 
 
@@ -34,6 +35,7 @@ const menuNavigation = [
 const managementNavigation = [
     { name: 'Customers', href: '/customers', icon: Users },
     { name: 'Payments', href: '/payments', icon: CreditCard },
+    { name: 'Franchise', href: '/franchise', icon: TrendingUp },
     { name: 'Discounts', href: '/discounts', icon: Tag },
     { name: 'Analytics', href: '/analytics', icon: BarChart3 },
     { name: 'Inquiries', href: '/events', icon: Calendar },
