@@ -775,119 +775,146 @@ export const FranchisePage: React.FC = () => {
                                         onSubmit={handleSubmit}>
                                         <h3 className="text-xl md:text-2xl font-display text-cream italic mb-8 border-b border-white/10 pb-6 text-center lg:text-left">Franchise Application</h3>
 
-                                        <div className="space-y-8">
+                                        <div className="space-y-6">
                                             {/* Section 1 */}
-                                            <div className="space-y-5 md:space-y-6">
+                                            <div className="space-y-6">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">1. Basic Information</p>
-                                                <input
-                                                    type="text"
-                                                    name="name"
-                                                    value={formData.name}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Full Name"
-                                                    required
-                                                    className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
-                                                />
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Full Name *</label>
                                                     <input
-                                                        type="email"
-                                                        name="email"
-                                                        value={formData.email}
+                                                        type="text"
+                                                        name="name"
+                                                        value={formData.name}
                                                         onChange={handleInputChange}
-                                                        placeholder="Email"
+                                                        placeholder="John Doe"
                                                         required
-                                                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
-                                                    />
-                                                    <input
-                                                        type="tel"
-                                                        name="phone"
-                                                        value={formData.phone}
-                                                        onChange={handleInputChange}
-                                                        placeholder="Phone / WhatsApp"
-                                                        required
-                                                        className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
+                                                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
                                                     />
                                                 </div>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                                                    <div className="relative">
-                                                        <select
-                                                            name="city"
-                                                            value={formData.city}
+
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                    <div className="space-y-2">
+                                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Email *</label>
+                                                        <input
+                                                            type="email"
+                                                            name="email"
+                                                            value={formData.email}
                                                             onChange={handleInputChange}
-                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled className="bg-charcoal text-gray-600">City of Interest</option>
-                                                            <option className="bg-charcoal">Hyderabad</option>
-                                                            <option className="bg-charcoal">Chennai</option>
-                                                            <option className="bg-charcoal">Coimbatore</option>
-                                                            <option className="bg-charcoal">Kochi</option>
-                                                            <option className="bg-charcoal">Other</option>
-                                                        </select>
-                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                            placeholder="email@example.com"
+                                                            required
+                                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
+                                                        />
                                                     </div>
-                                                    <div className="relative">
-                                                        <select
-                                                            name="preferredModel"
-                                                            value={formData.preferredModel}
+                                                    <div className="space-y-2">
+                                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Phone / WhatsApp *</label>
+                                                        <input
+                                                            type="tel"
+                                                            name="phone"
+                                                            value={formData.phone}
                                                             onChange={handleInputChange}
-                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled className="bg-charcoal text-gray-600">Preferred Model</option>
-                                                            <option className="bg-charcoal">Cloud Kitchen</option>
-                                                            <option className="bg-charcoal">Dine-In</option>
-                                                            <option className="bg-charcoal">Master Franchise</option>
-                                                        </select>
-                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                            placeholder="+91"
+                                                            required
+                                                            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-fire outline-none transition-all placeholder:text-gray-600"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                    <div className="space-y-2">
+                                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">City of Interest *</label>
+                                                        <div className="relative">
+                                                            <select
+                                                                name="city"
+                                                                value={formData.city}
+                                                                onChange={handleInputChange}
+                                                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-400">
+                                                                <option disabled className="bg-charcoal text-gray-600">City of Interest</option>
+                                                                <option className="bg-charcoal">Hyderabad</option>
+                                                                <option className="bg-charcoal">Chennai</option>
+                                                                <option className="bg-charcoal">Coimbatore</option>
+                                                                <option className="bg-charcoal">Kochi</option>
+                                                                <option className="bg-charcoal">Other</option>
+                                                            </select>
+                                                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="space-y-2">
+                                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Preferred Model *</label>
+                                                        <div className="relative">
+                                                            <select
+                                                                name="preferredModel"
+                                                                value={formData.preferredModel}
+                                                                onChange={handleInputChange}
+                                                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-400">
+                                                                <option disabled className="bg-charcoal text-gray-600">Preferred Model</option>
+                                                                <option className="bg-charcoal">Cloud Kitchen</option>
+                                                                <option className="bg-charcoal">Dine-In</option>
+                                                                <option className="bg-charcoal">Master Franchise</option>
+                                                            </select>
+                                                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             {/* Section 2 */}
-                                            <div className="space-y-5 md:space-y-6 pt-4 border-t border-white/5">
+                                            <div className="space-y-6 pt-4 border-t border-white/5">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">2. Financial Capacity</p>
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                                                    <div className="relative">
-                                                        <select
-                                                            name="investmentRange"
-                                                            value={formData.investmentRange}
-                                                            onChange={handleInputChange}
-                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled className="bg-charcoal text-gray-600">Investment Cap</option>
-                                                            <option className="bg-charcoal">₹15-25L</option>
-                                                            <option className="bg-charcoal">₹25-35L</option>
-                                                            <option className="bg-charcoal">₹35-50L</option>
-                                                            <option className="bg-charcoal">₹50L+</option>
-                                                        </select>
-                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                    <div className="space-y-2">
+                                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Investment Cap *</label>
+                                                        <div className="relative">
+                                                            <select
+                                                                name="investmentRange"
+                                                                value={formData.investmentRange}
+                                                                onChange={handleInputChange}
+                                                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-400">
+                                                                <option disabled className="bg-charcoal text-gray-600">Investment Cap</option>
+                                                                <option className="bg-charcoal">₹15-25L</option>
+                                                                <option className="bg-charcoal">₹25-35L</option>
+                                                                <option className="bg-charcoal">₹35-50L</option>
+                                                                <option className="bg-charcoal">₹50L+</option>
+                                                            </select>
+                                                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                        </div>
                                                     </div>
-                                                    <div className="relative">
-                                                        <select
-                                                            name="netWorth"
-                                                            value={formData.netWorth}
-                                                            onChange={handleInputChange}
-                                                            className="w-full px-6 py-4 bg-white/10 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-300">
-                                                            <option disabled className="bg-charcoal text-gray-600">My Net Worth</option>
-                                                            <option className="bg-charcoal">₹50L-1Cr</option>
-                                                            <option className="bg-charcoal">₹1-2Cr</option>
-                                                            <option className="bg-charcoal">₹2-5Cr</option>
-                                                            <option className="bg-charcoal">₹5Cr+</option>
-                                                        </select>
-                                                        <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                    <div className="space-y-2">
+                                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">My Net Worth *</label>
+                                                        <div className="relative">
+                                                            <select
+                                                                name="netWorth"
+                                                                value={formData.netWorth}
+                                                                onChange={handleInputChange}
+                                                                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-fire outline-none transition-all appearance-none cursor-pointer text-gray-400">
+                                                                <option disabled className="bg-charcoal text-gray-600">My Net Worth</option>
+                                                                <option className="bg-charcoal">₹50L-1Cr</option>
+                                                                <option className="bg-charcoal">₹1-2Cr</option>
+                                                                <option className="bg-charcoal">₹2-5Cr</option>
+                                                                <option className="bg-charcoal">₹5Cr+</option>
+                                                            </select>
+                                                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" size={16} />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             {/* Section 3 */}
-                                            <div className="space-y-5 md:space-y-6 pt-4 border-t border-white/5">
+                                            <div className="space-y-6 pt-4 border-t border-white/5">
                                                 <p className="text-[10px] text-fire uppercase tracking-widest font-bold mb-4">3. Experience & Intent</p>
-                                                <textarea
-                                                    name="experience"
-                                                    value={formData.experience}
-                                                    onChange={handleInputChange}
-                                                    placeholder="Tell us about your Business / F&B Experience"
-                                                    className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-3xl focus:border-fire outline-none transition-all h-32 placeholder:text-gray-600"
-                                                />
+                                                <div className="space-y-2">
+                                                    <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Your Experience</label>
+                                                    <textarea
+                                                        name="experience"
+                                                        value={formData.experience}
+                                                        onChange={handleInputChange}
+                                                        placeholder="Tell us about your Business / F&B Experience"
+                                                        className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:border-fire outline-none transition-all h-32 placeholder:text-gray-600 resize-none font-body"
+                                                    />
+                                                </div>
                                                 <div className="flex items-start gap-4 p-2">
                                                     <input type="checkbox" required id="form-ack" className="accent-fire rounded mt-1 cursor-pointer" />
-                                                    <label htmlFor="form-ack" className="text-[10px] md:text-[11px] text-gray-500 leading-relaxed cursor-pointer">
+                                                    <label htmlFor="form-ack" className="text-[10px] md:text-[11px] text-gray-500 leading-relaxed cursor-pointer font-body">
                                                         I acknowledge this is a formal inquiry and my information will be kept confidential for review.
                                                     </label>
                                                 </div>
@@ -896,7 +923,7 @@ export const FranchisePage: React.FC = () => {
                                             <button
                                                 type="submit"
                                                 disabled={isSubmitting}
-                                                className="w-full py-6 md:py-8 bg-fire text-white rounded-3xl font-black uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-[1.01] shadow-2xl shadow-fire/30 text-xs md:text-sm flex items-center justify-center gap-4 disabled:opacity-70">
+                                                className="w-full py-5 bg-fire text-white rounded-2xl font-black uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-[1.01] shadow-2xl shadow-fire/30 text-xs md:text-sm flex items-center justify-center gap-4 disabled:opacity-70">
                                                 {isSubmitting ? (
                                                     <>
                                                         <Loader2 className="animate-spin" size={20} /> Submitting Application...

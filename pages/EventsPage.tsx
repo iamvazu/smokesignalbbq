@@ -548,7 +548,7 @@ export const EventsPage: React.FC = () => {
                             <form className={`space-y-6 transition-opacity duration-500 ${submissionSuccess ? 'opacity-0 pointer-events-none' : 'opacity-100'}`} onSubmit={(e) => { e.preventDefault(); handleFormSubmit(); }}>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Full Name *</label>
+                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Full Name *</label>
                                         <input
                                             type="text"
                                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
@@ -559,7 +559,7 @@ export const EventsPage: React.FC = () => {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Phone / WhatsApp *</label>
+                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Phone / WhatsApp *</label>
                                         <input
                                             type="tel"
                                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
@@ -572,7 +572,7 @@ export const EventsPage: React.FC = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Event Type *</label>
+                                    <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Event Type *</label>
                                     <select
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors appearance-none text-gray-400"
                                         value={formData.eventType}
@@ -588,7 +588,7 @@ export const EventsPage: React.FC = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Event Location</label>
+                                    <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Event Location</label>
                                     <input
                                         type="text"
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
@@ -601,7 +601,7 @@ export const EventsPage: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="space-y-2">
-                                        <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Event Date *</label>
+                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Event Date *</label>
                                         <input
                                             type="date"
                                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors text-gray-400"
@@ -611,7 +611,7 @@ export const EventsPage: React.FC = () => {
                                         />
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Guest Count *</label>
+                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Guest Count *</label>
                                         <input
                                             type="number"
                                             className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
@@ -624,7 +624,7 @@ export const EventsPage: React.FC = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-[10px] uppercase tracking-widest text-gray-500 font-bold ml-1">Tell us more</label>
+                                    <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Tell us more</label>
                                     <textarea
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-4 focus:outline-none focus:border-fire transition-colors h-32 resize-none"
                                         placeholder="Venue details, specific menu requirements, etc..."
