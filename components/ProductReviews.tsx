@@ -4,7 +4,7 @@ import { Star, MessageSquare, Send, CheckCircle2, User, Clock, AlertCircle } fro
 import axios from 'axios';
 const cn = (...classes: any[]) => classes.filter(Boolean).join(' ');
 
-const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 
 interface Review {
     id: string;

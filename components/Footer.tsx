@@ -35,7 +35,7 @@ export const Footer: React.FC = () => {
                 e.preventDefault();
                 const form = e.target as HTMLFormElement;
                 const email = (form.elements.namedItem('email') as HTMLInputElement).value;
-                const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:5000/api/v1';
+                const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
                 try {
                   const btn = form.querySelector('button');
                   if (btn) btn.disabled = true;

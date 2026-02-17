@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Flame, Sparkles, Copy, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 import axios from 'axios';
 
-const API_URL = (import.meta as any).env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 
 export const FirstOrderPopup: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);

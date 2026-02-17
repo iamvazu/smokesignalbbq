@@ -96,44 +96,39 @@ export const ProductPage: React.FC = () => {
     }
 
     return (
-        <div className="min-h-screen bg-charcoal pt-32 pb-24">
+        <div className="min-h-screen bg-charcoal pt-44 pb-24">
             <Seo
-                title={`${product.name} | American BBQ Delivery`}
-                description={`Order ${product.name} from Smoke Signal BBQ. ${product.description} Fresh smokehouse delivery anywhere in Bangalore.`}
-                canonical={`/product/${id}`}
-                ogType="product"
-                ogImage={product.image}
-                schema={{
-                    "@context": "https://schema.org",
-                    "@graph": [
-                        generateProductSchema(product),
-                        generateBreadcrumbSchema([
-                            { name: "Home", item: "/" },
-                            { name: "Shop", item: "/shop" },
-                            { name: product.name, item: `/product/${id}` }
-                        ])
-                    ]
-                }}
+                title={`${product.name} | Smoke Signal BBQ`}
+                description={product.description}
+                type="product"
+                schema={[
+                    generateProductSchema({
+                        name: product.name,
+                        image: product.image,
+                        description: product.description,
+                        sku: product.sku || product.id,
+                        price: product.priceValue,
+                        availability: "InStock"
+                    }),
+                    generateBreadcrumbSchema([
+                        { name: "Home", item: "/" },
+                        { name: "Shop", item: "/shop" },
+                        { name: product.name, item: `/product/${id}` }
+                    ])
+                ]}
             />
             <div className="container mx-auto px-4">
-                {/* Back Button */}
-                <motion.button
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    onClick={() => {
-                        if (window.history.length > 1) {
-                            navigate(-1);
-                        } else {
-                            navigate('/shop');
-                        }
-                    }}
-                    className="group flex items-center gap-3 text-gray-400 hover:text-fire transition-all mb-12 bg-white/5 hover:bg-fire/10 px-6 py-3 rounded-2xl border border-white/5 hover:border-fire/20 w-fit backdrop-blur-sm shadow-xl"
-                >
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:scale-110 group-hover:bg-fire group-hover:text-white transition-all">
-                        <ArrowLeft size={16} />
-                    </div>
-                    <span className="uppercase tracking-[0.2em] text-[10px] font-black">Return to Briefing</span>
-                </motion.button>
+                {/* Tactical Breadcrumb Navigation */}
+                <nav className="mb-12 flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em]">
+                    <button
+                        onClick={() => navigate('/shop')}
+                        className="text-gray-500 hover:text-fire transition-colors flex items-center gap-2"
+                    >
+                        <ArrowLeft size={12} /> The Smokehouse
+                    </button>
+                    <span className="text-white/20">/</span>
+                    <span className="text-fire/60">{product.name}</span>
+                </nav>
 
                 <div className="flex flex-col lg:flex-row gap-16 lg:items-start">
                     {/* Image Section */}
