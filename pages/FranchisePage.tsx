@@ -91,49 +91,49 @@ export const FranchisePage: React.FC = () => {
                     />
                 </div>
 
-                <div className="container mx-auto px-4 relative z-20 text-center">
+                <div className="container mx-auto px-4 relative z-20 text-center pt-24 md:pt-32">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fire/20 border border-fire/30 text-fire text-[10px] md:text-xs font-bold uppercase tracking-[0.3em] mb-4 md:mb-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fire/20 border border-fire/30 text-fire text-[9px] md:text-[11px] font-bold uppercase tracking-[0.3em] mb-4 md:mb-6">
                             <span>🇮🇳</span>
                             BHARAT National Expansion
                         </div>
-                        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display italic text-cream mb-4 md:mb-6 drop-shadow-2xl leading-[1.1]">
+                        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-display italic text-cream mb-4 md:mb-6 drop-shadow-2xl leading-[1.1]">
                             Own a Piece of <br />
                             <span className="text-fire">Bangalore's Original</span> <br />
                             American BBQ
                         </h1>
-                        <p className="text-sm md:text-lg lg:text-xl text-gray-300 max-w-2xl mx-auto mb-8 md:mb-10 font-medium leading-relaxed">
+                        <p className="text-xs md:text-base lg:text-lg text-gray-300 max-w-xl mx-auto mb-8 md:mb-10 font-medium leading-relaxed">
                             Since 2011 • 15 Years of Heritage <br />
                             Now Franchising Across South India
                         </p>
 
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-2">
                             <button
                                 onClick={scrollToForm}
-                                className="px-8 py-4 bg-fire text-white rounded-full font-bold uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-105 flex items-center gap-3 shadow-xl shadow-fire/20"
+                                className="px-7 py-3.5 bg-fire text-white rounded-full font-bold uppercase tracking-widest hover:bg-fire-dark transition-all transform hover:scale-105 flex items-center gap-3 shadow-xl shadow-fire/20 text-xs"
                             >
-                                Apply Now <ArrowRight size={20} />
+                                Apply Now <ArrowRight size={18} />
                             </button>
-                            <button className="px-8 py-4 bg-white/5 border border-white/10 text-cream rounded-full font-bold uppercase tracking-widest hover:bg-white/10 transition-all backdrop-blur-md">
+                            <button className="px-7 py-3.5 bg-white/5 border border-white/10 text-cream rounded-full font-bold uppercase tracking-widest hover:bg-white/10 transition-all backdrop-blur-md text-xs">
                                 Get Franchise Kit
                             </button>
                         </div>
                     </motion.div>
                 </div>
 
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-50 z-20 cursor-pointer" onClick={scrollToForm}>
-                    <ChevronDown size={32} className="text-fire" />
+                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce opacity-50 z-20 cursor-pointer" onClick={scrollToForm}>
+                    <ChevronDown size={28} className="text-fire" />
                 </div>
             </section>
 
             {/* QUICK STATS */}
-            <div className="relative z-30 -mt-16 sm:-mt-20 mb-20">
+            <div className="relative z-30 -mt-10 sm:-mt-12 mb-20">
                 <div className="container mx-auto px-4">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto bg-charcoal/80 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 md:p-12 shadow-3xl">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-5xl mx-auto bg-charcoal/80 backdrop-blur-2xl border border-white/10 rounded-[2rem] p-6 md:p-10 shadow-3xl">
                         <div className="text-center">
                             <span className="block text-2xl md:text-4xl font-display text-fire italic mb-1">₹25-35L</span>
                             <span className="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Investment</span>
