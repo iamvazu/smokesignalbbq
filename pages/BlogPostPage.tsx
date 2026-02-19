@@ -97,9 +97,10 @@ export const BlogPostPage: React.FC = () => {
                     {/* Basic rendering of potential markdown or plain text.
                         Ideally, use a markdown renderer if content is markdown.
                         For now, simple whitespace preservation. */}
-                    <div className="whitespace-pre-wrap leading-relaxed space-y-6 text-gray-300 font-body">
-                        {post.content}
-                    </div>
+                    <div
+                        className="blog-post-content leading-relaxed space-y-6 text-gray-300 font-body"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
                 </div>
 
                 <div className="mt-20 border-t border-white/10 pt-12 text-center">
