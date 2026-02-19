@@ -145,55 +145,42 @@ const CateringPage: React.FC = () => {
             />
 
             {/* Hero Section */}
-            <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden mb-24">
+            <section className="relative h-[90vh] flex items-center justify-center overflow-hidden mb-24">
                 <div className="absolute inset-0 z-0">
                     <img
-                        src="/pitmaster.jpg"
+                        src="/combo6.png"
                         alt="Catering Hero"
-                        className="w-full h-full object-cover opacity-30 brightness-50 scale-105"
+                        className="w-full h-full object-cover opacity-40 brightness-50"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-charcoal/80 to-charcoal" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-charcoal/40 to-charcoal" />
                 </div>
 
-                <div className="container mx-auto px-4 relative z-10 pt-32 md:pt-40 lg:pt-48 text-center">
+                <div className="container mx-auto px-4 relative z-10 pt-24 md:pt-32 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         className="max-w-5xl mx-auto"
                     >
-                        <span className="text-fire font-black uppercase tracking-[0.4em] text-[10px] md:text-xs mb-6 block">Premium Event Catering</span>
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display italic leading-[1.1] mb-8 tracking-tight">
+                        <span className="text-fire uppercase tracking-[0.4em] text-xs md:text-sm font-bold mb-4 block">Premium Event Catering</span>
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display italic leading-[1.1] mb-6 tracking-tight">
                             Texas BBQ Catering <br /> <span className="text-fire">For Every Occasion</span>
                         </h1>
-                        <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+                        <p className="text-gray-300 max-w-3xl mx-auto text-lg md:text-xl font-body leading-relaxed mb-10">
                             From boardroom lunches to grand wedding receptions, bring authentic 14-hour charcoal-smoked BBQ to your event. Full-service catering for <span className="text-white font-bold">20 to 500+ guests</span> across Bangalore, Hyderabad & Chennai.
                         </p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto mb-16">
-                            {[
-                                { num: '500+', label: 'Events Catered' },
-                                { num: '12+', label: 'Years Experience' },
-                                { num: '20-500+', label: 'Guest Capacity' }
-                            ].map((stat, i) => (
-                                <div key={i} className="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-sm">
-                                    <p className="text-3xl font-display italic text-fire mb-1">{stat.num}</p>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">{stat.label}</p>
-                                </div>
-                            ))}
-                        </div>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                             <Button
                                 variant="primary"
-                                className="px-12 py-5 rounded-2xl text-sm font-black uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-transform"
+                                className="px-12 py-5 rounded-full text-lg shadow-2xl hover:scale-105 transition-transform"
                                 onClick={() => document.getElementById('quote-form')?.scrollIntoView({ behavior: 'smooth' })}
                             >
                                 Get Catering Quote
                             </Button>
                             <a
                                 href="tel:+917899870957"
-                                className="px-12 py-5 bg-white/5 border border-white/10 rounded-2xl text-sm font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-colors"
+                                className="px-12 py-5 bg-white/5 border border-white/10 rounded-full text-lg hover:bg-white/10 transition-colors"
                             >
                                 Call +91 78998-70957
                             </a>
