@@ -36,6 +36,7 @@ const menuNavigation = [
 
 const managementNavigation = [
     { name: 'Customers', href: '/customers', icon: Users },
+    { name: 'Contacts', href: '/contacts', icon: MessageSquare },
     { name: 'Payments', href: '/payments', icon: CreditCard },
     { name: 'Franchise', href: '/franchise', icon: TrendingUp },
     { name: 'Discounts', href: '/discounts', icon: Tag },

@@ -17,6 +17,10 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/Button';
 import { CONTACT_INFO } from '../constants';
+import axios from 'axios';
+
+// @ts-ignore
+const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 
 const contactCategories = [
     { id: 'service', label: 'Customer Service', icon: MessageSquare, description: 'Order support, feedback, and general queries.' },
@@ -29,13 +33,28 @@ const contactCategories = [
 
 export const ContactPage: React.FC = () => {
     const [selectedCategory, setSelectedCategory] = useState('service');
-    const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success'>('idle');
+    const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+    const [formData, setFormData] = useState({
+        fullName: '',
+        email: '',
+        phoneNumber: '',
+        message: ''
+    });
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setFormStatus('sending');
-        // Simulate API call
-        setTimeout(() => setFormStatus('success'), 1500);
+
+        try {
+            await axios.post(`${API_URL}/contacts`, {
+                ...formData,
+                subjectCategory: selectedCategory
+            });
+            setFormStatus('success');
+        } catch (error) {
+            console.error('Failed to send contact inquiry:', error);
+            setFormStatus('error');
+        }
     };
 
     return (
@@ -88,8 +107,8 @@ export const ContactPage: React.FC = () => {
                                         key={cat.id}
                                         onClick={() => setSelectedCategory(cat.id)}
                                         className={`text-left p-6 rounded-3xl border transition-all duration-300 group ${selectedCategory === cat.id
-                                                ? 'bg-fire/10 border-fire shadow-[0_0_30px_rgba(239,68,68,0.15)]'
-                                                : 'bg-white/5 border-white/10 hover:border-white/20'
+                                            ? 'bg-fire/10 border-fire shadow-[0_0_30px_rgba(239,68,68,0.15)]'
+                                            : 'bg-white/5 border-white/10 hover:border-white/20'
                                             }`}
                                     >
                                         <div className="flex items-start gap-4">
@@ -169,7 +188,7 @@ export const ContactPage: React.FC = () => {
                                         <CheckCircle2 size={48} className="text-fire" />
                                     </div>
                                     <h3 className="text-4xl font-display italic text-cream mb-4">Message Intercepted</h3>
-                                    <p className="text-gray-400 max-w-sm mx-auto mb-10">Our pitmasters have received your transmission. We'll get back to you faster than a grease fire.</p>
+                                    <p className="text-gray-400 max-w-sm mx-auto mb-10">Message sent and a team member will be in touch with you shortly.</p>
                                     <Button variant="outline" onClick={() => setFormStatus('idle')}>Send Another</Button>
                                 </motion.div>
                             ) : (
@@ -182,38 +201,45 @@ export const ContactPage: React.FC = () => {
                                     <form onSubmit={handleSubmit} className="space-y-6">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Full Name</label>
+                                                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-fire ml-1">Full Name *</label>
                                                 <input
                                                     required
                                                     type="text"
                                                     className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-8 py-5 text-cream focus:outline-none focus:border-fire transition-all"
                                                     placeholder="Enter name..."
+                                                    value={formData.fullName}
+                                                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                                                 />
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Phone Number</label>
+                                                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-fire ml-1">Phone Number *</label>
                                                 <input
                                                     required
                                                     type="tel"
                                                     className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-8 py-5 text-cream focus:outline-none focus:border-fire transition-all"
                                                     placeholder="+91..."
+                                                    value={formData.phoneNumber}
+                                                    onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                                                 />
                                             </div>
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Email Address</label>
+                                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-fire ml-1">Email Address *</label>
                                             <input
                                                 required
                                                 type="email"
                                                 className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-8 py-5 text-cream focus:outline-none focus:border-fire transition-all"
                                                 placeholder="email@example.com"
+                                                value={formData.email}
+                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                             />
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Subject Category</label>
+                                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-fire ml-1">Subject Category *</label>
                                             <select
+                                                required
                                                 value={selectedCategory}
                                                 onChange={(e) => setSelectedCategory(e.target.value)}
                                                 className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-8 py-5 text-cream focus:outline-none focus:border-fire transition-all appearance-none"
@@ -225,14 +251,20 @@ export const ContactPage: React.FC = () => {
                                         </div>
 
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-4">Mission Details</label>
+                                            <label className="text-[10px] font-black uppercase tracking-[0.2em] text-fire ml-1">Mission Details *</label>
                                             <textarea
                                                 required
                                                 rows={5}
                                                 className="w-full bg-white/5 border border-white/10 rounded-[2rem] px-8 py-5 text-cream focus:outline-none focus:border-fire transition-all resize-none"
                                                 placeholder="Tell us more about your enquiry..."
+                                                value={formData.message}
+                                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                             />
                                         </div>
+
+                                        {formStatus === 'error' && (
+                                            <p className="text-fire text-center text-sm">Failed to send transmission. Please try again or call us.</p>
+                                        )}
 
                                         <Button
                                             variant="primary"

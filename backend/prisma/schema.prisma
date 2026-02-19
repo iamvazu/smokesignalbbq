@@ -279,3 +279,17 @@ model FranchiseInquiry {
 
   @@map("franchise_inquiries")
 }
+
+model ContactInquiry {
+  id              String   @id @default(uuid())
+  fullName        String
+  email           String
+  phoneNumber     String
+  subjectCategory String
+  message         String   @db.Text
+  status          String   @default("pending") // pending, contacted, closed, rejected
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("contact_inquiries")
+}

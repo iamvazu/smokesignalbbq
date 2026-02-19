@@ -19,6 +19,7 @@ import franchiseRoutes from './routes/franchiseInquiryRoutes';
 import newsletterRoutes from './routes/newsletterRoutes';
 import reviewRoutes from './routes/reviewRoutes';
 import discountRoutes from './routes/discountRoutes';
+import contactInquiryRoutes from './routes/contactInquiryRoutes';
 
 
 import path from 'path';
@@ -175,6 +176,7 @@ app.use('/api/v1/franchise', franchiseRoutes);
 app.use('/api/v1/newsletter', newsletterRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 app.use('/api/v1/discounts', discountRoutes);
+app.use('/api/v1/contacts', contactInquiryRoutes);
 
 app.get('/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
