@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Smoke Signal BBQ | Bangalore's Original Texas BBQ Since 2011</title>
   <meta name="description"
-    content="Bangalore's first authentic Texas-style BBQ. Slow-smoked brisket, tender ribs, and signature sauces smoked for 14 hours over charcoal. delivery across Bangalore.">
+    content="Bangalore's first authentic Texas-style BBQ. Slow-smoked brisket, tender ribs, and signature sauces smoked for 14 hours over charcoal. Delivery across Bangalore.">
 
   <link rel="canonical" href="https://smokesignalbbq.in/" />
 
@@ -78,115 +78,19 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="manifest" href="/manifest.json">
 
-  <!-- Fonts & Resource Hints -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdn.tailwindcss.com">
-  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-
   <link href="https://fonts.googleapis.com/css2?family=Rye&family=Montserrat:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            charcoal: '#0B0B0B',
-            burnt: '#2B1B12',
-            fire: '#EF4444',
-            texasRed: '#8B0000',
-            cream: '#F5E6C8',
-            smoke: '#1A1A1A',
-          },
-          fontFamily: {
-            display: ['Rye', 'serif'],
-            body: ['Montserrat', 'sans-serif'],
-          },
-          backgroundImage: {
-            'embers': "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(11,11,11,0) 70%)",
-          }
-        }
-      }
-    }
-  </script>
   <style>
     body {
       background-color: #0B0B0B;
       color: #F5E6C8;
       overflow-x: hidden;
     }
-
-    /* Accessibility Fixes */
-    :focus-visible {
-      outline: 2px solid #EF4444;
-      outline-offset: 4px;
-    }
-
-    button,
-    a {
-      min-height: 44px;
-      min-width: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #0B0B0B;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: #2B1B12;
-      border: 1px solid #EF4444;
-      border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #8B0000;
-    }
-
-    /* Smoke Animation Utilities */
-    @keyframes drift {
-      0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.3;
-      }
-
-      50% {
-        transform: translate(-20px, -30px) scale(1.1);
-        opacity: 0.6;
-      }
-
-      100% {
-        transform: translate(20px, -50px) scale(1.2);
-        opacity: 0;
-      }
-    }
-
-    .smoke-effect {
-      animation: drift 8s infinite ease-out;
-    }
   </style>
-
-  <script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-    "framer-motion": "https://esm.sh/framer-motion@^12.34.0",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react": "https://esm.sh/react@^19.2.4",
-    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
-  }
-}
-</script>
 </head>
 
 <body>
