@@ -1,5 +1,4 @@
 import jwt from 'jsonwebtoken';
-import * as argon2 from 'argon2';
 import crypto from 'crypto';
 
 // SECURITY: Use RS256 for asymmetric signing
