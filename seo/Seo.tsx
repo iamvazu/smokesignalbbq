@@ -53,7 +53,9 @@ export const Seo: React.FC<SeoProps> = ({
             {/* JSON-LD Schema */}
             {schema && (
                 <script type="application/ld+json">
-                    {JSON.stringify(schema)}
+                    {Array.isArray(schema)
+                        ? JSON.stringify(schema)
+                        : JSON.stringify(schema)}
                 </script>
             )}
         </Helmet>

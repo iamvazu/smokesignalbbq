@@ -1,6 +1,28 @@
 export const generateOrganizationSchema = () => ({
     "@context": "https://schema.org",
-    "@type": "Cloud Kitchen/ Home Delivery",
+    "@type": "Organization",
+    "name": "Smoke Signal BBQ",
+    "alternateName": "Bangalore's Original Texas BBQ",
+    "description": "Bangalore's original authentic Texas BBQ since 2011. Specialized in charcoal-smoked brisket, ribs, and ready-to-heat BBQ.",
+    "url": "https://smokesignalbbq.in",
+    "logo": "https://smokesignalbbq.in/logo_final.png",
+    "foundingDate": "2011",
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+917899870957",
+        "contactType": "customer service",
+        "areaServed": "IN",
+        "availableLanguage": ["en", "Hindi", "Kannada"]
+    },
+    "sameAs": [
+        "https://www.instagram.com/smokesignalbbq",
+        "https://www.facebook.com/smokesignalbbq"
+    ]
+});
+
+export const generateRestaurantSchema = () => ({
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
     "name": "Smoke Signal BBQ",
     "image": "https://smokesignalbbq.in/logo_final.png",
     "@id": "https://smokesignalbbq.in",
@@ -18,6 +40,8 @@ export const generateOrganizationSchema = () => ({
         "latitude": 13.0016,
         "longitude": 77.6377
     },
+    "servesCuisine": ["Texas BBQ", "American BBQ", "Smoked Meats"],
+    "priceRange": "₹₹₹",
     "openingHoursSpecification": {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": [
@@ -32,9 +56,37 @@ export const generateOrganizationSchema = () => ({
         "opens": "11:00",
         "closes": "23:00"
     },
-    "sameAs": [
-        "https://www.instagram.com/smokesignalbbq"
-    ]
+    "areaServed": "Bangalore",
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Authentic BBQ Menu",
+        "itemListElement": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Product",
+                    "name": "Texas Smoked Brisket",
+                    "description": "14-hour charcoal smoked beef brisket, tender and juicy."
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Product",
+                    "name": "Pork Spare Ribs",
+                    "description": "Slow-smoked ribs with signature dry rub."
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Product",
+                    "name": "Pulled Pork",
+                    "description": "Hickory-smoked pulled pork shoulder."
+                }
+            }
+        ]
+    }
 });
 
 export const generateProductSchema = (product: any) => ({

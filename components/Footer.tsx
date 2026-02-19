@@ -235,7 +235,8 @@ export const Footer: React.FC = () => {
 
         <div className="border-t border-white/5 pt-6 text-center">
           <p className="text-gray-500 text-xs mb-4">
-            &copy; {new Date().getFullYear()} Smoke Signal BBQ. All rights reserved.
+            &copy; {new Date().getFullYear()} Smoke Signal BBQ. All rights reserved. <br />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] opacity-40 mt-1 block">The Original Since 2011</span>
           </p>
           <div className="flex justify-center gap-6">
             <Link to="/terms" className="text-gray-600 hover:text-fire transition-colors text-[10px] font-bold uppercase tracking-[0.2em]">Terms & Conditions</Link>

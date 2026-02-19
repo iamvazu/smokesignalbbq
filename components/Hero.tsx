@@ -45,15 +45,19 @@ export const Hero: React.FC = () => {
           className="max-w-4xl"
         >
 
-          <h1 className="font-display text-4xl md:text-5xl lg:text-5xl text-cream leading-tight mb-4 drop-shadow-2xl italic">
-            Authentic American Charcoal BBQ <span className="text-fire block md:inline">in {displayCity}.</span> <br />
-            <span className="text-fire">Ready to Heat.</span> <br />
-            Ready to Eat.
+          <div className="flex items-center gap-2 text-fire mb-4 justify-center md:justify-start">
+            <span className="w-12 h-[1px] bg-fire" />
+            <span className="text-[10px] font-black uppercase tracking-[0.4em]">The Original Since 2011</span>
+          </div>
+
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-cream leading-[1.1] mb-6 drop-shadow-2xl italic">
+            Bangalore's Original <span className="text-fire block md:inline">Texas BBQ.</span> <br />
+            <span className="text-white">Ready to Heat & Eat.</span>
           </h1>
 
           <p className="font-body text-gray-300 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed">
-            Slow-smoked for hours over real charcoal, delivered fresh to your door. <br className="hidden lg:block" />
-            Authentic pitmaster flavor, ready in minutes.
+            Slow-smoked for over 14 hours over real charcoal in {displayCity}. <br className="hidden lg:block" />
+            Authentic pitmaster flavor, delivered fresh to your door.
           </p>
 
           <div className="flex flex-col md:flex-row gap-6 justify-center md:justify-start items-center">

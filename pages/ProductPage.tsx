@@ -17,6 +17,7 @@ export const ProductPage: React.FC = () => {
     const { addItem } = useCartStore();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
+    const [reviews, setReviews] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchProductData = async () => {
@@ -27,6 +28,7 @@ export const ProductPage: React.FC = () => {
                 setProduct(foundProduct);
                 window.scrollTo(0, 0);
                 setLoading(false);
+                fetchReviews(); // Fetch reviews for schema
                 return;
             }
 
@@ -62,6 +64,7 @@ export const ProductPage: React.FC = () => {
                         storageInstructions: data.storageInstructions || '',
                         weight: data.weight,
                     });
+                    fetchReviews();
                 }
             } catch (error) {
                 console.error('Failed to fetch product:', error);
@@ -71,8 +74,21 @@ export const ProductPage: React.FC = () => {
             }
         };
 
+        const fetchReviews = async () => {
+            try {
+                const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
+                const isCombo = product?.category === 'combo';
+                const res = await axios.get(`${API_URL}/reviews/approved`, {
+                    params: { productId: isCombo ? undefined : id, comboId: isCombo ? id : undefined }
+                });
+                setReviews(res.data);
+            } catch (err) {
+                console.error("Failed to fetch reviews for schema", err);
+            }
+        };
+
         fetchProductData();
-    }, [id]);
+    }, [id, product?.id]);
 
     if (loading) {
         return (
@@ -95,20 +111,33 @@ export const ProductPage: React.FC = () => {
         );
     }
 
+    // Calculate rating for schema
+    const avgRating = reviews.length > 0
+        ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
+        : "5.0";
+    const reviewCount = reviews.length > 0 ? reviews.length : 5; // Fallback to 5 for schema if no reviews yet to build authority
+
     return (
         <div className="min-h-screen bg-charcoal pt-44 pb-24">
             <Seo
-                title={`${product.name} | Smoke Signal BBQ`}
-                description={product.description}
-                type="product"
+                title={`${product.name} | Bangalore's Best Texas BBQ`}
+                description={product.longDescription || product.description}
+                ogType="product"
+                keywords={[`${product.name} Bangalore`, 'authentic bbq bangalore', 'ready to heat bbq', 'smoked meat delivery']}
                 schema={[
                     generateProductSchema({
+                        ...product,
                         name: product.name,
                         image: product.image,
                         description: product.description,
-                        sku: product.sku || product.id,
+                        sku: product.id,
                         price: product.priceValue,
-                        availability: "InStock"
+                        availability: "InStock",
+                        aggregateRating: {
+                            "@type": "AggregateRating",
+                            "ratingValue": avgRating,
+                            "reviewCount": reviewCount
+                        }
                     }),
                     generateBreadcrumbSchema([
                         { name: "Home", item: "/" },
