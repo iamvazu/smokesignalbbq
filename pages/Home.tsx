@@ -17,35 +17,37 @@ import { generateRestaurantSchema, generateFAQSchema } from '../seo/SchemaGenera
 // @ts-ignore
 const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 
+const HOME_FAQS = [
+    {
+        q: "Where can I buy authentic Texas BBQ in Bangalore?",
+        a: "Smoke Signal BBQ delivers authentic Texas-style BBQ across Bangalore. Established in 2011, we offer ready-to-heat smoked meats including brisket, ribs, and pulled pork, slow-smoked for up to 14 hours over charcoal."
+    },
+    {
+        q: "What is ready-to-heat BBQ?",
+        a: "Our ready-to-heat BBQ is vacuum-sealed to preserve smoke-fresh flavor. Simply heat the sealed pack in boiling water for 5-7 minutes and it's ready to serve."
+    },
+    {
+        q: "How long is your brisket smoked?",
+        a: "Our signature brisket is slow-smoked for 14 hours over premium hardwood charcoal to achieve the perfect bark and tenderness."
+    },
+    {
+        q: "Do you offer BBQ catering in Bangalore?",
+        a: "Yes, Smoke Signal BBQ offers premium BBQ catering services for corporate events, private parties, and weddings in Bangalore. We specialize in authentic Texas-style smoked meats."
+    },
+    {
+        q: "What makes Smoke Signal BBQ different?",
+        a: "We are Bangalore's original pitmasters since 2011. Unlike others, we use 100% charcoal for smoking and no gas or electricity, ensuring the most authentic Texas BBQ flavor."
+    }
+];
+
+const HOME_KEYWORDS = ['BBQ Bangalore', 'Texas BBQ Bangalore', 'Smoked Brisket Bangalore', 'BBQ Delivery Bangalore', 'Ready to Heat BBQ'];
+
 export const Home: React.FC = () => {
     const navigate = useNavigate();
     const [combos, setCombos] = useState<Product[]>([]);
     const [bbqProducts, setBbqProducts] = useState<Product[]>(PRODUCTS.filter(p => p.category === 'bbq' && p.subCategory !== 'combos'));
     const [sauceProducts, setSauceProducts] = useState<Product[]>(PRODUCTS.filter(p => p.category === 'sauce'));
     const [loading, setLoading] = useState(true);
-
-    const HOME_FAQS = [
-        {
-            q: "Where can I buy authentic Texas BBQ in Bangalore?",
-            a: "Smoke Signal BBQ delivers authentic Texas-style BBQ across Bangalore. Established in 2011, we offer ready-to-heat smoked meats including brisket, ribs, and pulled pork, slow-smoked for up to 14 hours over charcoal."
-        },
-        {
-            q: "What is ready-to-heat BBQ?",
-            a: "Our ready-to-heat BBQ is vacuum-sealed to preserve smoke-fresh flavor. Simply heat the sealed pack in boiling water for 5-7 minutes and it's ready to serve."
-        },
-        {
-            q: "How long is your brisket smoked?",
-            a: "Our signature brisket is slow-smoked for 14 hours over premium hardwood charcoal to achieve the perfect bark and tenderness."
-        },
-        {
-            q: "Do you offer BBQ catering in Bangalore?",
-            a: "Yes, Smoke Signal BBQ offers premium BBQ catering services for corporate events, private parties, and weddings in Bangalore. We specialize in authentic Texas-style smoked meats."
-        },
-        {
-            q: "What makes Smoke Signal BBQ different?",
-            a: "We are Bangalore's original pitmasters since 2011. Unlike others, we use 100% charcoal for smoking and no gas or electricity, ensuring the most authentic Texas BBQ flavor."
-        }
-    ];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -104,7 +106,6 @@ export const Home: React.FC = () => {
                 setSauceProducts(mappedProducts.filter(p => p.category === 'sauce'));
             } catch (error) {
                 console.error('Failed to fetch data from API, using local fallback', error);
-                // Fallbacks are already set in initial state or useEffect elsewhere if needed
             } finally {
                 setLoading(false);
             }
@@ -112,11 +113,13 @@ export const Home: React.FC = () => {
         fetchData();
     }, []);
 
-    const featuredProducts = [...bbqProducts, ...sauceProducts].filter(p => p.badges?.includes('Best Seller') || p.badges?.includes('Most Popular')).slice(0, 3);
-    if (featuredProducts.length === 0) {
-        // Fallback to first few products if no best sellers marked in DB
-        featuredProducts.push(...bbqProducts.slice(0, 2), ...sauceProducts.slice(0, 1));
-    }
+    const featuredProducts = React.useMemo(() => {
+        const filtered = [...bbqProducts, ...sauceProducts].filter(p => p.badges?.includes('Best Seller') || p.badges?.includes('Most Popular')).slice(0, 3);
+        if (filtered.length === 0 && (bbqProducts.length > 0 || sauceProducts.length > 0)) {
+            return [...bbqProducts.slice(0, 2), ...sauceProducts.slice(0, 1)];
+        }
+        return filtered;
+    }, [bbqProducts, sauceProducts]);
 
     const navigateToShop = (category?: string) => {
         if (category) {
@@ -136,7 +139,7 @@ export const Home: React.FC = () => {
             <Seo
                 title="Bangalore's Original Authentic Texas BBQ since 2011"
                 description="Bangalore's first authentic Texas-style BBQ. Slow-smoked brisket, tender ribs, and signature sauces smoked for 14 hours over charcoal. Delivery across Bangalore."
-                keywords={['BBQ Bangalore', 'Texas BBQ Bangalore', 'Smoked Brisket Bangalore', 'BBQ Delivery Bangalore', 'Ready to Heat BBQ']}
+                keywords={HOME_KEYWORDS}
                 schema={homeSchema}
             />
             <Hero />

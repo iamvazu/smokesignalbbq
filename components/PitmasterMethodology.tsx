@@ -26,6 +26,9 @@ const methodology = [
 ];
 
 export const PitmasterMethodology: React.FC = () => {
+    const [imgSrc, setImgSrc] = React.useState("/pitmaster_work.jpg");
+    const hasErrored = React.useRef(false);
+
     return (
         <section className="py-24 bg-black/40 relative overflow-hidden">
             <div className="container mx-auto px-4">
@@ -63,13 +66,13 @@ export const PitmasterMethodology: React.FC = () => {
                     >
                         <div className="relative rounded-[3rem] overflow-hidden border border-white/10 shadow-3xl">
                             <img
-                                src="/pitmaster_work.jpg"
+                                src={imgSrc}
                                 alt="Pitmaster smoking brisket over charcoal"
                                 className="w-full h-auto brightness-75 hover:brightness-100 transition-all duration-700 hover:scale-105"
-                                onError={(e) => {
-                                    const target = e.target as HTMLImageElement;
-                                    target.onerror = null; // Disable further onError calls
-                                    target.src = "https://images.unsplash.com/photo-1594041680534-e1291845119a?auto=format&fit=crop&w=800&q=80";
+                                onError={() => {
+                                    if (hasErrored.current) return;
+                                    hasErrored.current = true;
+                                    setImgSrc("https://images.unsplash.com/photo-1594041680534-e1291845119a?auto=format&fit=crop&w=800&q=80");
                                 }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />

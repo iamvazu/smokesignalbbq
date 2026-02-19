@@ -7,6 +7,8 @@ import { CONTACT_INFO } from '../constants';
 
 export const Footer: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
+  const [fssaiSrc, setFssaiSrc] = useState("/fssai.png");
+  const hasFssaiErrored = React.useRef(false);
 
   return (
     <footer id="contact" className="relative bg-charcoal text-white pt-16 pb-8 border-t border-white/5 overflow-hidden">
@@ -142,13 +144,13 @@ export const Footer: React.FC = () => {
               {/* FSSAI Badge */}
               <div className="flex items-center gap-3 px-4 py-1.5 rounded-xl bg-white/5 border border-white/10 group hover:border-fire/30 transition-all duration-300">
                 <img
-                  src="/fssai.png"
+                  src={fssaiSrc}
                   alt="FSSAI Licensed"
                   className="h-5 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.onerror = null;
-                    target.src = "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/FSSAI_logo.svg/330px-FSSAI_logo.svg.png";
+                  onError={() => {
+                    if (hasFssaiErrored.current) return;
+                    hasFssaiErrored.current = true;
+                    setFssaiSrc("https://upload.wikimedia.org/wikipedia/en/thumb/9/90/FSSAI_logo.svg/330px-FSSAI_logo.svg.png");
                   }}
                 />
                 <div className="h-4 w-px bg-white/10 mx-1" />
