@@ -52,8 +52,8 @@ export const FAQ: React.FC = () => {
                             <button
                                 onClick={() => setActiveIndex(activeIndex === index ? null : index)}
                                 className={`w-full text-left p-6 md:p-8 rounded-[2rem] border transition-all duration-300 flex items-center justify-between gap-4 ${activeIndex === index
-                                        ? 'bg-white/5 border-fire/30 shadow-2xl'
-                                        : 'bg-white/[0.02] border-white/5 hover:border-white/10'
+                                    ? 'bg-white/5 border-fire/30 shadow-2xl'
+                                    : 'bg-white/[0.02] border-white/5 hover:border-white/10'
                                     }`}
                             >
                                 <h3
@@ -64,8 +64,8 @@ export const FAQ: React.FC = () => {
                                     {faq.q}
                                 </h3>
                                 <div className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center border transition-all ${activeIndex === index
-                                        ? 'bg-fire border-fire text-white rotate-0'
-                                        : 'bg-white/5 border-white/10 text-gray-500'
+                                    ? 'bg-fire border-fire text-white rotate-0'
+                                    : 'bg-white/5 border-white/10 text-gray-500'
                                     }`}>
                                     {activeIndex === index ? <Minus size={18} /> : <Plus size={18} />}
                                 </div>
@@ -91,6 +91,14 @@ export const FAQ: React.FC = () => {
                             </AnimatePresence>
                         </motion.div>
                     ))}
+                    <div className="mt-12 text-center">
+                        <a
+                            href="/faq"
+                            className="inline-flex items-center gap-2 text-fire font-black uppercase tracking-widest text-xs hover:gap-4 transition-all duration-300"
+                        >
+                            View All 15 FAQs <Plus size={14} />
+                        </a>
+                    </div>
                 </div>
             </div>
 
