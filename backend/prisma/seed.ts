@@ -415,6 +415,33 @@ async function main() {
     });
   }
 
+  console.log('--- Seeding Discounts ---');
+  const discounts = [
+    {
+      code: 'WELCOME10',
+      discountType: 'percentage',
+      discountValue: 10,
+      expiryDate: new Date('2026-12-31'),
+      isActive: true,
+      isFirstOrderOnly: true
+    },
+    {
+      code: 'SMOKE20',
+      discountType: 'percentage',
+      discountValue: 20,
+      expiryDate: new Date('2026-12-31'),
+      isActive: true,
+      isFirstOrderOnly: false
+    }
+  ];
+
+  for (const d of discounts) {
+    await prisma.discountCode.upsert({
+      where: { code: d.code },
+      update: d,
+      create: d
+    });
+  }
 
   console.log('--- Seeding Blog Posts ---');
   const blogs = [
