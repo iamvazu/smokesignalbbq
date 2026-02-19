@@ -69,7 +69,7 @@ export const AboutPage: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-charcoal/40 to-charcoal" />
                 </div>
 
-                <div className="container mx-auto px-4 relative z-10 pt-32 md:pt-40 lg:pt-48 text-center">
+                <div className="container mx-auto px-4 relative z-10 pt-36 md:pt-48 lg:pt-56 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -86,11 +86,16 @@ export const AboutPage: React.FC = () => {
                     </motion.div>
                 </div>
 
-                {/* Decorative Scroll Indicator */}
-                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">The Heritage</span>
-                    <div className="w-px h-12 bg-gradient-to-b from-fire to-transparent" />
-                </div>
+                {/* Animated Scroll Indicator */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, y: [0, 10, 0] }}
+                    transition={{ delay: 1, duration: 2, repeat: Infinity }}
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20"
+                >
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cream/40">The Heritage</span>
+                    <div className="w-[1px] h-12 bg-gradient-to-b from-fire to-transparent" />
+                </motion.div>
             </section>
 
             {/* Section 1: Our Heritage */}
@@ -247,7 +252,7 @@ export const AboutPage: React.FC = () => {
                             <a
                                 href="https://instagram.com/smokesignalbbq"
                                 target="_blank"
-                                className="px-16 py-6 bg-white/10 text-white rounded-full font-black uppercase tracking-widest text-lg hover:bg-white/20 transition-all border border-white/30 flex items-center gap-3 backdrop-blur-md"
+                                className="px-16 py-6 bg-white border-2 border-white rounded-full font-black uppercase tracking-widest text-lg text-fire hover:bg-transparent hover:text-white transition-all flex items-center gap-3 shadow-xl"
                             >
                                 <Instagram size={24} /> Follow Us
                             </a>
