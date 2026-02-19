@@ -22,6 +22,7 @@ import { FaqPage } from './pages/FaqPage';
 import { HowItWorksPage } from './pages/HowItWorksPage';
 import { CateringPage } from './pages/CateringPage';
 import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
 import { PSeoPage } from './pages/PSeoPage';
 
 
@@ -65,6 +66,7 @@ function App() {
         <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/catering" element={<CateringPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/services/:slug" element={<PSeoPage />} />
 
         {/* Redirect old anchor links if needed or just let Navbar handle it */}
