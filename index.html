@@ -138,114 +138,159 @@
     }
 
     /* Blog Post Styles */
+    /* Blog Post Styles */
+    .blog-post-content {
+      color: #cbd5e1;
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.8;
+    }
+
     .blog-post-content h2 {
       font-family: 'Rye', serif;
       font-size: 2.25rem;
       font-style: italic;
-      margin-top: 3rem;
+      margin-top: 3.5rem;
       margin-bottom: 1.5rem;
       color: #EF4444;
+      line-height: 1.2;
     }
 
     .blog-post-content h3 {
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
-      font-size: 1.5rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      font-size: 1.75rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1.25rem;
       color: white;
     }
 
     .blog-post-content p {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.75rem;
       font-size: 1.125rem;
-      line-height: 1.8;
-      color: #cbd5e1;
     }
 
     .blog-post-content .lead {
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       color: #F5E6C8;
+      font-weight: 500;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+
+    .blog-post-content strong {
+      color: white;
+      font-weight: 700;
     }
 
     .blog-post-content ul,
     .blog-post-content ol {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       margin-left: 1.5rem;
       list-style-type: disc;
     }
 
     .blog-post-content li {
-      margin-bottom: 0.5rem;
-      line-height: 1.6;
+      margin-bottom: 0.75rem;
+      position: relative;
     }
 
     .blog-post-content a {
       color: #EF4444;
       text-decoration: underline;
       text-underline-offset: 4px;
+      font-weight: 600;
     }
 
     .blog-post-content a:hover {
-      opacity: 0.8;
+      color: white;
     }
 
     .blog-post-content .quick-answer-box {
-      background: rgba(239, 68, 68, 0.1);
+      background: rgba(239, 68, 68, 0.08);
       border-left: 4px solid #EF4444;
-      padding: 2rem;
-      margin: 3rem 0;
-      border-radius: 0.5rem;
+      padding: 2.5rem;
+      margin: 3.5rem 0;
+      border-radius: 0.75rem;
     }
 
     .blog-post-content .quick-answer-box h2 {
       margin-top: 0;
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-style: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .blog-post-content .table-of-contents {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 2rem;
-      border-radius: 1rem;
-      margin: 2rem 0;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      margin: 3rem 0;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .blog-post-content .table-of-contents h2 {
       margin-top: 0;
-      font-size: 1.25rem;
+      font-size: 1.1rem;
       font-family: 'Montserrat', sans-serif;
       font-style: normal;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: white;
+      letter-spacing: 0.2em;
+      color: #EF4444;
+      font-weight: 800;
     }
 
     .blog-post-content .restaurant-ranking {
+      background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 2rem;
-      border-radius: 1rem;
-      margin-bottom: 2rem;
+      padding: 2.5rem;
+      border-radius: 1.5rem;
+      margin-bottom: 2.5rem;
     }
 
     .blog-post-content .price-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 2rem 0;
+      margin: 2.5rem 0;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 0.75rem;
+      overflow: hidden;
     }
 
     .blog-post-content .price-table th,
     .blog-post-content .price-table td {
-      padding: 1rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       text-align: left;
     }
 
     .blog-post-content .price-table th {
       color: white;
       text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    @media (max-width: 768px) {
+      .blog-post-content h2 {
+        font-size: 1.75rem;
+      }
+
+      .blog-post-content h3 {
+        font-size: 1.5rem;
+      }
+
+      .blog-post-content .lead {
+        font-size: 1.15rem;
+      }
+
+      .blog-post-content .quick-answer-box,
+      .blog-post-content .table-of-contents {
+        padding: 1.5rem;
+      }
     }
   </style>
 </head>

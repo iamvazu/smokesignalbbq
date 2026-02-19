@@ -456,7 +456,7 @@ async function main() {
     <h1 itemprop="headline">Best BBQ in Bangalore (2025): A Guide to Authentic Texas Smoked Meats</h1>
     <p class="blog-meta">By <span itemprop="author">Smoke Signal BBQ Pitmaster</span> | <time itemprop="datePublished" datetime="2025-01-15">January 15, 2025</time> | 8 min read</p>
   </header>
-  <div class="blog-content" itemprop="articleBody">
+  <div class="blog-content blog-post-content" itemprop="articleBody">
     <p class="lead"><strong>Looking for the best BBQ in Bangalore?</strong> You're not alone. Since 2011, we've watched Bangalore's BBQ scene explode from zero authentic options to dozens of restaurants claiming "smoked" meats. But here's the truth: <em>most Bangalore BBQ isn't actually smoked</em>—it's grilled, pressure-cooked, or gas-cooked with liquid smoke added for flavor.</p>
     <p>Real Texas BBQ—the kind that makes you close your eyes and savor every bite—requires three non-negotiable elements: <strong>hardwood charcoal, 14+ hours of cooking time, and actual smoke</strong>. This guide shows you how to identify authentic BBQ in Bangalore, where to find it, and why it matters.</p>
     <nav class="table-of-contents">
@@ -593,7 +593,7 @@ async function main() {
     <h1 itemprop="headline">Where to Buy Smoked Brisket in Bangalore: A Local's Guide (2025)</h1>
     <p class="blog-meta">By <span itemprop="author">Smoke Signal BBQ</span> | <time itemprop="datePublished" datetime="2025-01-20">January 20, 2025</time> | 6 min read</p>
   </header>
-  <div class="blog-content" itemprop="articleBody">
+  <div class="blog-content blog-post-content" itemprop="articleBody">
     <p class="lead"><strong>Craving smoked brisket in Bangalore?</strong> You're looking for the holy grail of BBQ—a cut so tender it slices with a spoon, with that perfect pink smoke ring and bark that crunches then melts. But here's the problem: <em>real smoked brisket is almost impossible to find in Bangalore restaurants</em>.</p>
     <p>This guide shows you exactly where to buy authentic smoked brisket in Bangalore, neighborhood by neighborhood, with delivery options, price comparisons, and what to look for to avoid disappointment.</p>
     <div class="quick-answer-box">
@@ -834,7 +834,7 @@ async function main() {
     <h1 itemprop="headline">Ready-to-Heat BBQ: How Smoke Signal BBQ Delivers Fresh Smoked Meats to Your Door</h1>
     <p class="blog-meta">By <span itemprop="author">Smoke Signal BBQ Team</span> | <time itemprop="datePublished" datetime="2025-01-25">January 25, 2025</time> | 7 min read</p>
   </header>
-  <div class="blog-content" itemprop="articleBody">
+  <div class="blog-content blog-post-content" itemprop="articleBody">
     <p class="lead"><strong>Imagine this:</strong> It's Tuesday evening. You're craving authentic Texas brisket—the kind that takes 14 hours to smoke over charcoal. But you don't have a smoker. You don't have 14 hours. You don't even want to leave your house.</p>
     <p>Enter <strong>ready-to-heat BBQ</strong>. In 5 minutes, you're eating 14-hour smoked brisket that tastes like it just came off the pit. No smoker. No wait. No compromise on quality.</p>
     <p>This is how we make it happen at Smoke Signal BBQ.</p>
@@ -879,32 +879,90 @@ async function main() {
         <div class="process-step" itemscope itemprop="step" itemtype="https://schema.org/HowToStep">
           <h3 itemprop="name"><span class="step-number">3</span> Hot Vacuum Sealing (The Secret)</h3>
           <div itemprop="text">
-            <p>Here's what makes ready-to-heat special: <strong>we vacuum-seal the meat while it's still hot</strong> (within 30 minutes of coming off the smoker).</p>
+            <p>Here's what makes ready-to-heat special: <strong>we vacuum-seal the meat while it's still hot</strong> (within 30 minutes of coming off the smoker). This locks in the "bloom" of the smoke and prevents moisture loss during the cooling phase.</p>
           </div>
         </div>
         <div class="process-step" itemscope itemprop="step" itemtype="https://schema.org/HowToStep">
           <h3 itemprop="name"><span class="step-number">4</span> Chilled Delivery to Your Door</h3>
           <div itemprop="text">
-            <p>By 6 PM, your order is packed in insulated bags with ice packs and dispatched for delivery.</p>
+            <p>By 6 PM, your order is packed in insulated bags with ice packs and dispatched for delivery across Bangalore. The meat rests perfectly inside the vacuum seal during transit.</p>
           </div>
         </div>
       </div>
     </section>
     <section id="why-fresh">
       <h2>Why Ready-to-Heat BBQ Beats Restaurant Dining</h2>
-      <p>Counterintuitive but true: <strong>BBQ eaten at home can be fresher than BBQ eaten at a restaurant.</strong> Our vacuum-sealed bags let meat rest perfectly for 2-4 hours before you eat.</p>
+      <p>Counterintuitive but true: <strong>BBQ eaten at home can be fresher than BBQ eaten at a restaurant.</strong> In many restaurants, meat is sliced and sits under heat lamps, drying out every second. Our vacuum-sealed bags act as a "holding environment" where juices are reabsorbed into the meat fibers.</p>
     </section>
     <section id="how-to-heat">
       <h2>How to Heat Your Ready-to-Heat BBQ: 3 Methods</h2>
       <p>Your BBQ arrives vacuum-sealed and ready. Choose your heating method:</p>
       <h3>Method 1: Boil-in-Bag (Recommended)</h3>
-      <p>Keep meat in original vacuum-sealed bag. Submerge in pot of water at gentle boil for 5 minutes.</p>
+      <p>Keep meat in original vacuum-sealed bag. Submerge in pot of water at gentle boil for 5 minutes. This is the gold standard—it uses the moisture already inside the bag to steam the meat perfectly without exposing it to air.</p>
+      <h3>Method 2: Microwave</h3>
+      <p>Poke a few holes in the bag and microwave on medium for 2-3 minutes. Fast, but watch closely to avoid overcooking.</p>
     </section>
     <section class="try-it-cta">
       <h2>Try Ready-to-Heat BBQ Tonight</h2>
-      <p>Experience 14 hours of pitmaster work in 5 minutes at home.</p>
+      <p>Experience 14 hours of pitmaster work in 5 minutes at home. No cleanup, no smokers, just authentic Texas taste.</p>
       <div class="cta-options">
-        <a href="/shop" class="btn-primary">Shop Ready-to-Heat BBQ →</a>
+        <a href="/shop" class="btn">Shop Ready-to-Heat BBQ →</a>
+      </div>
+    </section>
+  </div>
+</article>`
+    },
+    {
+      title: "The Original Pitmasters: How Smoke Signal BBQ Brought Authentic Texas Smoke to Bangalore",
+      slug: "the-original-pitmasters-how-smoke-signal-bbq-brought-authentic-texas-smoke-to-bangalore",
+      excerpt: "The story of Bangalore's original pitmasters. From a humble food truck in 2011 to 14-hour slow-smoked perfection. Learn why we use only hardwood charcoal and why time is our most important ingredient.",
+      coverImage: "/pitmaster.jpg",
+      published: true,
+      content: `<article class="blog-post" itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="blog-header">
+    <h1 itemprop="headline">The Original Pitmasters: How Smoke Signal BBQ Brought Authentic Texas Smoke to Bangalore</h1>
+    <p class="blog-meta">By <span itemprop="author">Smoke Signal BBQ Founders</span> | <time itemprop="datePublished" datetime="2025-02-10">February 10, 2025</time> | 10 min read</p>
+  </header>
+  <div class="blog-content blog-post-content" itemprop="articleBody">
+    <p class="lead"><strong>Before Bangalore Knew Real BBQ...</strong> Walk into any restaurant in Bangalore today and you'll find "BBQ" on the menu. But in 2011? Nothing. Just grilled chicken masquerading as barbecue. Gas-flame "smoked" wings. Electric ovens with liquid smoke spray.</p>
+    <p>The real thing—14-hour slow-smoked brisket over hardwood charcoal—didn't exist in India's Silicon Valley. That's when we fired up our first smoker.</p>
+    <nav class="table-of-contents">
+      <h2>Our Journey</h2>
+      <ul>
+        <li><a href="#the-beginning">2011: The Food Truck That Started It All</a></li>
+        <li><a href="#the-philosophy">Our Philosophy: No Shortcuts, Real Smoke</a></li>
+        <li><a href="#why-charcoal">Why We Only Use Hardwood Charcoal (And Never Gas)</a></li>
+        <li><a href="#the-14-hours">The 14-Hour Rule: Why Time Is Our Secret Ingredient</a></li>
+        <li><a href="#the-future">The Future of BBQ in Bangalore</a></li>
+      </ul>
+    </nav>
+    <section id="the-beginning">
+      <h2>2011: The Food Truck That Started It All</h2>
+      <p>Smoke Signal BBQ began as a humble food truck in 2011, parked near Bangalore's burgeoning tech corridors. We didn't have investors or a PR team. Just a pitmaster, a custom-built smoker, and an obsession with Central Texas-style smoked meats.</p>
+      <p>People thought we were crazy. "14 hours for one piece of meat? Just use a pressure cooker," they'd say. But we knew that authentic BBQ has no bypasses. The community found us, the smoke signals brought them in, and a legend was born.</p>
+    </section>
+    <section id="the-philosophy">
+      <h2>Our Philosophy: No Shortcuts, Real Smoke</h2>
+      <p>In the world of commercial kitchens, "efficiency" usually means cutting corners. In the world of BBQ, cutting corners means losing the soul of the meat. Our philosophy is simple:</p>
+      <ul>
+        <li><strong>Real Wood, Real Fire:</strong> We use only premium hardwood charcoal. No gas burners, no electric coils.</li>
+        <li><strong>Low & Slow:</strong> We cook at temperatures that would make a chef cry from boredom. 110°C is our magic number.</li>
+        <li><strong>Pure Ingredients:</strong> Our rub is Texas tradition—mostly salt and heavy black pepper. We let the meat and the smoke do the talking.</li>
+      </ul>
+    </section>
+    <section id="why-charcoal">
+      <h2>Why We Only Use Hardwood Charcoal (And Never Gas)</h2>
+      <p>Gas is easy. Charcoal is hard. So why do we do it? Because gas doesn't have a flavor profile. Hardwood charcoal creates the <strong>Maillard reaction</strong> and smoke penetration that a gas flame simply cannot replicate. That specific "wood-fired" taste, the dark bark, and the pink smoke ring—these are the signatures of charcoal.</p>
+    </section>
+    <section id="the-14-hours">
+      <h2>The 14-Hour Rule: Why Time Is Our Secret Ingredient</h2>
+      <p>A brisket is a tough muscle. To make it tender, you have to break down the collagen into gelatin. This transformation happens slowly between 71°C and 93°C internal temperature. If you heat it too fast, the muscle fibers tighten and become dry. By stretching the cook to 14 hours, we ensure every fiber is bathed in rendered fat and smoke, resulting in the "butter" texture we're famous for.</p>
+    </section>
+    <section class="conclusion">
+      <h2>Join the Smoke Signal Family</h2>
+      <p>Today, Smoke Signal BBQ is more than just a truck or a kitchen—it's a standard for what authentic BBQ should be in India. We're proud to be the original pitmasters, still lighting the fires at 3 AM every single day.</p>
+      <div class="cta-options">
+        <a href="/shop" class="btn">Experience the 14-Hour Difference →</a>
       </div>
     </section>
   </div>

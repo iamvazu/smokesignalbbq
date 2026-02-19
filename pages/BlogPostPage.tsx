@@ -60,21 +60,27 @@ export const BlogPostPage: React.FC = () => {
     return (
         <article className="min-h-screen bg-charcoal text-cream pb-24">
             {/* Header Image */}
-            <div className="relative h-[60vh] w-full">
+            <div className="relative min-h-[50vh] md:h-[65vh] w-full flex flex-col justify-end">
                 <img
                     src={post.coverImage || '/pitmaster.jpg'}
                     alt={post.title}
-                    className="w-full h-full object-cover opacity-60"
+                    className="absolute inset-0 w-full h-full object-cover opacity-60"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent" />
 
-                <div className="absolute bottom-0 left-0 right-0 p-8 container mx-auto">
-                    <Button onClick={() => navigate('/blog')} variant="outline" className="mb-8 border-white/20 text-white hover:bg-white/10 w-fit backdrop-blur-sm">
+                <div className="relative z-10 w-full pt-32 pb-12 px-8 container mx-auto">
+                    <Button
+                        onClick={() => navigate('/blog')}
+                        variant="outline"
+                        className="mb-8 border-white/20 text-white hover:bg-white/10 w-fit backdrop-blur-sm"
+                    >
                         <ArrowLeft size={16} className="mr-2" /> Back to Blog
                     </Button>
-                    <h1 className="font-display text-4xl md:text-6xl italic leading-tight mb-6 drop-shadow-xl">{post.title}</h1>
+                    <h1 className="font-display text-4xl md:text-5xl lg:text-7xl italic leading-tight mb-8 drop-shadow-2xl max-w-5xl">
+                        {post.title}
+                    </h1>
 
-                    <div className="flex items-center gap-6 text-sm text-gray-300 font-bold uppercase tracking-widest">
+                    <div className="flex flex-wrap items-center gap-6 text-sm text-gray-300 font-bold uppercase tracking-widest">
                         <span className="flex items-center gap-2">
                             <Calendar size={16} className="text-fire" />
                             {new Date(post.createdAt).toLocaleDateString(undefined, {
