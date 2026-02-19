@@ -68,7 +68,7 @@ export const BlogPostPage: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/40 to-transparent" />
 
-                <div className="relative z-10 w-full pt-32 pb-12 px-8 container mx-auto">
+                <div className="relative z-10 w-full pt-48 pb-12 px-8 container mx-auto">
                     <Button
                         onClick={() => navigate('/blog')}
                         variant="outline"
