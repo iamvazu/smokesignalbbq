@@ -183,6 +183,7 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-center lg:text-left">
               <li><Link to="/" className="text-cream hover:text-fire transition-colors text-sm font-medium">Home</Link></li>
               <li><Link to="/shop" className="text-cream hover:text-fire transition-colors text-sm font-medium">Shop</Link></li>
+              <li><Link to="/catering" className="text-cream hover:text-fire transition-colors text-sm font-medium">Catering</Link></li>
               <li><Link to="/events" className="text-cream hover:text-fire transition-colors text-sm font-medium">Events</Link></li>
               <li><Link to="/blog" className="text-cream hover:text-fire transition-colors text-sm font-medium">Blog</Link></li>
               <li><Link to="/how-it-works" className="text-cream hover:text-fire transition-colors text-sm font-medium">How It Works</Link></li>

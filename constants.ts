@@ -3,6 +3,7 @@ import { Product, Testimonial } from './types';
 export const NAV_LINKS = [
   { name: 'Home', href: '#home' },
   { name: 'Shop', href: '/shop' },
+  { name: 'Catering', href: '/catering' },
   { name: 'Events', href: '/events' },
   { name: 'How It Works', href: '/how-it-works' },
   { name: 'About', href: '#about' },

@@ -7,6 +7,7 @@ import { HowItWorks } from '../components/HowItWorks';
 import { AboutSection } from '../components/AboutSection';
 import { PitmasterMethodology } from '../components/PitmasterMethodology';
 import { ComparisonSection } from '../components/ComparisonSection';
+import { CateringHighlight } from '../components/CateringHighlight';
 import { FAQ } from '../components/FAQ';
 import { PRODUCTS } from '../constants';
 import { useNavigate } from 'react-router-dom';
@@ -158,6 +159,8 @@ export const Home: React.FC = () => {
             />
 
             <HowItWorks />
+
+            <CateringHighlight />
 
             <AboutSection />
 

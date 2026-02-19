@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from '../components/Button';
 import { CONTACT_INFO } from '../constants';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 // @ts-ignore
@@ -166,6 +167,16 @@ export const EventsPage: React.FC = () => {
 
     return (
         <div className="bg-charcoal min-h-screen text-cream">
+            {/* Catering Notice */}
+            <div className="bg-fire/10 border-b border-fire/20 py-3 relative z-50">
+                <div className="container mx-auto px-4 text-center">
+                    <p className="text-[10px] md:text-xs font-bold uppercase tracking-widest">
+                        👔 Planning a corporate event or wedding? Visit our dedicated
+                        <Link to="/catering" className="text-fire underline ml-2 hover:text-white transition-colors">Catering Page</Link> for full-service options.
+                    </p>
+                </div>
+            </div>
+
             {/* Hero Section */}
             <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0">
