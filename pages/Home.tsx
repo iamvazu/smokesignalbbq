@@ -7,6 +7,7 @@ import { HowItWorks } from '../components/HowItWorks';
 import { AboutSection } from '../components/AboutSection';
 import { PitmasterMethodology } from '../components/PitmasterMethodology';
 import { ComparisonSection } from '../components/ComparisonSection';
+import { FAQ } from '../components/FAQ';
 import { PRODUCTS } from '../constants';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -20,23 +21,15 @@ const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 const HOME_FAQS = [
     {
         q: "Where can I buy authentic Texas BBQ in Bangalore?",
-        a: "Smoke Signal BBQ delivers authentic Texas-style BBQ across Bangalore. Established in 2011, we offer ready-to-heat smoked meats including brisket, ribs, and pulled pork, slow-smoked for up to 14 hours over charcoal."
+        a: "Smoke Signal BBQ delivers authentic Texas-style BBQ across Bangalore. Established in 2011, we are Bangalore's original American BBQ, offering ready-to-heat smoked brisket, pulled pork, and ribs slow-smoked for up to 14 hours over charcoal."
     },
     {
         q: "What is ready-to-heat BBQ?",
-        a: "Our ready-to-heat BBQ is vacuum-sealed to preserve smoke-fresh flavor. Simply heat the sealed pack in boiling water for 5-7 minutes and it's ready to serve."
-    },
-    {
-        q: "How long is your brisket smoked?",
-        a: "Our signature brisket is slow-smoked for 14 hours over premium hardwood charcoal to achieve the perfect bark and tenderness."
+        a: "Ready-to-heat BBQ is professionally smoked meat that is vacuum-sealed and delivered fresh to your door. Simply heat for 5 minutes and serve authentic pitmaster-quality BBQ at home without the 14-hour wait."
     },
     {
         q: "Do you offer BBQ catering in Bangalore?",
-        a: "Yes, Smoke Signal BBQ offers premium BBQ catering services for corporate events, private parties, and weddings in Bangalore. We specialize in authentic Texas-style smoked meats."
-    },
-    {
-        q: "What makes Smoke Signal BBQ different?",
-        a: "We are Bangalore's original pitmasters since 2011. Unlike others, we use 100% charcoal for smoking and no gas or electricity, ensuring the most authentic Texas BBQ flavor."
+        a: "Yes, Smoke Signal BBQ provides Texas BBQ catering for corporate events, weddings, and private parties across Bangalore. We serve 15+ areas including Indiranagar, Koramangala, Whitefield, and HSR Layout."
     }
 ];
 
@@ -171,6 +164,8 @@ export const Home: React.FC = () => {
             <PitmasterMethodology />
 
             <ComparisonSection />
+
+            <FAQ />
         </main>
     );
 };
