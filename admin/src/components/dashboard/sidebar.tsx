@@ -19,7 +19,8 @@ import {
     BookOpen,
     TrendingUp,
     Star,
-    Mail
+    Mail,
+    MessageSquare
 } from 'lucide-react';
 
 
