@@ -59,7 +59,7 @@ export const AboutPage: React.FC = () => {
             />
 
             {/* Hero Section */}
-            <section className="relative h-[80vh] flex items-center justify-center overflow-hidden mb-24">
+            <section className="relative h-[90vh] flex items-center justify-center overflow-hidden mb-24">
                 <div className="absolute inset-0 z-0">
                     <img
                         src="/footer_bg.jpg"
@@ -69,7 +69,7 @@ export const AboutPage: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal/20 via-charcoal/40 to-charcoal" />
                 </div>
 
-                <div className="container mx-auto px-4 relative z-10 pt-24 md:pt-32 text-center">
+                <div className="container mx-auto px-4 relative z-10 pt-32 md:pt-40 lg:pt-48 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -77,13 +77,19 @@ export const AboutPage: React.FC = () => {
                         className="max-w-4xl mx-auto"
                     >
                         <span className="text-fire uppercase tracking-[0.4em] text-xs md:text-sm font-bold mb-4 block">Est. 2011 • Bangalore</span>
-                        <h1 className="text-4xl md:text-7xl lg:text-8xl font-display italic leading-[1.1] mb-6 tracking-tight">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display italic leading-[1.1] mb-6 tracking-tight">
                             A Decade of <br /> <span className="text-fire">Smoke & Fire</span>
                         </h1>
                         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10 font-medium font-body">
                             We didn't just start a restaurant; we started a mission to bring uncompromising, 100% charcoal-fired Texas BBQ to India.
                         </p>
                     </motion.div>
+                </div>
+
+                {/* Decorative Scroll Indicator */}
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">The Heritage</span>
+                    <div className="w-px h-12 bg-gradient-to-b from-fire to-transparent" />
                 </div>
             </section>
 
@@ -233,7 +239,7 @@ export const AboutPage: React.FC = () => {
                         <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                             <Button
                                 variant="primary"
-                                className="px-16 py-6 bg-white text-fire rounded-full font-black uppercase tracking-widest text-lg hover:scale-105 transition-all shadow-3xl"
+                                className="px-16 py-6 bg-charcoal text-white rounded-full font-black uppercase tracking-widest text-lg hover:bg-black hover:scale-105 transition-all shadow-3xl border-2 border-white/20"
                                 onClick={() => navigate('/shop')}
                             >
                                 Order Now
@@ -241,7 +247,7 @@ export const AboutPage: React.FC = () => {
                             <a
                                 href="https://instagram.com/smokesignalbbq"
                                 target="_blank"
-                                className="px-16 py-6 bg-black/20 text-white rounded-full font-black uppercase tracking-widest text-lg hover:bg-black/40 transition-all border border-white/20 flex items-center gap-3"
+                                className="px-16 py-6 bg-white/10 text-white rounded-full font-black uppercase tracking-widest text-lg hover:bg-white/20 transition-all border border-white/30 flex items-center gap-3 backdrop-blur-md"
                             >
                                 <Instagram size={24} /> Follow Us
                             </a>
