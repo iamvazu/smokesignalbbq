@@ -12,6 +12,7 @@ const API_URL = (import.meta as any).env.VITE_API_URL || '/api/v1';
 
 // RS Palaya, Kammanahalli Coordinates (Approx)
 const STORE_LOCATION = { lat: 13.0097, lng: 77.6366 };
+const FREE_DELIVERY_THRESHOLD = 999;
 
 export const ShoppingCart: React.FC = () => {
     const { items, isOpen, toggleCart, updateQuantity, removeItem, clearCart } = useCartStore();
@@ -37,7 +38,13 @@ export const ShoppingCart: React.FC = () => {
     // Calculations
     const subtotal = items.reduce((acc, item) => acc + ((item.priceValue || 0) * item.quantity), 0);
     const gst = subtotal * 0.18;
-    const finalTotal = subtotal + gst + (deliveryFee || 0);
+
+    // Effective delivery fee logic - reactive to subtotal changes
+    const effectiveDeliveryFee = deliveryFee !== null
+        ? (subtotal >= FREE_DELIVERY_THRESHOLD ? 0 : deliveryFee)
+        : null;
+
+    const finalTotal = subtotal + gst + (effectiveDeliveryFee || 0);
 
     const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
         const R = 6371;
@@ -84,12 +91,8 @@ export const ShoppingCart: React.FC = () => {
                     })
                     .catch(e => console.error("Geocoding failed", e));
 
-                if (subtotal >= 999) {
-                    setDeliveryFee(0);
-                } else {
-                    const cost = 55 + (Math.ceil(distance) * 15);
-                    setDeliveryFee(Math.round(cost));
-                }
+                const cost = 55 + (Math.ceil(distance) * 15);
+                setDeliveryFee(Math.round(cost));
                 setIsCalculating(false);
             },
             () => {
@@ -137,7 +140,7 @@ export const ShoppingCart: React.FC = () => {
                     price: Number(item.priceValue)
                 })),
                 totalAmount: Math.round(finalTotal),
-                deliveryFee: deliveryFee || 0,
+                deliveryFee: effectiveDeliveryFee || 0,
                 taxAmount: Math.round(gst),
                 paymentMethod: "WhatsApp/COD"
             };
@@ -152,7 +155,7 @@ export const ShoppingCart: React.FC = () => {
                     value: finalTotal,
                     currency: 'INR',
                     tax: gst,
-                    shipping: deliveryFee || 0,
+                    shipping: effectiveDeliveryFee || 0,
                     items: items.map(item => ({
                         item_id: item.id,
                         item_name: item.name,
@@ -182,8 +185,8 @@ export const ShoppingCart: React.FC = () => {
             message += `Subtotal: ₹${subtotal}\n`;
             message += `GST (18%): ₹${gst.toFixed(2)}\n`;
 
-            if (deliveryFee !== null) {
-                message += `Delivery: ${deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}\n`;
+            if (effectiveDeliveryFee !== null) {
+                message += `Delivery: ${effectiveDeliveryFee === 0 ? "FREE" : `₹${effectiveDeliveryFee}`}\n`;
             }
 
             message += `\n*TOTAL: ₹${finalTotal.toFixed(2)}*\n`;
@@ -422,9 +425,9 @@ export const ShoppingCart: React.FC = () => {
                                     </div>
                                     <div className="flex justify-between items-center text-gray-400 text-xs">
                                         <span>Delivery (Approx)</span>
-                                        {deliveryFee !== null ? (
-                                            <span className={deliveryFee === 0 ? "text-green-500 font-bold" : "text-fire font-bold"}>
-                                                {deliveryFee === 0 ? "FREE" : `₹${deliveryFee}`}
+                                        {effectiveDeliveryFee !== null ? (
+                                            <span className={effectiveDeliveryFee === 0 ? "text-green-500 font-bold" : "text-fire font-bold"}>
+                                                {effectiveDeliveryFee === 0 ? "FREE" : `₹${effectiveDeliveryFee}`}
                                             </span>
                                         ) : (
                                             <button
@@ -436,21 +439,21 @@ export const ShoppingCart: React.FC = () => {
                                             </button>
                                         )}
                                     </div>
-                                    {subtotal < 999 && (
+                                    {subtotal < FREE_DELIVERY_THRESHOLD && (
                                         <div className="mt-2">
                                             <div className="flex justify-between text-[10px] text-gray-500 mb-1">
-                                                <span>Free delivery at ₹999</span>
-                                                <span>Add ₹{999 - subtotal} more</span>
+                                                <span>Free delivery at ₹{FREE_DELIVERY_THRESHOLD}</span>
+                                                <span>Add ₹{FREE_DELIVERY_THRESHOLD - subtotal} more</span>
                                             </div>
                                             <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                                                 <div
                                                     className="h-full bg-fire transition-all duration-500"
-                                                    style={{ width: `${(subtotal / 999) * 100}%` }}
+                                                    style={{ width: `${(subtotal / FREE_DELIVERY_THRESHOLD) * 100}%` }}
                                                 />
                                             </div>
                                         </div>
                                     )}
-                                    {subtotal >= 999 && (
+                                    {subtotal >= FREE_DELIVERY_THRESHOLD && (
                                         <p className="text-[10px] text-green-500 mt-1 flex items-center gap-1">
                                             <ShieldCheck size={10} /> You've unlocked FREE Delivery!
                                         </p>

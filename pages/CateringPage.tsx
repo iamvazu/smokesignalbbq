@@ -378,10 +378,10 @@ const CateringPage: React.FC = () => {
                         <h2 className="text-4xl md:text-6xl font-display italic mb-12">Bangalore & Beyond</h2>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                             {[
-                                { city: 'Bangalore', note: 'Same-day setup' },
-                                { city: 'Hyderabad', note: '24-hour booking' },
-                                { city: 'Chennai', note: '48-hour booking' },
-                                { city: 'Kochi & Goa', note: '72-hour booking' }
+                                { city: 'Bangalore', note: '24-48 hours notice' },
+                                { city: 'Hyderabad', note: '48-72 hours booking' },
+                                { city: 'Chennai', note: '48-72 hours booking' },
+                                { city: 'Kochi & Goa', note: '72-96 hour booking' }
                             ].map((loc, i) => (
                                 <div key={i} className="border-r border-white/20 last:border-0 pr-4 text-center sm:text-left">
                                     <h4 className="text-2xl font-display italic mb-1">{loc.city}</h4>
