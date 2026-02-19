@@ -146,7 +146,9 @@ export const Footer: React.FC = () => {
                   alt="FSSAI Licensed"
                   className="h-5 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/FSSAI_logo.svg/330px-FSSAI_logo.svg.png";
+                    const target = e.target as HTMLImageElement;
+                    target.onerror = null;
+                    target.src = "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/FSSAI_logo.svg/330px-FSSAI_logo.svg.png";
                   }}
                 />
                 <div className="h-4 w-px bg-white/10 mx-1" />

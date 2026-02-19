@@ -126,16 +126,18 @@ export const Home: React.FC = () => {
         }
     };
 
+    const homeSchema = React.useMemo(() => [
+        generateRestaurantSchema(),
+        generateFAQSchema(HOME_FAQS)
+    ], []);
+
     return (
         <main>
             <Seo
                 title="Bangalore's Original Authentic Texas BBQ since 2011"
                 description="Bangalore's first authentic Texas-style BBQ. Slow-smoked brisket, tender ribs, and signature sauces smoked for 14 hours over charcoal. Delivery across Bangalore."
                 keywords={['BBQ Bangalore', 'Texas BBQ Bangalore', 'Smoked Brisket Bangalore', 'BBQ Delivery Bangalore', 'Ready to Heat BBQ']}
-                schema={[
-                    generateRestaurantSchema(),
-                    generateFAQSchema(HOME_FAQS)
-                ]}
+                schema={homeSchema}
             />
             <Hero />
 

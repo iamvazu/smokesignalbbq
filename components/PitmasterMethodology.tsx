@@ -67,7 +67,9 @@ export const PitmasterMethodology: React.FC = () => {
                                 alt="Pitmaster smoking brisket over charcoal"
                                 className="w-full h-auto brightness-75 hover:brightness-100 transition-all duration-700 hover:scale-105"
                                 onError={(e) => {
-                                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1594041680534-e1291845119a?auto=format&fit=crop&w=800&q=80";
+                                    const target = e.target as HTMLImageElement;
+                                    target.onerror = null; // Disable further onError calls
+                                    target.src = "https://images.unsplash.com/photo-1594041680534-e1291845119a?auto=format&fit=crop&w=800&q=80";
                                 }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
