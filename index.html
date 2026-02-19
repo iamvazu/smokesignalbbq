@@ -78,17 +78,63 @@
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="manifest" href="/manifest.json">
 
-  <!-- Fonts -->
+  <!-- Fonts & Resource Hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
   <link href="https://fonts.googleapis.com/css2?family=Rye&family=Montserrat:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
+
+  <!-- Tailwind CDN (Necessary as project lacks local build) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal: '#0B0B0B',
+            burnt: '#2B1B12',
+            fire: '#EF4444',
+            texasRed: '#8B0000',
+            cream: '#F5E6C8',
+            smoke: '#1A1A1A',
+          },
+          fontFamily: {
+            display: ['Rye', 'serif'],
+            body: ['Montserrat', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
 
   <style>
     body {
       background-color: #0B0B0B;
       color: #F5E6C8;
       overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0B0B0B;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #2B1B12;
+      border: 1px solid #EF4444;
+      border-radius: 5px;
+    }
+
+    /* Accessibility Fix */
+    :focus-visible {
+      outline: 2px solid #EF4444;
+      outline-offset: 4px;
     }
   </style>
 </head>
