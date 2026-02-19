@@ -6,8 +6,13 @@ export const NAV_LINKS = [
   { name: 'Catering', href: '/catering' },
   { name: 'Events', href: '/events' },
   { name: 'How It Works', href: '/how-it-works' },
+];
+
+export const MENU_LINKS = [
   { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
+  { name: 'FAQ', href: '/faq' },
+  { name: 'Blog', href: '/blog' },
 ];
 
 

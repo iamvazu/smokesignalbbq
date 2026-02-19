@@ -17,12 +17,15 @@ export const Hero: React.FC = () => {
       {/* Background Image */}
       {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-        <div className="absolute inset-0 bg-black/50 z-10" /> {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent z-10" />
+        <div className="absolute inset-0 bg-black/50 z-20" /> {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent z-20" />
+
+        {/* Anti-YouTube UI Overlays */}
+        <div className="absolute top-0 left-0 right-0 h-20 bg-black z-30" /> {/* Top bar hide */}
 
         <iframe
-          className="absolute top-1/2 left-1/2 w-[177.77vh] h-full min-w-full min-h-[56.25vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 border-none"
-          src={`https://www.youtube.com/embed/S0pjch8mdTg?autoplay=1&mute=1&loop=1&playlist=S0pjch8mdTg,D334Pz3SgK0&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : 'https://smokesignalbbq.in'}`}
+          className="absolute top-1/2 left-1/2 w-[110%] h-[110%] md:w-[177.77vh] md:h-full min-w-full min-h-[56.25vw] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-60 border-none scale-110"
+          src={`https://www.youtube.com/embed/S0pjch8mdTg?autoplay=1&mute=1&loop=1&playlist=S0pjch8mdTg&controls=0&showinfo=0&modestbranding=1&rel=0&playsinline=1&enablejsapi=1&origin=${typeof window !== 'undefined' ? window.location.origin : 'https://smokesignalbbq.in'}`}
           title="Smoke Signal BBQ Video"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
