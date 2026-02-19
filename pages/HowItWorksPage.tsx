@@ -14,6 +14,7 @@ import {
     Star
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '../components/Button';
 
 const HowItWorksPage: React.FC = () => {
     const navigate = useNavigate();
