@@ -88,7 +88,7 @@ export const ProductPage: React.FC = () => {
         };
 
         fetchProductData();
-    }, [id, product?.id]);
+    }, [id]);
 
     if (loading) {
         return (

@@ -13,7 +13,7 @@ export const Hero: React.FC = () => {
 
   return (
 
-    <section id="home" className="relative h-screen w-full overflow-hidden flex items-start bg-charcoal">
+    <section id="home" className="relative min-h-screen w-full flex items-start bg-charcoal pb-24">
       {/* Background Image */}
       {/* Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-black">
@@ -30,13 +30,13 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Floating Smoke/Embers Effects (CSS based for performance + overlays) */}
-      <div className="absolute inset-0 z-1 pointer-events-none opacity-30 mix-blend-screen">
+      <div className="absolute inset-0 z-1 pointer-events-none opacity-30 mix-blend-screen overflow-hidden">
         <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-fire/20 rounded-full blur-[100px] animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-texasRed/20 rounded-full blur-[120px]" />
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-36 md:pt-96 lg:pt-48">
+      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-44 md:pt-48 lg:pt-56">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
