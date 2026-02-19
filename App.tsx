@@ -19,6 +19,7 @@ import { TermsPage } from './pages/TermsPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { FranchisePage } from './pages/FranchisePage';
 import { FaqPage } from './pages/FaqPage';
+import { HowItWorksPage } from './pages/HowItWorksPage';
 import { PSeoPage } from './pages/PSeoPage';
 
 
@@ -59,6 +60,7 @@ function App() {
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/franchise" element={<FranchisePage />} />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/how-it-works" element={<HowItWorksPage />} />
         <Route path="/services/:slug" element={<PSeoPage />} />
 
         {/* Redirect old anchor links if needed or just let Navbar handle it */}
