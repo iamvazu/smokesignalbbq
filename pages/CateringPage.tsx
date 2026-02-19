@@ -155,18 +155,18 @@ const CateringPage: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-charcoal/80 to-charcoal" />
                 </div>
 
-                <div className="container mx-auto px-4 relative z-10 pt-20 text-center">
+                <div className="container mx-auto px-4 relative z-10 pt-32 md:pt-40 lg:pt-48 text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                         className="max-w-5xl mx-auto"
                     >
-                        <span className="text-fire font-black uppercase tracking-[0.4em] text-xs mb-6 block">Premium Event Catering</span>
-                        <h1 className="text-5xl md:text-8xl font-display italic leading-[0.9] mb-8 tracking-tighter">
+                        <span className="text-fire font-black uppercase tracking-[0.4em] text-[10px] md:text-xs mb-6 block">Premium Event Catering</span>
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-display italic leading-[1.1] mb-8 tracking-tight">
                             Texas BBQ Catering <br /> <span className="text-fire">For Every Occasion</span>
                         </h1>
-                        <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+                        <p className="text-base md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
                             From boardroom lunches to grand wedding receptions, bring authentic 14-hour charcoal-smoked BBQ to your event. Full-service catering for <span className="text-white font-bold">20 to 500+ guests</span> across Bangalore, Hyderabad & Chennai.
                         </p>
 

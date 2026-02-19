@@ -39,7 +39,7 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-44 md:pt-48 lg:pt-56">
+      <div className="container mx-auto px-4 z-10 relative text-center md:text-left pt-36 md:pt-48 lg:pt-56">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ export const Hero: React.FC = () => {
             <span className="text-[10px] font-black uppercase tracking-[0.4em]">The Original Since 2011</span>
           </div>
 
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl text-cream leading-[1.1] mb-6 drop-shadow-2xl italic">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-7xl text-cream leading-[1.1] mb-6 drop-shadow-2xl italic">
             Bangalore's Original <span className="text-fire block md:inline">Texas BBQ.</span> <br />
             <span className="text-white">Ready to Heat & Eat.</span>
           </h1>
