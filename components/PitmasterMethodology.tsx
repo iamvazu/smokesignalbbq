@@ -26,7 +26,7 @@ const methodology = [
 ];
 
 export const PitmasterMethodology: React.FC = () => {
-    const [imgSrc, setImgSrc] = React.useState("/pitmaster_work.jpg");
+    const [imgSrc, setImgSrc] = React.useState("/pitmaster_brisket.png");
     const hasErrored = React.useRef(false);
 
     return (

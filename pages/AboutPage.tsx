@@ -180,7 +180,7 @@ export const AboutPage: React.FC = () => {
                     </div>
 
                     <div className="mt-24 relative rounded-[3rem] overflow-hidden group">
-                        <img src="/pitmaster_work.jpg" className="w-full h-[500px] object-cover brightness-50 group-hover:scale-105 transition-transform duration-700" alt="Authentic smoking process" />
+                        <img src="/pitmaster_brisket.png" className="w-full h-[500px] object-cover brightness-50 group-hover:scale-105 transition-transform duration-700" alt="Authentic smoking process" />
                         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent" />
                         <div className="absolute bottom-12 left-12 right-12 text-center md:text-left">
                             <h3 className="text-3xl font-display italic text-cream mb-4">"No Shortcuts. No Gas. Just Fire."</h3>
