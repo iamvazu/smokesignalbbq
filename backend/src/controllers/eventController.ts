@@ -4,24 +4,28 @@ import prisma from '../lib/prisma';
 export const createEventInquiry = async (req: Request, res: Response) => {
     const {
         fullName,
+        email,
         phoneNumber,
         eventType,
         eventDate,
         location,
         guestCount,
-        message
+        message,
+        source
     } = req.body;
 
     try {
         const inquiry = await prisma.eventInquiry.create({
             data: {
                 fullName,
+                email: email || '',
                 phoneNumber,
                 eventType,
                 eventDate,
                 location,
                 guestCount: parseInt(guestCount.toString()),
                 message,
+                source: source || 'event',
                 status: 'pending'
             }
         });

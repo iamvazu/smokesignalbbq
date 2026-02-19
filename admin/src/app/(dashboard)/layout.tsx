@@ -12,12 +12,17 @@ export default function DashboardLayout({
 }) {
     const token = useAuthStore((state) => state.token);
     const router = useRouter();
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [hydrated, setHydrated] = useState(false);
     const [isInternalRedirecting, setIsInternalRedirecting] = useState(false);
 
     useEffect(() => {
         setMounted(true);
+        // Load preference
+        const saved = localStorage.getItem('admin_sidebar_collapsed');
+        if (saved === 'true') setIsSidebarCollapsed(true);
+
         // Wait for store to hydrate
         const unsub = useAuthStore.persist.onFinishHydration(() => {
             setHydrated(true);
@@ -30,6 +35,12 @@ export default function DashboardLayout({
 
         return () => unsub();
     }, []);
+
+    const toggleSidebar = () => {
+        const newState = !isSidebarCollapsed;
+        setIsSidebarCollapsed(newState);
+        localStorage.setItem('admin_sidebar_collapsed', newState.toString());
+    };
 
     useEffect(() => {
         if (mounted && hydrated && !token && !isInternalRedirecting) {
@@ -50,8 +61,8 @@ export default function DashboardLayout({
 
     return (
         <div className="flex bg-background min-h-screen">
-            <Sidebar />
-            <main className="flex-1 p-8 overflow-y-auto">
+            <Sidebar isCollapsed={isSidebarCollapsed} onToggle={toggleSidebar} />
+            <main className="flex-1 p-8 overflow-y-auto transition-all duration-300">
                 {children}
             </main>
         </div>

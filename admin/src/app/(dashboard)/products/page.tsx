@@ -106,8 +106,8 @@ export default function ProductsPage() {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-4xl font-bold text-foreground tracking-tight">Products</h1>
-                    <p className="text-muted-foreground mt-1 text-sm uppercase tracking-[0.2em] font-medium opacity-70">Manage your BBQ menu and inventory</p>
+                    <h1 className="text-5xl font-black text-foreground tracking-tighter italic uppercase">Products</h1>
+                    <p className="text-muted-foreground mt-2 text-xs font-bold tracking-[0.3em] uppercase opacity-60">Manage your BBQ menu and inventory</p>
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={(open) => {
                     setIsDialogOpen(open);

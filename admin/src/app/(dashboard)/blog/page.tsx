@@ -72,8 +72,8 @@ export default function BlogListPage() {
         <div className="p-8 space-y-8 max-w-7xl mx-auto">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-display tracking-tight font-bold mb-2">Blog Posts</h1>
-                    <p className="text-muted-foreground">Manage your articles and stories.</p>
+                    <h1 className="text-5xl font-black text-foreground tracking-tighter italic uppercase">Blog Posts</h1>
+                    <p className="text-muted-foreground mt-2 text-xs font-bold tracking-[0.3em] uppercase opacity-60">Manage your articles and stories.</p>
                 </div>
                 <Link href="/blog/new">
                     <Button className="gap-2">

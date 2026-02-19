@@ -50,7 +50,7 @@ const CateringPage: React.FC = () => {
             // Include eventType in the payload
             const response = await axios.post(`${API_URL}/events`, {
                 ...formData,
-                eventType: `Catering: ${formData.eventType}`
+                source: 'catering'
             });
             const inquiryId = response.data.id.split('-')[0].toUpperCase();
 

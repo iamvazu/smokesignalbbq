@@ -11,7 +11,8 @@ import {
     Phone,
     Trash2,
     MessageSquare,
-    Loader2
+    Loader2,
+    Mail
 } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -66,6 +67,7 @@ export default function EventsPage() {
     const filteredInquiries = inquiries.filter(inq => {
         const matchesSearch = inq.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
             inq.phoneNumber.includes(searchTerm) ||
+            (inq.email && inq.email.toLowerCase().includes(searchTerm.toLowerCase())) ||
             inq.eventType.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = statusFilter === 'all' || inq.status === statusFilter;
         return matchesSearch && matchesStatus;
@@ -85,8 +87,8 @@ export default function EventsPage() {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-4xl font-bold text-foreground">Event Inquiries</h1>
-                    <p className="text-muted-foreground mt-1 text-sm uppercase tracking-wide">Manage catering leads and event bookings</p>
+                    <h1 className="text-5xl font-black text-foreground tracking-tighter italic uppercase">Event Inquiries</h1>
+                    <p className="text-muted-foreground mt-2 text-xs font-bold tracking-[0.3em] uppercase opacity-60">Manage catering leads and event bookings</p>
                 </div>
             </div>
 
@@ -147,9 +149,17 @@ export default function EventsPage() {
                                 return (
                                     <TableRow key={inq.id} className="border-white/5 hover:bg-white/5 transition-colors group">
                                         <TableCell className="py-5 pl-6">
-                                            <div className="flex flex-col">
-                                                <span className="font-mono text-xs font-bold text-primary mb-1">#{inq.id.split('-')[0].toUpperCase()}</span>
-                                                <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                                            <div className="flex flex-col gap-1">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="font-mono text-xs font-bold text-primary">#{inq.id.split('-')[0].toUpperCase()}</span>
+                                                    <Badge className={cn(
+                                                        "text-[8px] px-1 py-0 h-4 uppercase tracking-[0.1em] border-none font-black",
+                                                        inq.source === 'catering' ? "bg-fire/10 text-fire" : "bg-blue-500/10 text-blue-500"
+                                                    )}>
+                                                        {inq.source === 'catering' ? 'CATERING' : 'EVENT'}
+                                                    </Badge>
+                                                </div>
+                                                <span className="text-[10px] text-muted-foreground flex items-center gap-1 opacity-60">
                                                     <Clock size={10} /> {format(new Date(inq.createdAt), 'MMM dd, hh:mm a')}
                                                 </span>
                                             </div>
@@ -163,11 +173,18 @@ export default function EventsPage() {
                                             </div>
                                         </TableCell>
                                         <TableCell className="py-5">
-                                            <div className="flex flex-col">
+                                            <div className="flex flex-col gap-1">
                                                 <span className="font-medium text-foreground">{inq.fullName}</span>
-                                                <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                                                    <Phone size={10} /> {inq.phoneNumber}
-                                                </span>
+                                                <div className="flex flex-col gap-0.5 opacity-60">
+                                                    <span className="text-[10px] text-muted-foreground flex items-center gap-1.5 uppercase tracking-tighter">
+                                                        <Phone size={10} className="text-primary/70" /> {inq.phoneNumber}
+                                                    </span>
+                                                    {inq.email && (
+                                                        <span className="text-[10px] text-muted-foreground flex items-center gap-1.5 lowercase opacity-80">
+                                                            <Mail size={10} className="text-primary/70" /> {inq.email}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </TableCell>
                                         <TableCell className="py-5">

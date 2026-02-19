@@ -65,8 +65,8 @@ export default function AnalyticsPage() {
         <div className="space-y-8 animate-in fade-in duration-700">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-4xl font-bold text-foreground">Analytics</h1>
-                    <p className="text-muted-foreground mt-1 text-sm uppercase tracking-wide">Deep dive into Smoke Signal BBQ performance</p>
+                    <h1 className="text-5xl font-black text-foreground tracking-tighter italic uppercase">Analytics</h1>
+                    <p className="text-muted-foreground mt-2 text-xs font-bold tracking-[0.3em] uppercase opacity-60">Deep dive into Smoke Signal BBQ performance</p>
                 </div>
                 {!hasGA && (
                     <div className="bg-fire/10 border border-fire/20 px-4 py-2 rounded-xl flex items-center gap-2 text-fire text-xs font-bold">

@@ -79,8 +79,8 @@ export default function OrdersPage() {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-4xl font-bold text-foreground">Orders</h1>
-                    <p className="text-muted-foreground mt-1 text-sm uppercase tracking-wide">Monitor and process incoming BBQ orders</p>
+                    <h1 className="text-5xl font-black text-foreground tracking-tighter italic uppercase">Orders</h1>
+                    <p className="text-muted-foreground mt-2 text-xs font-bold tracking-[0.3em] uppercase opacity-60">Monitor and process incoming BBQ orders</p>
                 </div>
                 <div className="flex gap-3">
                     <Button variant="outline" className="rounded-xl border-white/5 bg-card/50 hover:bg-white/10 transition-all px-6 py-6 h-auto group">

@@ -91,11 +91,11 @@ export default function FranchisePage() {
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h1 className="text-4xl font-bold text-foreground italic flex items-center gap-4">
-                        <TrendingUp className="text-primary w-10 h-10" />
+                    <h1 className="text-5xl font-black text-foreground tracking-tighter italic uppercase flex items-center gap-4">
+                        <TrendingUp className="text-primary w-12 h-12" />
                         Franchise Leads
                     </h1>
-                    <p className="text-muted-foreground mt-1 text-sm uppercase tracking-[0.2em] font-medium">Manage BHARAT National Expansion Applications</p>
+                    <p className="text-muted-foreground mt-2 text-xs font-bold tracking-[0.3em] uppercase opacity-60">Manage BHARAT National Expansion Applications</p>
                 </div>
             </div>
 

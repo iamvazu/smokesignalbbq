@@ -235,12 +235,14 @@ model InventoryLog {
 model EventInquiry {
   id          String   @id @default(uuid())
   fullName    String
+  email       String   @default("")
   phoneNumber String
   eventType   String
   eventDate   String
   location    String?
   guestCount  Int
   message     String?
+  source      String   @default("event") // event, catering
 
   status      String   @default("pending") // pending, contacted, booked, cancelled
   createdAt   DateTime @default(now())

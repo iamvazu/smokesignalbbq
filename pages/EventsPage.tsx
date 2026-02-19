@@ -99,6 +99,7 @@ export const EventsPage: React.FC = () => {
 
     const [formData, setFormData] = useState({
         fullName: '',
+        email: '',
         phoneNumber: '',
         eventType: 'Birthday Party',
         eventDate: '',
@@ -107,13 +108,14 @@ export const EventsPage: React.FC = () => {
         message: ''
     });
 
-
-
     const handleFormSubmit = async () => {
         setIsSubmitting(true);
         try {
             // 1. Save to Database
-            const response = await axios.post(`${API_URL}/events`, formData);
+            const response = await axios.post(`${API_URL}/events`, {
+                ...formData,
+                source: 'event'
+            });
             const inquiryId = response.data.id.split('-')[0].toUpperCase();
 
             setSubmittedInquiryId(inquiryId);
@@ -578,6 +580,17 @@ export const EventsPage: React.FC = () => {
                                             required
                                             value={formData.phoneNumber}
                                             onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                                        />
+                                    </div>
+                                    <div className="space-y-2 md:col-span-2">
+                                        <label className="text-[10px] uppercase tracking-widest text-fire font-bold ml-1">Email Address *</label>
+                                        <input
+                                            type="email"
+                                            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-fire transition-colors"
+                                            placeholder="john@example.com"
+                                            required
+                                            value={formData.email}
+                                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                         />
                                     </div>
                                 </div>
